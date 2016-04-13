@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  */
 namespace core;
 class Model
@@ -135,9 +135,16 @@ class Model
         }
     }
 
-    public function setCache($status = true)
+    /**
+     * 设置配置
+     * @param array $config
+     * @return $this
+     */
+    public function setOptions($config = array())
     {
-        $this->openCache = $status;
+        foreach($config as $k=>$v){
+            $this->k = $v;
+        }
         return $this;
     }
 
@@ -415,7 +422,7 @@ class Model
         return isset($re[0]) ? $re[0] : $re;
     }
 
- /**
+    /**
      * @param string $dbCacheFile 缓存文件
      * @param string $type 返回的数据类型 object|array
      * $openCache  bool|true 是否开启缓存
@@ -490,7 +497,7 @@ class Model
      * @param bool $auto 是否自动添加表前缀
      * @return int 返还受影响行数
      */
-    public final function delete($tableName = "", $where = "", $auto = true)
+    public final function delete($where = "", $tableName = "",$auto = true)
     {
         Debug::start();
         if (empty($tableName)) {
@@ -713,7 +720,7 @@ class Model
         return $arr;
     }
 
- /**
+    /**
      * 自动获取表结构
      */
     public final function tableDesc($tableName = "")
@@ -760,7 +767,7 @@ class Model
             return $re;
         }*/
 
- public final function rowCount()
+    public final function rowCount()
     {
         Debug::start();
         $db = $this->slaveServer[array_rand($this->slaveServer, 1)];
@@ -928,7 +935,7 @@ class Model
         return $this->error;
     }
 
- public function __destruct()
+    public function __destruct()
     {
         $this->cleanLastSql();
         $this->error = array();

@@ -14,6 +14,7 @@ define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架�
 define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
 define("APP_PATH", ROOT_PATH . rtrim(APP, '/') . '/'); //用户项目的应用绝对路径
 define("CORE_PATH", BASE_PATH . 'core/'); //框架核心类库
+define("LIBS_PATH", BASE_PATH . 'libs/'); //框架集成常用类库
 require CORE_PATH . "Debug.class.php";
 //包含系统公共函数
 require BASE_PATH . "common/functions.php";
@@ -36,11 +37,11 @@ if (file_exists($configPath)) C(require $configPath);
 header("Content-Type:" . C('contentType') . ";charset=" . C('charset')); //设置系统的输出字符为utf-8
 date_default_timezone_set(C('timezone')); //设置时区（默认中国）
 
-if($sessionName =C('session_name'))session_name($sessionName);
-if($sessionPath =C('session_save_path')) session_save_path($sessionPath);
-if($session_expire = C('session_expire')){
-    ini_set('session.gc_maxlifetime',   $session_expire);
-    ini_set('session.cookie_lifetime',  $session_expire);
+if ($sessionName = C('session_name')) session_name($sessionName);
+if ($sessionPath = C('session_save_path')) session_save_path($sessionPath);
+if ($session_expire = C('session_expire')) {
+    ini_set('session.gc_maxlifetime', $session_expire);
+    ini_set('session.cookie_lifetime', $session_expire);
 }
 ini_set('session.cookie_domain', C('session_domain'));
 
@@ -70,7 +71,6 @@ if (isset($_GET['lang'])) {
 }
 
 
-
 $langPath = APP_PATH . 'lang/lang_' . $_SESSION['lang'] . '.php';
 if (file_exists($langPath)) getLang(require $langPath);
 
@@ -91,16 +91,13 @@ $nowAction = $className . '/' . $action;
 
 $classPath = APP_PATH . 'controls/' . ucfirst($className) . '.class.php';
 
-C(array('classPath'=>$classPath,'ctlName' => $className, 'actName' => $action,'lang'=>$_SESSION['lang']));
+C(array('classPath' => $classPath, 'ctlName' => $className, 'actName' => $action, 'lang' => $_SESSION['lang']));
 
 if (file_exists($classPath)) {
+
     require $classPath;
 
-        /***************************************************/
-         $class->$action();
-
-
-    }
+    $class->$action();
 
 } else {
 

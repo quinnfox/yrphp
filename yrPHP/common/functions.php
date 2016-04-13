@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  *
  * 系统函数库
  */
@@ -37,16 +37,16 @@ function autoLoadClass($className)
                 $classPath = APP_PATH . $classPath;
             } else if (file_exists(BASE_PATH . $classPath)) {
                 $classPath = BASE_PATH . $classPath;
-            } else if ($className == 'Model') {
-                $classPath = APP_PATH . 'models' . '/' . $path[0] . '.class.php';
+            } else if (strtolower($path[0]) == 'model') {
+                $classPath = APP_PATH . 'models' . '/' . $className . '.class.php';
             } else {
-            return false;
+                return false;
             }
         }
     }
 
-    if (file_exists($classPath))
-        requireCache($classPath);
+    if (file_exists($classPath)) requireCache($classPath);
+
     core\Debug::stop();
     core\Debug::addMsg(array('path' => $classPath, 'time' => core\Debug::spent()), 1);
 }
@@ -171,10 +171,7 @@ function Model($modelName = "")
     if (!file_exists($modelPath)) {
         $modelInstance[$modelName] = loadClass('core\Model');
     } else {
-        requireCache($modelPath);
-        core\Debug::stop();
-        core\Debug::addMsg(array('path' => $modelPath, 'time' => core\Debug::spent()), 1);
-        $modelInstance[$modelName] = new $modelName();
+        $modelInstance[$modelName] = loadClass('Model\\'.$modelName);
     }
     return $modelInstance[$modelName];
 }
@@ -362,7 +359,7 @@ function cookie($key='',$val=''){
      * setcookie("user", "", time()-3600);
      */
     if(is_null($key)){
-     //unset($_COOKIE);
+        //unset($_COOKIE);
         return true;
     }
 

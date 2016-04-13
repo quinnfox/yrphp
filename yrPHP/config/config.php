@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  */
 return array(
     'url_model'          => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
@@ -30,7 +30,7 @@ return array(
     'cache_lifetime'     => 60 * 60 * 24 * 7, //设置缓存的时间
     'left_delimiter'     => "{", //模板文件中使用的“左”分隔符号
     'right_delimiter'    => "}", //模板文件中使用的“右”分隔符号
-    'setPluginsDir'      => '', // 设置插件目录。即自定义的一系列函数所在位置。
+//    'setPluginsDir'      => '', // 设置插件目录。即自定义的一系列函数所在位置。
 
 
     /*--------------------以下是数据库配置---------------------------------------*/

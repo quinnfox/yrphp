@@ -3,10 +3,10 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  */
 
-//数据库配置例子 请将该文件复制到你的项目下的conf文件夹下 不允许直接在该文件下配置
+//数据库配置例子 请将该文件复制到你的项目下的config文件夹下 不允许直接在该文件下配置
 return array(
     //主服务器
     'masterServer' => array(

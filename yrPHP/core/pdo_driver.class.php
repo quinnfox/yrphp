@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  */
 namespace core;
 
@@ -36,7 +36,11 @@ class pdo_driver extends PDO
         $key = md5(serialize($dbConfig));
         if (!isset(self::$_instance[$key])) self::$_instance[$key] = null;
         if (!(self::$_instance[$key] instanceof self)) {
-            $dsn = $dbConfig['dbType'] . ":host=" . $dbConfig['dbHost'] . ";port=" . $dbConfig['dbPort'] . ";dbname=" . $dbConfig['dbName'];
+            if(empty($dbConfig['dsn'])){
+                $dsn = $dbConfig['dbType'] . ":host=" . $dbConfig['dbHost'] . ";port=" . $dbConfig['dbPort'] . ";dbname=" . $dbConfig['dbName'];
+            }else{
+                $dsn = $dbConfig['dsn'];
+            }
             try {
                 // throw new PDOException("error");//错误抛出异常
                 self::$_instance[$key] = new self($dsn, $dbConfig['dbUser'], $dbConfig['dbPwd']);

@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:quinnh@163.com
+ * Email:nathankwin@163.com
  */
 namespace core;
 class MyTpl
@@ -19,9 +19,8 @@ class MyTpl
     protected $cacheFile;       //在模板中嵌入动态数据变量的左定界符号
     protected $leftDelimiter = '{';    //在模板中嵌入动态数据变量的右定界符号
     protected $rightDelimiter = '}'; //内部使用的临时变量
-    protected $preg_arr = array();//替换搜索的模式的数组
-    protected $replace_arr = array();//用于替换的字符串数组
-
+    protected $rule = array();//替换搜索的模式的数组 array(搜索的模式 => 用于替换的字符串 )
+    protected $tplVars = array();
 
     public function __construct()
     {
@@ -112,32 +111,25 @@ class MyTpl
     {
         $left = preg_quote($this->leftDelimiter, '/');
         $right = preg_quote($this->rightDelimiter, '/');
-        $this->preg_arr[] = '/' . $left . '\s*\$(.*)\s*' . $right . '/isU';//输出变量
-        $this->preg_arr[] = '/' . $left . '\s*(\s*.*\(.*\)\s*)\s*' . $right . '/isU';//输出函数
-        $this->preg_arr[] = '/' . $left . '\s*(foreach|loop)\s*(.*)\s*' . $right . '/isU'; //foreach
-        $this->preg_arr[] = '/' . $left . '\s*while\s*\((.*)\)\s*' . $right . '/isU'; //while
-        $this->preg_arr[] = '/' . $left . '\s*for\s*\((.*)\)\s*' . $right . '/isU'; //for
-        $this->preg_arr[] = '/' . $left . '\s*if\s+(.*)\s*' . $right . '/isU';//判断
-        $this->preg_arr[] = '/' . $left . '\s*else\s*' . $right . '/';//判断
-        $this->preg_arr[] = '/' . $left . '\s*(\/foreach|\/for|\/while|\/if|})\s*' . $right . '/isU'; //end foreach end for end if }
-        $this->preg_arr[] = '/' . $left . '\s*(include|require)\s+(.*)\s*' . $right . '/isU';//包含标签
-        //$this->preg_arr[] = '/'.$left.'\s*assign\s+var=(.*)\s+value=(.*)\/'.$right.'/isU';//;//assign输出
-        $this->preg_arr[] = '/' . $left . '\s*assign\s+(.*)\s*=\s*(.*)' . $right . '/isU'; //分配变量
-        $this->preg_arr[] = '/' . $left . '\s*(break|continue)\s*' . $right . '/isU';
 
-        $this->replace_arr[] = "<?php echo $\\1;?>";
-        $this->replace_arr[] = "<?php echo \\1;?>";
-        $this->replace_arr[] = "<?php foreach(\\2){?>";
-        $this->replace_arr[] = "<?php while(\\1){?>";
-        $this->replace_arr[] = "<?php for(\\1){ ?>";
-        $this->replace_arr[] = "<?php if(\\1){?>\n";
-        $this->replace_arr[] = "<?php }else{?>";
-        $this->replace_arr[] = "<?php } ?>";
-        $this->replace_arr[] = "<?php \$this->display('\\2');?>";
-        $this->replace_arr[] = "<?php \\1 = \\2;?>";
-        $this->replace_arr[] = "<?php \\1;?>";
 
-        $content = preg_replace($this->preg_arr, $this->replace_arr, $content);
+        $this->rule['/' . $left . '=\$(.*)\s*' . $right . '/isU'] = "<?php echo $\\1;?>";//输出变量
+        $this->rule['/' . $left . '=(\s*.*\(.*\)\s*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出函数
+        $this->rule['/' . $left . '\s*(foreach|loop)\s*(.*)\s*' . $right . '/isU'] = "<?php foreach(\\2){?>";//foreach
+        $this->rule['/' . $left . '\s*while\s*\((.*)\)\s*' . $right . '/isU'] = "<?php while(\\1){?>";//while
+        $this->rule['/' . $left . '\s*for\s*\((.*)\)\s*' . $right . '/isU'] = "<?php for(\\1){ ?>";//for
+        $this->rule['/' . $left . '\s*if\s*\((.*)\)\s*' . $right . '/isU'] = "<?php if(\\1){?>\n";//判断 if
+        $this->rule['/' . $left . '\s*else\s*if\s*\((.*)\)\s*' . $right . '/'] = "<?php }else if(\\1){?>";//判断 ifelse
+        $this->rule['/' . $left . '\s*else\s*' . $right . '/'] = "<?php }else{?>";//判断 else
+        $this->rule['/' . $left . '\s*(\/foreach|\/for|\/while|\/if|})\s*' . $right . '/isU'] = "<?php } ?>";//end
+        $this->rule['/' . $left . '\s*(include|require)\s+(.*)\s*' . $right . '/isU'] = "<?php \$this->display('\\2');?>";//包含标签
+        $this->rule['/' . $left . '\s*assign\s+(.*)\s*=\s*(.*)' . $right . '/isU'] = "<?php \\1 = \\2;?>";//分配变量
+        $this->rule['/' . $left . '\s*(break|continue)\s*' . $right . '/isU'] = "<?php \\1;?>";//跳出循环
+        $this->rule['/' . $left . '\s*(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $right . '/isU'] = "<?php \\1\\2;?>";//运算
+
+
+
+        $content = preg_replace(array_keys($this->rule), array_values($this->rule), $content);
 
         //变量替换
         foreach ($this->tplVars as $key => $value) {
