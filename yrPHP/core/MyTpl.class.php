@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:nathankwin@163.com
+ * Email:quinnh@163.com
  */
 namespace core;
 class MyTpl

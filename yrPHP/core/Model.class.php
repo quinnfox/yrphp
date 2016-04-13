@@ -3,7 +3,7 @@
  * Created by yrPHP.
  * User: Nathan
  * QQ:284843370
- * Email:nathankwin@163.com
+ * Email:quinnh@163.com
  */
 namespace core;
 class Model
@@ -597,8 +597,8 @@ class Model
         $tableField = $this->tableDesc($tableName);
         //   $filter = explode('|', C('defaultFilter'));
         foreach ($array as $key => $value) {
-            $key = strtolower($key);
-            if (in_array($key, $tableField)) {//判断字段是否存在 不存在则舍弃
+
+            if (in_array(strtolower($key),array_map('strtolower',$tableField))) {//判断字段是否存在 不存在则舍弃
                 if (in_array($key, $this->validate)) {//判断验证规则是否存在
                     /*                    if (!is_array($this->validate[$key][0])) {
                                             $this->validate[$key][0] = $this->validate[$key];
