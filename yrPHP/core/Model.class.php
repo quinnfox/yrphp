@@ -12,7 +12,7 @@ class Model
     public $masterServer = null;
     public $slaveServer = array();
     public $transStatus = true;
-    public $_validate = true;//是否验证
+    public $_validate = true;//是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $$validate验证规则 不通过 则报错
     protected $tablePrefix = null; // 数据表前缀
     protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");// 链操作方法列表
     // protected $tableAlias = null; //数据库别称
@@ -536,6 +536,8 @@ class Model
             return false;
         }
         $data = $this->check($data);
+        if($data === false) return false;
+
         if (!empty($where)) {
             $this->where($where);
         }
@@ -571,6 +573,20 @@ class Model
      * @param  array $array 要验证的字段数据
      * @param  string $tableName 数据表名
      * @return array
+     *
+     * array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
+     *附加规则:
+     * require:值域:null 当为空时return false
+     * equal:值域:int 当不等于某值时return false
+     * notequal:值域:int 当等于某值时return false
+     * in:值域:array(1,2,3)|1,2,3 当不存在指定范围时return false
+     * notin: 值域:array(1,2,3)|1,2,3  当存在指定范围时return false
+     * between: 值域:array(1,30)|1,30 当不存在指定范围时return false
+     * notbetween:值域:array(1,30)|1,30 当存在指定范围时return false
+     * length:值域:array(10,30)|10,30 当字符长度小于10，大于30时return false || array(30)|30 当字符不等于30时return false
+     * unique:值域:string 当该字段在数据库中存在该值域时 return false
+     * preg:值域:正则表达式 //当不符合正则表达式时 return false
+     *
      */
     protected final function check($array, $tableName = "")
     {
@@ -582,7 +598,7 @@ class Model
         //   $filter = explode('|', C('defaultFilter'));
         foreach ($array as $key => $value) {
             $key = strtolower($key);
-            if (in_array($key, $tableField)) {//判断字段是否存在
+            if (in_array($key, $tableField)) {//判断字段是否存在 不存在则舍弃
                 if (in_array($key, $this->validate)) {//判断验证规则是否存在
                     /*                    if (!is_array($this->validate[$key][0])) {
                                             $this->validate[$key][0] = $this->validate[$key];
@@ -611,7 +627,7 @@ class Model
                                 }
                                 break;
                             case "in"://当不存在指定范围时报错
-                                if (!is_array($validate[0])) {
+                                if (is_string($validate[0])) {
                                     $validate[0] = explode(',', $validate[0]);
                                 }
                                 if (!in_array($validate[0], $value)) {
@@ -620,7 +636,7 @@ class Model
                                 }
                                 break;
                             case "notin"://当存在指定范围时报错
-                                if (!is_array($validate[0])) {
+                                if (is_string($validate[0])) {
                                     $validate[0] = explode(',', $validate[0]);
                                 }
                                 if (!in_array($validate[0], $value)) {
@@ -630,7 +646,7 @@ class Model
                                 break;
 
                             case "between"://当不存在指定范围时报错
-                                if (!is_array($validate[0])) {
+                                if (is_string($validate[0])) {
                                     $validate[0] = explode(',', $validate[0]);
                                 }
                                 if ($value < intval($validate[0][0]) || $value > intval($validate[0][1])) {
@@ -640,7 +656,7 @@ class Model
                                 break;
 
                             case "notbetween"://当存在指定范围时报错
-                                if (!is_array($validate[0])) {
+                                if (is_string($validate[0])) {
                                     $validate[0] = explode(',', $validate[0]);
                                 }
                                 if ($value > intval($validate[0][0]) && $value < intval($validate[0][1])) {
@@ -650,7 +666,7 @@ class Model
                                 break;
 
                             case "length"://当字符长度不在范围内时报错
-                                if (!is_array($validate[0])) {
+                                if (is_string($validate[0])) {
                                     $validate[0] = explode(',', $validate[0]);
                                 }
                                 if (empty($validate[0][1])) {
@@ -675,7 +691,7 @@ class Model
                                 break;
 
                             case "preg"://正则
-                                if (preg_match($validate[0], $value)) {
+                                if (!preg_match($validate[0], $value)) {
                                     $this->error = $validate[1];
                                     return false;
                                 }
@@ -799,6 +815,8 @@ class Model
             return false;
         }
         $data = $this->check($data);
+        if($data === false) return false;
+
         if (!empty($where)) {
             $this->where($where);
         }
