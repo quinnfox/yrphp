@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$test22}</title>
+</head>
+<body>
+<table>
+{foreach C() as $k=>$user}
+<tr>
+    {if !$k}
+    {break}
+    {/if}
+    <td>{$k}</td>
+    <td>{$user}---</td>
+
+</tr>
+{/foreach}
+
+</table>
+{$test22}
+</body>
+</html>

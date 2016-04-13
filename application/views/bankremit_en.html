@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="{getUrl('public/css/style.css')}" rel="stylesheet" type="text/css"/>
+    <title></title>
+    <style>.bankInfo .content ul li div { width: auto;}</style>
+</head>
+<body>
+<div class="main">
+    <div class="silder">
+        <div class="header">
+            <div class="title"> You've chosen the payment by BANK TRANSFER. The order will be processed as soon as we
+                received your payment.
+            </div>
+            <div class="businessNo">
+                <div class="des_key">Order Number</div>
+                ：<span>{$bizid} </span></div>
+            <div class="amount">
+                <div class="des_key">Total Due</div>
+                ：<span>{$price}</span></div>
+        </div>
+
+        <div class="bankInfo">
+            <div class="title"><span>Here is the Bank Transfer information:</span></div>
+            <div class="content">
+                <ul>
+                    <li>
+                        <div>Beneficiary Bank</div>
+                        : Hang Seng Bank Limited
+                    </li>
+                    <li>
+                        <div>Bank Address</div>
+                        : 83 Des Voeux Road Central,Hong Kong
+                    </li>
+                    <li>
+                        <div>Beneficiary Name</div>
+                        ：IP RELATIONS LIMITED
+                    </li>
+                    <li>
+                        <div>Account No.</div>
+                        ：390633287883
+                    </li>
+                    <li>
+                        <div>Remark：Invoice No.</div>
+                        ：<span class="font_bold">{$bizid}</span>
+                    </li>
+
+                    <li>
+                        <div>Swift Code</div>
+                        ：<span class="font_bold">HASEHKHH</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="attention">
+            <span class="title">Notice:</span>
+            <ul class="notice">
+                <li>1. The order number is <span class="font_bold important">{$bizid}</span>.Please remark the order
+                    number when you are making the payment, so that we can we can handle the order in time.
+                    <br>(Note: It's necessary to provide the order number for each payment. Or we cannot process your
+                    order accordingly)
+                </li>
+                <li>2. A payment for several orders is available, if you make the payment by bank transfer. But please
+                    be sure to remark all the order numbers completely.
+                </li>
+                <li>3. Please cover the bank charge fee by your side.</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

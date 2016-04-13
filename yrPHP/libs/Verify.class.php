@@ -1,0 +1,195 @@
+<?php
+/**
+ * Created by yrPHP.
+ * User: Nathan
+ * QQ: 284843370
+ * Email: nathankwin@163.com
+ */
+namespace libs;
+
+class Verify
+{
+
+//图片对象、宽度、高度、验证码长度
+
+//随机字符串、y轴坐标值、随机颜色
+    private $img;
+    private $width;//图片宽度
+    private $height;//图片高度
+    private $size = 25;//字体大小
+    private $font ;//字体
+    private $randStr;//随机字符
+    private $len = 4;//随机字符串长度
+    private $type;//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
+    private $backColor = '#B0B0B0';     //背景色，默认是浅灰色
+
+    function __construct($config = array())
+    {
+        if (!session_id()) session_start();
+// 验证码长度、图片宽度、高度是实例化类时必需的数据
+        $this->init($config);
+    }
+
+    function  init($config = array())
+    {
+        foreach ($config as $k => $v) {
+            $this->$k = $v;
+        }
+        $this->font =  empty($this->font)?BASE_PATH.'resource/font/1.ttf':$this->font;
+        return $this;
+    }
+
+    public function show($code = 'verify', $line = true, $pixel = true)
+    {
+        $this->setText();
+        $_SESSION[$code] = strtolower($this->randStr);
+        if ($pixel) $this->interferingPixel();
+        if ($line) $this->interferingLine();
+
+        header('Content-Type: image/jpeg');
+        $img = imageJPEG($this->img);
+    }
+
+    private function setText()
+    {
+        $this->getStr();
+        //获取文字信息
+        $angle = mt_rand(-10,10);
+        $rect = imagettfbbox($this->size, $angle, $this->font, $this->randStr);
+
+
+        $minX = min(array($rect[0], $rect[2], $rect[4], $rect[6]));
+        $maxX = max(array($rect[0], $rect[2], $rect[4], $rect[6]));
+        $minY = min(array($rect[1], $rect[3], $rect[5], $rect[7]));
+        $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
+
+        $fontInfo = array(
+            "left"   => abs($minX) - 1,
+            "top"    => abs($minY) - 1,
+            "width"  => $maxX - $minX,
+            "height" => $maxY - $minY,
+            "box"    => $rect
+        );
+
+        $x = $minX;
+        $y = abs($minY);
+        $w = $maxX - $minX;
+        $h = $maxY - $minY;
+
+        $y += $this->height / 2;
+        $x += $this->width - $w;
+
+        if($this->width < $fontInfo['width'] + $fontInfo['left']) $this->width = $fontInfo['width'] + $fontInfo['left'];
+        if($this->height < $fontInfo['height']) $this->height = $fontInfo['height'];
+
+        $this->setBackColor();
+
+        $x = mt_rand($fontInfo['left'], $this->width - $fontInfo['width']);
+        $y = mt_rand($fontInfo['top'], $this->height - $fontInfo['height'] + $fontInfo['top']);
+
+
+        $color = $this->getRandColor();
+        imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $this->randStr);
+
+        return $this;
+    }
+
+    /**
+     * 获得随机字
+     */
+    private function getStr()
+    {
+        $str1 = 'abcdefghijklmnopqrstuvwxyz';
+        $str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $str3 = '0123456789';
+        switch ($this->type) {
+            case 1:
+                $str = $str1;
+                break;
+            case 2:
+                $str = $str2;
+                break;
+            case 3:
+                $str = $str3;
+                break;
+
+            default:
+                $str = $str1 . $str2 . $str3;
+                break;
+        }
+        $randStr = '';
+        for ($i = 0; $i < $this->len; $i++) {
+            $start = mt_rand(1, strlen($str) - 1);
+            $randStr .= substr($str, $start, 1);
+        }
+        $this->randStr = $randStr;
+
+    }
+
+    /**
+     * 设置背景颜色
+     * @return $this
+     */
+    private function setBackColor()
+    {
+        if (is_string($this->backColor) && 0 === strpos($this->backColor, '#')) {
+            $color = str_split(substr($this->backColor, 1), 2);
+            $color = array_map('hexdec', $color);
+            if (empty($color[3]) || $color[3] > 127) {
+                $color[3] = 0;
+            }
+        } elseif (!is_array($this->backColor)) {
+            die('错误的颜色值');
+        }
+
+        if (!isset($color[0])) $color[0] = 0;
+        if (!isset($color[1])) $color[1] = $color[2] = $color[0];
+        $this->img = imagecreatetruecolor($this->width, $this->height);
+        // 调整默认颜色
+        $color = imagecolorallocatealpha($this->img, $color[0], $color[1], $color[2], $color[3]);//为图像分配颜色
+        imagefill($this->img, 0, 0, $color);//区域填充
+        return $this;
+    }
+
+    /**
+     * 获得随机色
+     * @return int
+     */
+    private function getRandColor($alpha = false)
+    {
+        $alpha = $alpha === false ? 0 : (is_int($alpha) ? $alpha : rand(0, 30));
+        return imagecolorallocatealpha($this->img, rand(0, 100), rand(0, 150), rand(0, 200), $alpha);
+    }
+
+    /**
+     * 添加干扰点
+     * @return $this
+     */
+    private function interferingPixel()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $color = $this->getRandColor();
+            imagesetpixel($this->img, rand() % 100, rand() % 100, $color);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 添加干扰线
+     * @return $this
+     */
+    private function interferingLine()
+    {
+        for ($j = 0; $j < 10; $j++) {
+            $rand_x = rand(2, $this->width);
+            $rand_y = rand(2, $this->height);
+            $rand_x2 = rand(2, $this->width);
+            $rand_y2 = rand(2, $this->height);
+            $color = $this->getRandColor();
+            imageline($this->img, $rand_x, $rand_y, $rand_x2, $rand_y2, $color);
+        }
+
+        return $this;
+    }
+}

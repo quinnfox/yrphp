@@ -1,0 +1,29 @@
+/*reset*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, button, textarea, p, blockquote { margin:0; padding:0; }
+table { border-collapse: collapse; border-spacing: 0; }
+li { list-style: none; }
+img { border: 0; }
+a{ outline:none; color:#000; text-decoration:none;}
+.hide{ display:none;}
+/*content*/
+
+body{min-width:320px;font:12px/1.5 "Microsoft Yahei","Arial"; color:#000;-webkit-text-size-adjust:none}
+.main{width:100%;max-width:768px; min-height:250px; margin:0 auto; overflow:hidden; padding-bottom:15px;}
+.silder{ magin:0 auto;padding:20px 15px 0}
+.header{height: auto;overflow: hidden;padding-bottom: 20px}
+.header .title{font-weight: bold;font-size: 14px;line-height: 2;padding-bottom: 8px}
+.businessNo,.amount{float: left;width: 100%;text-align:left;color:#7A7A7A;padding-bottom: 3px }
+.businessNo span{color: #FF9100;font-size: 14px;font-weight: bold}
+.amount span{color: #FF9100;font-size: 16px;font-weight: bold}
+.font_bold{color: #FF9100;font-size: 16px;font-weight: bold }
+.des_key{width: 68px;float: left;line-height: 23px}
+.bankInfo{padding-bottom: 20px }
+.bankInfo .title{background: #FF9100;color: #fff;line-height: 60px; border-radius:10px 10px 0px 0px;font-size: 16px;font-weight: bold }
+.bankInfo .title span{margin: 0 8px }
+.bankInfo .content{min-height:100px;background: #FFF6E5;border-radius:0 0 10px 10px; padding: 5px 0}
+.bankInfo .content ul{margin: 0 8px }
+.bankInfo .content ul li{padding: 5px 0;line-height: 16px}
+.bankInfo .content ul li div{width: 65px;float: left;}
+.attention .title{color: #E52E2E;font-size:14px;font-weight: bold}
+.attention ul{line-height: 2;color:#9A9A9A }
+.important{font-size: 13px;}
