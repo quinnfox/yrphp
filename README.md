@@ -1,5 +1,3 @@
-# yrphp 是一个学习型小型PHP框架
-
 #目录结构
 www  WEB部署目录（或者子目录）
 ├─index.php       入口文件
@@ -67,7 +65,7 @@ example.com/class/function/ID
 
 1. 普通模式：example.com?c=class&m=function
 普通模式通过GET获得测试
-```
+```php
 $config['controller_trigger'] = 'c'; //控制器名
 $config['function_trigger'] = 'm'; //方法名
 ```
@@ -78,7 +76,7 @@ example.com/index.php/news/article/my_article
 
 你可以很容易的通过 .htaccess 文件来设置一些简单的规则删除它。下面是一个例子，使用“negative”方法将非指定内容进行重定向：
 
-```
+```php
 RewriteEngine on
  RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php
@@ -98,7 +96,7 @@ example.com/index.php/products/view/shoes
 example.com/index.php/products/view/shoes.html
 
 你只需修改config/config.php 文件中
-```
+```php
 $config['urlSuffix'] = '.html';
 ```
 
@@ -109,7 +107,7 @@ $config['urlSuffix'] = '.html';
 ####例子
 
 下面是一些简单的例子:
-```
+```php
 $route['news/(\d*)'] = 'article/news/:1';
 ```
 以上配置 访问 news/1 则实际访问的是article/news/1
@@ -145,17 +143,18 @@ Test.class.php的文件
 就可以看到 Hello World
 
 ##命名空间
-```
+```php
 use core\Controller;
 ```
 表示引入 core\Controller 命名空间便于直接使用。所以，
 
-```
+```php
 use core\Controller;
 class Test extends Controller
 ```
+
 等同于使用：
-```
+```php
 class Test extends \core\Controller
 ```
 ##规则
@@ -187,20 +186,21 @@ return array(
 无论何种配置文件，定义了配置文件之后，都统一使用系统提供的C方法（可以借助Config单词来帮助记忆）来读取已有的配置。
 
 获取已经设置的参数值：**C('参数名称')**
-```
+```php
 $charset = C('charset');//获得配置中的编码格式
 ```
 
 如果`charset`尚未存在设置，则返回NULL。
 
 > 支持设置默认值例如：
-```
+
+```php
 C('my_config',null,'default_config');
 ```
 
 >如果不传参数 则返回所有配置信息
 
-```
+```php
 $config = C();//return array;
 ```
 
@@ -208,24 +208,24 @@ $config = C();//return array;
 
 >设置新的值 如果存在则覆盖，否则新建：
 
-```
+```php
 C('参数名称','新的参数值');
 ```
 
-```
+```php
 C("openCache",false);//关闭数据库缓存，只在该次请求有效
 ```
 
 ####批量设置：
 
-```
+```php
 C(array($key=>$value,$key1=>$value1));
 ```
 
 #视图
 
 ##配置
-```
+```php
 'modelDir' => APP_PATH . "models/", //设置模型目录位置
 /*--------------------以下是模版配置---------------------------------------*/
 'setTemplateDir' => APP_PATH . "views/", //设置模板目录位置
@@ -240,14 +240,14 @@ C(array($key=>$value,$key1=>$value1));
 
 ###加载视图
 
-```
+```php
 $this->display('name');
 ```
 
  上面的 <var>name</var> 便是你的视图文件的名字 如 index.html。
 
 ### 给视图添加动态数据
-```
+```php
 $this->assign('name','yrPHP');//赋值单个数据
 //等同于
 $this->display('name',array('name'=>'yrPHP'));
@@ -256,24 +256,24 @@ $this->display('name',array('name'=>'yrPHP'));
 #模版
 ##变量输出
 在模板中输出变量的方法很简单，例如，在控制器中我们给模板变量赋值：
-```
+```php
 {=$test}
 ```
 模板编译后的结果就是：
-```
+```php
 <?php echo $test;?>
 ```
 
 ##输出函数返回值
 
-```
+```php
 {=getUrl('public/css/style.css')}
 ```
 
 >注意模板标签的`{`和`=`之间不能有任何的空格，否则标签无效。
 
 ##运算符
-```
+```php
 {$i++}
 {$i--}
 {--$i}
@@ -281,25 +281,25 @@ $this->display('name',array('name'=>'yrPHP'));
 ```
 
 ## 包含文件
-```
+```php
 {include header.html}
 
 {require footer.html}
 ```
 ##赋值
-```
+```php
 {assign $name='yrPHP'}
 {assign $name = 'yrPHP'}
 ```
 >注意模板标签的`assign`和`$`之间必须有空格，否则标签无效。
 
 ####将函数赋值
-```
+```php
 {assign $config = C()}
 ```
 
 ##判断
-```
+```php
 {assign $i=10}
 {if($i>=90)}
 优秀
@@ -315,7 +315,7 @@ $this->display('name',array('name'=>'yrPHP'));
 
 ##循环
 ####foreach
-```
+```php
 {assign $config = C()}
 {foreach $config as $k=>$v}
 <tr>
@@ -330,7 +330,7 @@ $this->display('name',array('name'=>'yrPHP'));
 ```
 
 ###for
-```
+```php
 {for($i=0;$i<10;$i++)}
 {if($i==5)}
 {continue}
@@ -350,7 +350,7 @@ $this->display('name',array('name'=>'yrPHP'));
 ```
 
 ##使用php代码
-```
+```php
 <?php echo "Hello World";?>
 ```
 
@@ -379,7 +379,7 @@ class MyController extends Controller
 #模型
 
 ##数据库配置
-````
+```php
 <?php
 
 return array(
@@ -444,7 +444,7 @@ return array(
 
 
 
-```
+```php
 namespace Model;
 use core;
 
@@ -462,16 +462,16 @@ class UserModel extends Model
 ##### Model(['模型名']);
 >模型名是为选填 如果为空则实例化父类。
 
-````
+```php
 loadClass('Model\UserModel');//实例化UserModel模型
-````
+```
 
 >实例化请确保参数确定 区分大小写
 
 #CURL
 ##Active Record 模式
 ####添加数据
-```
+```php
 $this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
 //return int 受影响行数
 ```
@@ -481,7 +481,7 @@ $this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
 是否自动添加前缀 默认 true
 
 ####删除数据
-```
+```php
 $this->delete(条件，[表名]，[是否自动添加前缀bool]);
 //return int 受影响行数
 ```
@@ -490,7 +490,7 @@ $this->delete(条件，[表名]，[是否自动添加前缀bool]);
 是否自动添加前缀 默认 true
 
 ####修改数据
-```
+```php
 $this->update(array 数据，array 条件，[表名]，[是否自动添加前缀bool]);
 //return int 受影响行数
 ```
@@ -501,7 +501,7 @@ $this->update(array 数据，array 条件，[表名]，[是否自动添加前缀
 ####数据验证
 >如果 $this->_validate = true 则验证添加或修改的数据
 
-```
+```php
 $this->_validate = true;
 $this->validate=array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
 /*
