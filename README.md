@@ -470,24 +470,95 @@ loadClass('Model\UserModel');//实例化UserModel模型
 
 #CURL
 ##Active Record 模式
-####添加数据
+
+####添加数据INSERT
+> **$this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);**
+
 ```php
-$this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
-//return int 受影响行数
+namespace Model;
+use core;
+class UserModel extends Model
+{
+    public function __construct()
+    {
+        parent::__construct();
+  }
+
+    public function userInsert()
+    {
+      return $this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
+	   //return int 受影响行数
+  }
+}
+
 ```
 >添加的数据如果为空,则获取$_POST数据，默认开启验证，如果数据库不存在 则过滤
 如果有临时关闭则 $this->setoptions(array('_validate'=>false));
-表名如果为空，则调用上次调用的表名
+表名如果为空，则调用上次调用的表名($this->tableName)
 是否自动添加前缀 默认 true
 
-####删除数据
+------------
+
+
+####删除数据DELETE
+
+> **$this->delete(条件，[表名]，[是否自动添加前缀bool]);**
+
+**在自定义模型在调用**
 ```php
-$this->delete(条件，[表名]，[是否自动添加前缀bool]);
-//return int 受影响行数
+<?php
+namespace Model;
+use core;
+class UserModel extends Model
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+  }
+
+    public function userDelete()
+    {
+     return $this->delete(条件，[表名]，[是否自动添加前缀bool]);
+     //return int 受影响行数
+  }
+}
+
 ```
 >条件为array|string 推荐array
 表名如果为空，则调用上次调用的表名
 是否自动添加前缀 默认 true
+
+
+------------
+
+
+***在控制器在调用***
+```php
+    <?php
+    use core\Controller;
+
+    class Users extends Controller
+    {
+        function __construct()
+        {
+            parent::__construct();
+        }
+
+       //直接调用父类model，进行操作
+        function  model()
+        {
+		 $db = Model();
+		 $db->delete(条件，[表名]，[是否自动添加前缀bool]);
+
+        }
+       //实例化刚才创建的模型，操作其方法
+		function  userModel()
+        {
+         $db = Model('UserModel');
+		 $db->userDelete();
+        }
+```
 
 ####修改数据
 ```php
@@ -502,8 +573,18 @@ $this->update(array 数据，array 条件，[表名]，[是否自动添加前缀
 >如果 $this->_validate = true 则验证添加或修改的数据
 
 ```php
-$this->_validate = true;
-$this->validate=array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
+<?php
+namespace Model;
+use core;
+class UserModel extends Model
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_validate = true;
+        $this->validate=array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
 /*
 *附加规则:
 * require:值域:null 当为空时return false
@@ -517,6 +598,561 @@ $this->validate=array('字段名' => array(array('验证规则(值域)', '错误
 * unique:值域:string 当该字段在数据库中存在该值域时 return false
 * preg:值域:正则表达式 //当不符合正则表达式时 return false
 */
+  }
+
+    public function userDelete()
+    {
+     return $this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
+     //return int 受影响行数
+  }
+}
+
 ```
 
 ####查询数据
+
+**GET**
+>**get($tableName = "", $auto = true)
+string $tableName 表名
+$auto 是否自动添加表前缀**
+
+------------
+```php
+$this->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select * from `tableName`;
+```
+
+**SELECT**
+
+>**select($field ='', $safe = true)
+$field string|array 字段
+$safe bool FALSE，就可以阻止数据被转义**
+
+------------
+
+
+```php
+$this->select('field1,field2,field3')->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select `field1`,`field2`,`field3` from `tableName`;
+
+$this->select(array('field1','field2','field3'))->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select `field1`,`field2`,`field3` from `tableName`;
+
+$this->select(array('field1','field2','field3'),false)->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select field1,field2,field3 from `tableName`;
+```
+
+**LIMIT**
+
+>**limit($offset, $length = null)
+$offset 起始位置
+$length 查询数量**
+
+------------
+
+```php
+//查询一条数据
+$this->limit(1)->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select * from `tableName` limit 1;
+```
+
+**WHERE**
+>**where($where = '', $logical = "and")
+ @param $logical 与前一个条件的连接符
+ @param $where string|array
+string "id>'100'"   `->`     where id>'100'**
+>**
+一维数组 array($field=>$value) `->` where  \`field\` = 'value'
+$value is null `->` where  \`field\` is null
+$value string ‘not null’   `->` where  \`field\` is not null**
+
+
+>**二维数组 array('field'=>array($value,$symbol,$logical))
+filed 字段
+$value 值 string|int|null|‘not null’
+$symbol 运算符 =|!=|<>|>|<|like|is|between|not between|in|not in
+$logical or|and 与前一个条件的连接符 默认调用`$logical`
+**
+
+```php
+
+$this->where("id='100'")->get([表名]，[是否自动添加前缀bool]);
+//生成的SQL语句
+//select * from `tableName` where （id = '100'）;
+
+$this->->where("id='1659'")->where(array('id'=>array('1113','!='),'name'=>array('%nathan%','like')))->get('users');//前缀在config/database.php 设置 tablePrefix
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` where (id='1659') or ( `id` != '1113'  or  `name` like '%nathan%' )
+
+
+$this->where("id='1596'")->where(array('id'=>array('1113','!='),'fullname'=>array('%nathan%','like','or'),
+'update_time'=>array('10000 and 100000000','between','and')))->get('users');
+//前缀在config/database.php 设置 tablePrefix
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` where (id='1596') and ( `id` != '1113'  or  `fullname` like '%nathan%'  and  `update_time` between '10000' and '100000000' )
+
+$this->where(array('id'=>array('1,2,3,4,5,6,7,8,9,10','in')))->get('users');
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` where ( `id` in(1,2,3,4,5,6,7,8,9,10))
+```
+>where 可以用连贯查询 一组where会用()包含
+
+**ORDER**
+```php
+$this->order('id desc')->get('users');
+//生成的SQL语句
+ SELECT  *  FROM  `yrp_users` ORDER BY `id` desc
+```
+
+**GROUP**
+```php
+$this->order('ip')->get('users');
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` `GROUP BY `ip`
+```
+
+**HAVING**
+>同WHERE
+
+```php
+$this->group('id')->having(array('id'=>array('2000','>')))->get('users');
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` GROUP BY `id` having ( `id` > '2000' )
+```
+
+**JOIN**
+>**join($table, $cond, $type = '', $auto = true)
+ @param $table 表名
+ @param $cond  连接条件
+ @param string $type 连接方式
+ @param bool $auto 是否自动添加表前缀**
+
+
+```php
+$this->join('users as b', 'a.id=b.id', 'left')->get('users as a');
+//生成的SQL语句
+//SELECT  *  FROM  `yrp_users` as `a` LEFT JOIN `yrp_users` as `b` ON `a`.`id`=`b`.`id`
+```
+
+##计算
+
+**统计COUNT**
+>**count($tableName,$auto = true)
+$tableName 表名
+$auto 是否自动添加前缀 bool 默认true**
+
+```php
+$this->count('users');
+//同
+$this->select('count(*) as count')->get('users')->row()->count;
+//生成的SQL语句
+//SELECT COUNT(*) as `count` FROM  `yrp_users`
+
+
+```
+
+**最大值MAX**
+>**max($tableName,$field,$auto = true)
+$tableName 表名
+$field 字段名 不能为空
+$auto 是否自动添加前缀 bool 默认true**
+
+```php
+$this->max('users','id');
+//同
+$this->select('max(id) as max')->get('users')->row()->max;
+//生成的SQL语句
+//SELECT MAX(id) as `max` FROM  `yrp_users`
+```
+
+**最小值MIN**
+>**min($tableName,$field,$auto = true)
+$tableName 表名
+$field 字段名 不能为空
+$auto 是否自动添加前缀 bool 默认true**
+
+```php
+$this->min('users','id');
+//同
+$this->select('min(id) as min')->get('users')->row()->min;
+//生成的SQL语句
+//SELECT MIN(id) as `min` FROM  `yrp_users`
+```
+
+**累计值SUM**
+>**sum($tableName,$field,$auto = true)
+$tableName 表名
+$field 字段名 不能为空
+$auto 是否自动添加前缀 bool 默认true**
+
+```php
+$this->sum('users','id');
+//同
+$this->select('sum(id) as sum')->get('users');
+//生成的SQL语句
+//SELECT SUM(id) as `sum` FROM  `yrp_users`
+```
+
+**平均值SUM**
+>**sum($tableName,$field,$auto = true)
+$tableName 表名
+$field 字段名 不能为空
+$auto 是否自动添加前缀 bool 默认true**
+
+```php
+$this->avg('users','id');
+//同
+$this->select('avg(id) as avg')->get('users');
+//生成的SQL语句
+//SELECT AVG(id) as `avg` FROM  `yrp_users`
+```
+##查询结果返回
+
+####row($assoc = false) 查询一条结果
+>**@param bool|false $assoc 当该参数为 TRUE 时，将返回 array 而非 object  当查询价格为空时 返回false
+**
+
+```php
+//查询一条数据 返回对象格式
+$this->select('id')->where(array('id'=>1))->get('users')->row();
+//返还一条数据 当查询结果为空时 返回false
+//stdClass::__set_state(array( 'id' => '231', ))
+
+//查询一条数据 返回数组格式
+$this->select('id')->where(array('id'=>1))->get('users')->row(true);
+//返还一条数据 当查询结果为空时 返回false
+//array(1) { ["id"]=> string(3) "231" }
+```
+
+------------
+
+
+####result($assoc = false) 查询一条结果
+>**@param bool|false $assoc 当该参数为 TRUE 时，将返回 array 而非 object  当查询价格为空时 返回一个空的数组array()
+**
+
+```php
+//查询所有数据 返回对象格式
+$this->select('id')->get('users')->result();
+//返还一条数据 当查询结果为空时 返回一个空的数组array()
+//array ( 0 => stdClass::__set_state(array( 'id' => '1', )), 1 => stdClass::__set_state(array( 'id' => '2', )), 2 => stdClass::__set_state(array( 'id' => '3', )), .....)
+
+//查询所有数据 返回数组格式
+$this->select('id')->get('users')->result(true);
+//返还所以数据 当查询结果为空时 返回一个空的数组array()
+//array ( 0 => array ( 'id' => '1', ), 1 => array ( 'id' => '2', ), 2 => array ( 'id' => '3', ),....)
+```
+
+####rowCount() — 返回受上一个 SQL 语句影响的行数
+
+```php
+$db = Model();
+$re = $db->select('id')->get('users')->result();
+echo  $db->rowCount();//输出查询结果总条数
+```
+
+##query 操作SQL
+```php
+$db = Model();
+$re = $db->query("select * from yrp_users")->result();
+//查询 同 $db->get('yrp_users')
+
+$re = $db->query("update yrp_users name='nathan' where id=500")->rowCount();
+//修改 返回受影响的行数
+```
+
+##数据库缓存
+
+####在配置文件中配置数据库相关配置
+
+```php
+return array(
+/*--------------------以下是数据库配置---------------------------------------*/
+'openCache' => true, //是否开启缓存
+'defaultFilter' => 'htmlspecialchars', // 默认参数过滤方法 用于I函数过滤 多个用|分割stripslashes|htmlspecialchars
+'dbCacheTime' => 0, //数据缓存时间0表示永久
+'dbCacheType' => 'file', //数据缓存类型 file|memcache|memcached|redis
+//单个item大于1M的数据存memcache和读取速度比file
+'dbCachePath' => APP_PATH . 'runtime/data/',//数据缓存文件地址(仅对file有效)
+'dbCacheExt' => 'php',//生成的缓存文件后缀(仅对file有效)
+
+'memcache' => '127.0.0.1:11211',//string|array多个用数组传递 array('127.0.0.1:11211','127.0.0.1:1121')
+
+'redis' =>'127.0.0.1:6379',//string|array多个用数组传递 array('127.0.0.1:6379','127.0.0.1:6378')
+);
+```
+
+```php
+$this->setCache(false);
+//默认配置文件中openCache = true，临时关闭 可以用setCache 仅当前请求有效
+```
+
+##lastQuery() 查询上一条SQL语句
+```php
+$db = Model();
+$re = $db->get('users')->result();
+echo $db->lastQuery();
+//select * from `yrp_users`
+```
+
+------------
+
+#系统函数
+
+```php
+<?php 
+
+/**
+ * 获取和设置配置参数 支持批量定义  具体请看配置章节
+ * @param string|array $name 配置变量
+ * @param mixed $value 配置值
+ * @param mixed $default 默认值
+ * @return mixed
+ */
+function C($name = null, $value = null, $default = null){}
+
+/**********************************************************/
+/**
+ * @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'
+ * @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php
+ * @return string
+ */
+getUrl($url = '', $indexPage = true){}
+
+/**********************************************************/
+/**
+ * 获取语言 支持批量定义
+ * @param null $key 语言关键词
+ * @param null $value 配置值
+ * @return array|null
+ */
+ function getLang($key = null, $value = null){}
+
+/**********************************************************/
+/**
+ * 以单例模式实例化类
+ * loadClass($className [, mixed $parameter [, mixed $... ]])
+ * @param $className 需要得到单例对象的类名
+ * @param $parameter $args 0个或者更多的参数，做为类实例化的参数。
+ * @return  object
+ */
+ function loadClass(){}
+
+/**********************************************************/
+/**
+ * 如果存在自定义的模型类，则实例化自定义模型类，如果不存在，则会实例化Model基类,同时对于已实例化过的模型，不会重复去实例化。
+ * @param string $modelName 模型类名
+ * @return object
+ */
+ function Model($modelName = ""){}
+
+/**********************************************************/
+ /**
+ * 获取输入参数 支持过滤和默认值
+ * 使用方法:
+ * <code>
+ * I('id',0); 获取id参数 自动判断get或者post
+ * I('post.name','','htmlspecialchars'); 获取$_POST['name']
+ * I('get.'); 获取$_GET
+ * </code>
+ * @param string $name 变量的名称 支持指定类型
+ * @param bool|false $default 默认值
+ * @param null $filter 参数过滤方法 array|string 默认为系统配置中的defaultFilter
+ * @return array
+ */
+ function I($name = '', $default = null, $filter = null){}
+
+/**********************************************************/
+/**
+ * 管理session
+ * @param string $key
+ * @param string $val
+ * @return bool
+ */
+session($key='',$val=''){};
+
+//添加单个session
+session('id','15');//$_SESSION['id'] = 15
+//批量添加session
+session(array('id'=>15,'name'=>'LiLei'));
+
+//获得session
+session('id');
+
+//删除
+session('id',null);
+
+//清空session
+session(null);
+
+/**********************************************************/
+/**
+ * 管理cookie
+ * @param string $key
+ * @param string $val
+ * @return bool
+ */
+cookie($key='',$val=''){};
+
+//添加单个session
+cookie('id','15');
+//批量添加session
+cookie(array('id'=>15,'name'=>'LiLei'));
+
+//获得session
+cookie('id');
+
+//删除
+cookie('id',null);
+
+/**********************************************************/
+/**
+ * 判断是不是 AJAX 请求
+ * 测试请求是否包含HTTP_X_REQUESTED_WITH请求头。
+ * @return    bool
+ */
+function isAjaxRequest(){}
+
+/**********************************************************/
+/**
+ * 判断是否SSL协议
+ * @return boolean
+ */
+function isHttps(){}
+
+/**********************************************************/
+/**
+ * 优化的require_once
+ * @param string $filename 文件地址
+ * @return boolean
+ */
+function requireCache($filename){}
+
+/**********************************************************/
+/**
+ *base64编码压缩序列化数据
+ * @param $obj
+ * @return string
+ */
+ function mySerialize($obj = ''){}
+
+ /**********************************************************/
+/**
+ * 反序列化
+ * @param $txt
+ * @return mixed
+ */
+function myUnSerialize($txt = ''){}
+
+ /**********************************************************/
+/**
+ *404跳转
+ * @param string $msg 提示字符串
+ * @param string $url 跳转URL
+ * @param int $time 指定时间跳转
+ */
+ function error404($msg = '', $url = '', $time = 3){}
+```
+
+------------
+# 创建核心系统类
+
+## 扩展核心类
+要使用你自己的系统类替换默认类只需简单的将你自己的 .php 文件放入`APP_PATH`/core
+文件的命名规则为`类名.class.php`,类名不能与系统核心类（`BASE_PATH`/core）下的类重名
+
+####例：
+新建一个名为`MyController.class.php`的文件，**注意文件名不能与系统核心类（`BASE_PATH`/core）下的文件重名**
+
+```php
+<?php
+namespace core;
+
+class MyController extends Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+
+    }
+	}
+```
+
+>新建一个控制器，继承我们扩展的控制器类
+
+**例子：创造一个控制器**
+
+在`APP_PATH`/controls目录下创建一个名为:
+Test.class.php的文件
+
+```php
+    <?php
+    use core\MyController;
+
+    class Test extends MyController
+    {
+        function __construct()
+        {
+            parent::__construct();
+        }
+
+        function  index()
+        {
+          echo "Hello World";
+        }
+```
+
+#创造自己的类库
+将你自己的 .php 文件放入`APP_PATH`/libs
+文件的命名规则为`类名.class.php`,类名不能与系统类库（`LIBS_PATH`）下的类重名
+
+####例：
+
+>在`APP_PATH`/libs文件夹中新建一个名问MyPage.class.php的类文件
+
+```php
+    <?php
+    namespace libs;
+
+    class MyPage
+    {
+        function __construct()
+        {
+            parent::__construct();
+        }
+
+        function  index()
+        {
+          echo "Hello World";
+        }
+```
+
+>在控制器中调用
+
+```php
+    <?php
+    use core\MyController;
+
+    class Test extends MyController
+    {
+        function __construct()
+        {
+            parent::__construct();
+        }
+
+        function  index()
+        {
+         $class = loadClass('libs\MyPage');
+		 $class->index();
+        }
+```
+
+##loadClass($className)以单例模式实例化类
+>请确保类名正确 **区分大小写**
+

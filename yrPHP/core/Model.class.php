@@ -13,20 +13,19 @@ class Model
     public $slaveServer = array();
     public $transStatus = true;
     public $_validate = true;//是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $$validate验证规则 不通过 则报错
-    protected $tablePrefix = null; // 数据表前缀
-    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");// 链操作方法列表
+    public $db = null; // 数据表前缀
+    protected $tablePrefix = null;// 链操作方法列表
     // protected $tableAlias = null; //数据库别称
-    protected $tableName = null;//数据库名称
-    protected $sql;
+    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");//数据库名称
+    protected $tableName = null;
+    protected $sql;//执行过的sql
     protected $error = array();
     protected $join = array();
     protected $validate = array();//验证规则 array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
     protected $dbCacheTime;
-    protected $openCache;//是否开启缓存 bool
-    protected $dbCacheType;
-
+    protected $openCache; //是否开启缓存 bool
     protected $parameters = array(); // query 绑定的参数
-    private $queries = array();//执行过的sql
+    private $queries = array();//上次调用的数据库实例
 
     public function __construct($tablePrefix = '', $tableName = '')
     {
@@ -136,15 +135,13 @@ class Model
     }
 
     /**
-     * 设置配置
+     * 设置缓存
      * @param array $config
      * @return $this
      */
-    public function setOptions($config = array())
+    public function setCache($status = true)
     {
-        foreach($config as $k=>$v){
-            $this->k = $v;
-        }
+        $this->openCache = $status;
         return $this;
     }
 
@@ -167,23 +164,31 @@ class Model
             $this->methods[$method] .= '`' . $dot[0] . '`';
             if (isset($dot[1])) $this->methods[$method] .= ".`$dot[1]`";
             if (isset($order[1])) $this->methods[$method] .= ' ' . $order[1];
-        }
-
-        if ($method == "where") {
+        }else if ($method == "where") {
             $this->condition($args[0], isset($args[1]) ? $args[1] : "and");
-        }
-
-        if ($method == "having") {
+        }else if ($method == "having") {
             $this->condition($args[0], isset($args[1]) ? $args[1] : "and", 'having');
+        }else if(in_array($method,array('count','sum','min','max','avg'))){
+
+            $tableName = isset($args[0]) ? $args[0] : '';
+            $field =  isset($args[1]) ? $args[1] : '*';
+            $auto = end($args)===false ? false : true;
+            if (!empty($tableName)) {
+                $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
+            }
+
+            $tableName = strrpos($this->tableName, '`') === false ? $this->protect($this->tableName) : $this->tableName;
+
+            return $this->query('select '.$method.'('.$field.') as `c` from '.$tableName)->row()->c;
         }
         return $this;
     }
 
 
     /**
-     * @param string $where id=1 || array('id'=>1)||array('id'=>array(1,'null|>|=|<>|like','null|or|and'))
-     * @param string $where id=1 || array('id'=>array('20 and 100','between|not between','null|or|and'))
-     * @param string $where id=1 || array('id'=>array('1,2,3,4,5,6,7,8 10','in|not in','null|or|and'))
+     * @param string $where id=1 || array('id'=>1)||array('id'=>array(1,'is|>|=|<>|like','null|or|and'))
+     * @param string $where id between 20 and 100 || array('id'=>array('20 and 100','between|not between','null|or|and'))
+     * @param string $where id in 1,2,3,4,5,6,7,8 10 || array('id'=>array('1,2,3,4,5,6,7,8 10','in|not in','null|or|and'))
      * @param string $logical and | or
      * @param string $type where | having
      * @return $this
@@ -195,10 +200,11 @@ class Model
         } else {
             $this->methods[$type] .= " {$logical} ";
         }
+        $this->methods[$type] .= '(';
         if (is_string($where)) {
             $this->methods[$type] .= $where;
         } elseif (is_array($where)) {
-            $this->methods[$type] .= '(';
+
             foreach ($where as $k => $v) {
                 $k = $this->protect($k);
                 if (is_array($v)) {
@@ -210,10 +216,11 @@ class Model
                     }
                     $logical = empty($v[2]) ? $logical : $v[2];
 
-                    if (strstr($symbol, 'in') || strstr($symbol, 'not in')) {
+                    if (strripos($symbol, 'is') !== false) {
+                        $value = $value;
+                    } elseif (strripos($symbol, 'in') !== false) {//in || not in
                         $value = '(' . $value . ')';
-                    } elseif (strstr($symbol, 'between') || strstr($symbol, 'not between')) {
-
+                    } elseif (strripos($symbol, 'between') !== false) {//between|not between
                         if (preg_match('/(.*)(and|or)(.*)/i', $value, $matches)) {
                             $value = " '" . trim($matches[1]) . "' " . trim($matches[2]) . " '" . trim($matches[3]) . "' ";
                         } else {
@@ -232,11 +239,17 @@ class Model
                     if (reset($where) != $v) {
                         $this->methods[$type] .= " " . $logical . " ";
                     }
-                    $this->methods[$type] .= " $k " . "='$v'";
+                    if (is_null($v)) {
+                        $this->methods[$type] .= " $k is null";
+                    } elseif (strripos($v, 'null') !== false) {
+                        $this->methods[$type] .= " $k is {$v}";
+                    } else {
+                        $this->methods[$type] .= " $k " . "='$v'";
+                    }
                 }
             }
-            $this->methods[$type] .= ')';
         }
+        $this->methods[$type] .= ')';
         return $this;
     }
 
@@ -245,7 +258,7 @@ class Model
      * @param int $safe FALSE，就可以阻止数据被转义
      * @return $this
      */
-    public final function select($field = '', $safe = 1)
+    public final function select($field = '', $safe = true)
     {
         if (is_array($field)) {
             $fieldArr = $field;
@@ -293,7 +306,7 @@ class Model
         $tableName = strrpos($this->tableName, '`') === false ? $this->protect($this->tableName) : $this->tableName;
 
         $this->tableName = explode('as', $tableName);
-        $this->tableName = trim(reset($this->tableName),'`');
+        $this->tableName = trim(reset($this->tableName), '`');
         //$tableField = $this->tableDesc();
         if (empty($this->methods['field'])) {
             //$field = implode(",", $tableField);
@@ -372,6 +385,8 @@ class Model
     {
 
         $table = $auto ? $this->tablePrefix . $table : $table;
+        $table = strrpos($table, '`') === false ? $this->protect($table) : $table;
+
         if ($type != '') {
             $type = strtoupper(trim($type));
 
@@ -393,7 +408,7 @@ class Model
 
         // Strip apart the condition and protect the identifiers
         if (preg_match('/([\w\.]+)([\W\s]+)(.+)/', $cond, $match)) {
-            $cond = $match[1] . $match[2] . $match[3];
+            $cond = $this->protect($match[1]) . $match[2] . $this->protect($match[3]);
         }
 
         // Assemble the JOIN statement
@@ -406,8 +421,44 @@ class Model
 
 
     /**
+     * @param string $dbCacheFile 缓存文件
+     * @param string $type 返回的数据类型 object|array
+     * $openCache  bool|true 是否开启缓存
+     * @return mixed 返回数据
+     */
+    protected final function cache($dbCacheFile = "", $assoc = false)
+    {
+
+        if ($this->openCache) {
+            $cache = Cache::getInstance();
+
+            if ($cache->isExpired($dbCacheFile)) {
+
+                $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
+
+                $re = $this->db->query($this->sql)->result($assoc);
+
+                $cache->set($dbCacheFile, $re);
+
+                return $re;
+
+            } else {
+                return $cache->get($dbCacheFile);
+            }
+
+        } else {
+            $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
+
+            $re = $this->db->query($this->sql)->result($assoc);
+
+            return $re;
+        }
+    }
+
+
+
+    /**
      * @param bool|false $assoc 当该参数为 TRUE 时，将返回 array 而非 object 。
-     * @param bool|true $openCache 是否开启缓存
      * @return mixed
      */
     public final function row($assoc = false)
@@ -419,59 +470,9 @@ class Model
         $re = $this->cache($dbCacheFile, $assoc);
         Debug::stop();
         Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
-        return isset($re[0]) ? $re[0] : $re;
+        return isset($re[0]) ? $re[0] : false;
     }
 
-    /**
-     * @param string $dbCacheFile 缓存文件
-     * @param string $type 返回的数据类型 object|array
-     * $openCache  bool|true 是否开启缓存
-     * @return mixed 返回数据
-     */
-    protected final function cache($dbCacheFile = "", $assoc = false)
-    {
-        if ($this->openCache) {
-            $cache = Cache::getInstance();
-
-            if ($cache->isExpired($dbCacheFile)) {
-
-                $db = $this->slaveServer[array_rand($this->slaveServer, 1)];
-
-                $re = $db->query($this->sql)->result($assoc);
-
-                $cache->set($dbCacheFile, $re);
-
-                return $re;
-
-            } else {
-                return $cache->get($dbCacheFile);
-            }
-
-        } else {
-            $db = $this->slaveServer[array_rand($this->slaveServer, 1)];
-
-            $re = $db->query($this->sql)->result($assoc);
-
-            return $re;
-        }
-    }
-
-    /**
-     * 获得错误代码
-     * @param string $code
-     * @return mixed
-     */
-    public final function getException($code = '')
-    {
-        $exception = $this->masterServer->getException();
-        if (empty($code))
-            return $exception;
-        if (isset($exception[$code])) {
-            return $exception[$code];
-        } else {
-            return $exception;
-        }
-    }
 
     /**
      * 返回数据集合
@@ -491,13 +492,32 @@ class Model
         return $re;
     }
 
+
+    /**
+     * 获得错误代码
+     * @param string $code
+     * @return mixed
+     */
+    public final function getException($code = '')
+    {
+        $exception = $this->masterServer->getException();
+        if (empty($code))
+            return $exception;
+        if (isset($exception[$code])) {
+            return $exception[$code];
+        } else {
+            return $exception;
+        }
+    }
+
+
     /**
      * @param string $tableName //数据库表名
      * @param string|array $where 条件
      * @param bool $auto 是否自动添加表前缀
      * @return int 返还受影响行数
      */
-    public final function delete($where = "", $tableName = "",$auto = true)
+    public final function delete($where = "", $tableName = "", $auto = true)
     {
         Debug::start();
         if (empty($tableName)) {
@@ -513,7 +533,8 @@ class Model
         $this->sql = "DELETE FROM `{$tableName}`{$where}{$limit}";
         $this->queries[] = $this->sql;
         $this->cleanLastSql();
-        $re = $this->masterServer->query($this->sql)->result();
+        $this->db = $this->masterServer;
+        $re = $this->db->query($this->sql)->result();
         if (!$re) {
             $this->transStatus = false;
             $this->error[] = $this->sql;
@@ -543,7 +564,7 @@ class Model
             return false;
         }
         $data = $this->check($data);
-        if($data === false) return false;
+        if ($data === false) return false;
 
         if (!empty($where)) {
             $this->where($where);
@@ -566,7 +587,8 @@ class Model
             ")  VALUES(" . $value . ") ";
         $this->queries[] = $this->sql;
         $this->cleanLastSql();
-        $re = $this->masterServer->query($this->sql);
+        $this->db = $this->masterServer;
+        $re = $this->db->query($this->sql);
         if (!$re->result()) {
             $this->transStatus = false;
             $this->error[] = $this->sql;
@@ -605,7 +627,7 @@ class Model
         //   $filter = explode('|', C('defaultFilter'));
         foreach ($array as $key => $value) {
 
-            if (in_array(strtolower($key),array_map('strtolower',$tableField))) {//判断字段是否存在 不存在则舍弃
+            if (in_array(strtolower($key), array_map('strtolower', $tableField))) {//判断字段是否存在 不存在则舍弃
                 if (in_array($key, $this->validate)) {//判断验证规则是否存在
                     /*                    if (!is_array($this->validate[$key][0])) {
                                             $this->validate[$key][0] = $this->validate[$key];
@@ -752,29 +774,11 @@ class Model
         return $this;
     }
 
-    /**
-     * @param $sql
-     * @return mixed
-     */
-    /*    public final function query($sql = "", $parameters = array())
-        {
-            Debug::start();
-            if (empty($sql)) $sql = $this->sql;
-            $this->cleanLastSql();
-            $re = $this->masterServer->query($sql, $parameters);
-            Debug::stop();
-            Debug::addMsg(array('sql' => $sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
-            return $re;
-        }*/
-
     public final function rowCount()
     {
-        Debug::start();
-        $db = $this->slaveServer[array_rand($this->slaveServer, 1)];
-        $db->query($this->sql);
-        Debug::stop();
-        Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
-        return $db->rowCount();
+        if ($this->db === null) return 0;
+        return $this->db->rowCount();
+
     }
 
     /**
@@ -787,10 +791,11 @@ class Model
         Debug::start();
         if (!empty($sql)) $this->sql = $sql;
         $this->cleanLastSql();
-        $this->parameters = $parameters;
-        if (stripos($sql, 'select') === false) {
+        $this->parameters = !is_array($parameters) ? array() : $parameters;
+        if (stripos($sql, 'select') == false) {
             $this->queries[] = $sql;
-            $re = $this->masterServer->query($this->sql, $parameters);
+            $this->db = $this->masterServer;
+            $re = $this->db->query($this->sql, $parameters);
             Debug::stop();
             Debug::addMsg(array('sql' => $sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
             return $re;
@@ -799,6 +804,8 @@ class Model
         }
 
     }
+
+
 
     /**
      * @param array $data 更改的数据
@@ -822,7 +829,7 @@ class Model
             return false;
         }
         $data = $this->check($data);
-        if($data === false) return false;
+        if ($data === false) return false;
 
         if (!empty($where)) {
             $this->where($where);
@@ -842,7 +849,8 @@ class Model
         $this->sql = "UPDATE `" . $this->tableName . "` SET " . $Nfild . " " . $where . " " . $limit . "";
         $this->queries[] = $this->sql;
         $this->cleanLastSql();
-        $re = $this->masterServer->query($this->sql)->result();
+        $this->db = $this->masterServer;
+        $re = $this->db->query($this->sql)->result();
 
         if (!$re) {
             $this->transStatus = false;

@@ -94,9 +94,8 @@ $classPath = APP_PATH . 'controls/' . ucfirst($className) . '.class.php';
 C(array('classPath' => $classPath, 'ctlName' => $className, 'actName' => $action, 'lang' => $_SESSION['lang']));
 
 if (file_exists($classPath)) {
-
     require $classPath;
-
+    $class = loadClass($className);
     $class->$action();
 
 } else {

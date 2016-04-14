@@ -65,7 +65,15 @@ class pdo_driver extends PDO
             if (empty($parameters)) {
                 $this->result = $result->execute();
             } else {
-                $this->result = $result->execute($parameters);
+                if(is_array($parameters[0])){
+
+                    foreach($parameters as $v){
+                        $this->result = $result->execute($v);
+                    }
+
+                }else{
+                    $this->result = $result->execute($parameters);
+                }
             }
             $this->PDOStatement = $result;
         } catch (PDOException $e) {

@@ -8,9 +8,6 @@
  * 系统函数库
  */
 
-
-spl_autoload_register('autoLoadClass');//注册自动加载函数
-
 /*
 /设置包含目录（类所在的全部目录）,  PATH_SEPARATOR 分隔符号 Linux(:) Windows(;)
 $include_path=get_include_path();                         //原基目录
@@ -18,8 +15,8 @@ $include_path.=PATH_SEPARATOR.ROOT_PATH;       //框架中基类所在的目录
 //设置include包含文件所在的所有目录
 set_include_path($include_path);
 */
-function autoLoadClass($className)
-{
+//spl_autoload_register('autoLoadClass');//注册自动加载函数
+spl_autoload_register(function ($className) {
     core\Debug::start();
     $classList = array();
     if (isset($classList[$className])) {
@@ -31,7 +28,7 @@ function autoLoadClass($className)
         if (false !== strpos($className, '\\')) {
             $className = array_pop($path);
             $pathCount = count($path) - 1;
-            $classPath = implode('/',$path) . '/' . $className . '.class.php';
+            $classPath = implode('/', $path) . '/' . $className . '.class.php';
 
             if (file_exists(APP_PATH . $classPath)) {
                 $classPath = APP_PATH . $classPath;
@@ -50,7 +47,7 @@ function autoLoadClass($className)
     core\Debug::stop();
     core\Debug::addMsg(array('path' => $classPath, 'time' => core\Debug::spent()), 1);
 }
-
+);
 /**
  * 获取和设置配置参数 支持批量定义
  * @param string|array $name 配置变量
@@ -171,7 +168,7 @@ function Model($modelName = "")
     if (!file_exists($modelPath)) {
         $modelInstance[$modelName] = loadClass('core\Model');
     } else {
-        $modelInstance[$modelName] = loadClass('Model\\'.$modelName);
+        $modelInstance[$modelName] = loadClass('Model\\' . $modelName);
     }
     return $modelInstance[$modelName];
 }
@@ -224,6 +221,19 @@ function highlightCode($str)
     );
 }
 
+//过滤数据
+function filter(& $data = null)
+{
+    $filters = C('defaultFilter');
+    if (is_string($filters)) {
+        $filters = explode('|', $filters);
+    }
+    foreach ($filters as $filter) {
+        if (function_exists($filter)) {
+            $data = $filter($data);
+        }
+    }
+}
 
 /**
  *  * 获取输入参数 支持过滤和默认值
@@ -292,17 +302,10 @@ function I($name = '', $default = null, $filter = null)
         }
     }
 
-    $filters = isset($filter) ? $filter : C('defaultFilter');
-    if ($filters) {
-        if (is_string($filters)) {
-            $filters = explode('|', $filters);
-        }
-        foreach ($data as $k => $v) {
-            foreach ($filters as $filter) {
-                $data[$k] = $filter($v);
-            }
-        }
-    }
+    if (isset($filter)) C('defaultFilter', $filter);
+
+    array_walk($data, 'filter');//回调过滤数据
+
 
     return empty($name) ? $data : $data[$name];
 
@@ -315,31 +318,38 @@ function I($name = '', $default = null, $filter = null)
  * @param string $val
  * @return bool
  */
-function session($key='',$val=''){
+function session($key = '', $val = '')
+{
 
     if (!session_id()) session_start();
-
-    if(is_null($key)){
+    $session_prefix = C('session_prefix');
+    if (is_null($key)) {
         session_unset();//释放当前注册的所有会话变量
         session_destroy();
         return true;
     }
 
-    if(is_null($val)){
-        $key = C('session_prefix').$key;
-        unset($_SESSION[$key]);
+    if (is_array($key)) {
+        foreach ($key as $k => $v) {
+            $_SESSION[$session_prefix . $k] = $v;
+        }
         return true;
     }
 
-    if(!empty($val)){
-        $key = C('session_prefix').$key;
-        $_SESSION[$key] = $val;
+    if (is_null($val)) {
+        unset($_SESSION[$session_prefix . $key]);
         return true;
     }
 
-    if(!empty($key)){
-        $key = C('session_prefix').$key;
-        return $_SESSION[$key];
+    if (!empty($val)) {
+
+        $_SESSION[$session_prefix . $key] = $val;
+        return true;
+    }
+
+    if (!empty($key)) {
+
+        return $_SESSION[$session_prefix . $key];
     }
 
     return $_SESSION;
@@ -351,33 +361,41 @@ function session($key='',$val=''){
  * @param string $val
  * @return bool
  */
-function cookie($key='',$val=''){
-
+function cookie($key = '', $val = '')
+{
+    $cookie_prefix = C('cookie_prefix');
     /**
      * setcookie(name, value, expire, path, domain);
      *  $_COOKIE["user"];
      * setcookie("user", "", time()-3600);
      */
-    if(is_null($key)){
+    if (is_null($key)) {
         //unset($_COOKIE);
         return true;
     }
 
-    if(is_null($val)){
-        $key = C('cookie_prefix').$key;
-        setcookie($key, "", time()-3600);
+    if (is_array($key)) {
+        foreach ($key as $k => $v) {
+            $_SESSION[$cookie_prefix . $k] = $v;
+        }
         return true;
     }
 
-    if(!empty($val)){
-        $key = C('cookie_prefix').$key;
-        setcookie($key, $val, time()+ C('cookie_expire'), C('cookie_path'),C('cookie_domain'));
+    if (is_null($val)) {
+
+        setcookie($cookie_prefix . $key, "", time() - 3600);
         return true;
     }
 
-    if(!empty($key)){
-        $key = C('cookie_prefix').$key;
-        return $_COOKIE[$key];
+    if (!empty($val)) {
+
+        setcookie($cookie_prefix . $key, $val, time() + C('cookie_expire'), C('cookie_path'), C('cookie_domain'));
+        return true;
+    }
+
+    if (!empty($key)) {
+
+        return $_COOKIE[$cookie_prefix . $key];
     }
 
     return $_COOKIE;
@@ -421,9 +439,9 @@ function isHttps()
  * @param $obj
  * @return string
  */
-function mySerialize($obj='')
+function mySerialize($obj = '')
 {
-    if(empty($obj)) return false;
+    if (empty($obj)) return false;
     return base64_encode(gzcompress(serialize($obj), 6));
 }
 
@@ -432,9 +450,9 @@ function mySerialize($obj='')
  * @param $txt
  * @return mixed
  */
-function myUnSerialize($txt='')
+function myUnSerialize($txt = '')
 {
-    if(empty($txt)) return false;
+    if (empty($txt)) return false;
     return unserialize(gzuncompress(base64_decode($txt)));
 }
 
@@ -457,16 +475,23 @@ function requireCache($filename)
     return $_importFiles[$filename];
 }
 
-function error404($msg='',$url='',$time=3){
+/**
+ * 404跳转
+ * @param string $msg 提示字符串
+ * @param string $url 跳转URL
+ * @param int $time 指定时间跳转
+ */
+function error404($msg = '', $url = '', $time = 3)
+{
 
     header("HTTP/1.1 404 Not Found");
     header("Status: 404 Not Found");
 
-    $msg =  empty($msg)?'你访问的页面不存在或被删除！':$msg;
+    $msg = empty($msg) ? '你访问的页面不存在或被删除！' : $msg;
 
-    $url = empty($url)?getUrl():$url;
+    $url = empty($url) ? getUrl() : $url;
 
-    require BASE_PATH.'resource/tpl/404.php';
+    require BASE_PATH . 'resource/tpl/404.php';
     die;
 }
 
