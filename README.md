@@ -1,5 +1,5 @@
 #目录结构
-www  WEB部署目录（或者子目录）\n
+www  WEB部署目录（或者子目录）
 ├─index.php       入口文件
 ├─README.md       README文件
 ├─application     应用目录
