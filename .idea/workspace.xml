@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" />
-    </list>
+    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="" />
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -40,7 +38,7 @@
       <file leaf-file-name="Upload.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38686132">
+            <state vertical-scroll-proportion="0.7883212">
               <caret line="264" column="29" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
               <folding />
             </state>
@@ -425,7 +423,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="115" y="27" width="1655" height="1079" extended-state="0" />
+    <frame x="115" y="27" width="1655" height="1079" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14797008" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -710,7 +708,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38686132">
+        <state vertical-scroll-proportion="0.7883212">
           <caret line="264" column="29" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
           <folding />
         </state>
