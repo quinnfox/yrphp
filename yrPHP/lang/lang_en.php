@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ: 284843370
- * Email: nathankvin@163.com
+ * Email: quinnH@163.com
  */

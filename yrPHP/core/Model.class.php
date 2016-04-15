@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ:284843370
- * Email:nathankwin@163.com
+ * Email:quinnH@163.com
  */
 namespace core;
 class Model
@@ -336,6 +336,9 @@ class Model
         return $this;
     }
 
+    /**
+     * 清除上次组合的SQL记录，避免重复组合
+     */
     public final function cleanLastSql()
     {
         $this->join = "";
@@ -437,7 +440,7 @@ class Model
                 $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
 
                 $re = $this->db->query($this->sql)->result($assoc);
-
+                $this->error[] = '错误信息：'. $this->getException('msg').'  SQL语句：'.$this->sql;
                 $cache->set($dbCacheFile, $re);
 
                 return $re;
@@ -450,7 +453,7 @@ class Model
             $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
 
             $re = $this->db->query($this->sql)->result($assoc);
-
+            $this->error[] = '错误信息：'. $this->getException('msg').'  SQL语句：'.$this->sql;
             return $re;
         }
     }
@@ -500,7 +503,7 @@ class Model
      */
     public final function getException($code = '')
     {
-        $exception = $this->masterServer->getException();
+        $exception = $this->db->getException();
         if (empty($code))
             return $exception;
         if (isset($exception[$code])) {
@@ -537,7 +540,7 @@ class Model
         $re = $this->db->query($this->sql)->result();
         if (!$re) {
             $this->transStatus = false;
-            $this->error[] = $this->sql;
+            $this->error[] = '错误信息：'. $this->getException('msg').'  SQL语句：'.$this->sql;
         }
         Debug::stop();
         Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
@@ -591,7 +594,7 @@ class Model
         $re = $this->db->query($this->sql);
         if (!$re->result()) {
             $this->transStatus = false;
-            $this->error[] = $this->sql;
+            $this->error[] = '错误信息：'. $this->getException('msg').'  SQL语句：'.$this->sql;
         }
         Debug::stop();
         Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
@@ -605,130 +608,50 @@ class Model
      *
      * array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
      *附加规则:
-     * require:值域:null 当为空时return false
-     * equal:值域:int 当不等于某值时return false
-     * notequal:值域:int 当等于某值时return false
-     * in:值域:array(1,2,3)|1,2,3 当不存在指定范围时return false
-     * notin: 值域:array(1,2,3)|1,2,3  当存在指定范围时return false
-     * between: 值域:array(1,30)|1,30 当不存在指定范围时return false
-     * notbetween:值域:array(1,30)|1,30 当存在指定范围时return false
-     * length:值域:array(10,30)|10,30 当字符长度小于10，大于30时return false || array(30)|30 当字符不等于30时return false
-     * unique:值域:string 当该字段在数据库中存在该值域时 return false
-     * preg:值域:正则表达式 //当不符合正则表达式时 return false
+     * equal:值域:string|null 当值与之相等时，通过验证
+     * notequal:值域:string|null 当值与之不相等时 通过验证
+     * in:值域:array(1,2,3)|1,2,3 当值存在指定范围时 通过验证
+     * notin: 值域:array(1,2,3)|1,2,3  当不存在指定范围时 通过验证
+     * between: 值域:array(1,30)|1,30 当存在指定范围时 通过验证
+     * notbetween:值域:array(1,30)|1,30 当不存在指定范围时 通过验证
+     * length:值域:array(10,30)|10,30 当字符长度大于等于10，小于等于30时 通过验证 || array(30)|30 当字符等于30时 通过验证
+     * unique:值域:string 当该字段在数据库中不存在该值时 通过验证
+     * email： 值域：string 当值为email格式时 通过验证
+     * url： 值域：string 当值为url格式时 通过验证
+     * number: 值域：string 当值为数字格式时 通过验证
+     * regex:值域:正则表达式 //当符合正则表达式时 通过验证
      *
      */
-    protected final function check($array, $tableName = "")
+    public final function check($array, $tableName = "")
     {
         if (!$this->_validate) {
             return $array;
         }
+
+
         $arr = array();
         $tableField = $this->tableDesc($tableName);
         //   $filter = explode('|', C('defaultFilter'));
         foreach ($array as $key => $value) {
 
             if (in_array(strtolower($key), array_map('strtolower', $tableField))) {//判断字段是否存在 不存在则舍弃
-                if (in_array($key, $this->validate)) {//判断验证规则是否存在
+                if (isset($this->validate[$key])) {//判断验证规则是否存在
                     /*                    if (!is_array($this->validate[$key][0])) {
                                             $this->validate[$key][0] = $this->validate[$key];
                                         }*/
+
                     foreach ($this->validate[$key] as $validate) {
                         if (empty($validate[1])) {
-                            $validate[1] = "错误:验证不通过";
+                            $validate[1] = "错误:{$key}验证不通过";
                         }
-                        switch ($validate[2]) {
-                            case "require"://当为空时报错
-                                if (empty($value)) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-                            case "equal"://当不等于某值时报错
-                                if ($value != $validate[0]) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-                            case "notequal"://当等于某值时报错
-                                if ($value == $validate[0]) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-                            case "in"://当不存在指定范围时报错
-                                if (is_string($validate[0])) {
-                                    $validate[0] = explode(',', $validate[0]);
-                                }
-                                if (!in_array($validate[0], $value)) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-                            case "notin"://当存在指定范围时报错
-                                if (is_string($validate[0])) {
-                                    $validate[0] = explode(',', $validate[0]);
-                                }
-                                if (!in_array($validate[0], $value)) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
 
-                            case "between"://当不存在指定范围时报错
-                                if (is_string($validate[0])) {
-                                    $validate[0] = explode(',', $validate[0]);
-                                }
-                                if ($value < intval($validate[0][0]) || $value > intval($validate[0][1])) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-
-                            case "notbetween"://当存在指定范围时报错
-                                if (is_string($validate[0])) {
-                                    $validate[0] = explode(',', $validate[0]);
-                                }
-                                if ($value > intval($validate[0][0]) && $value < intval($validate[0][1])) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-
-                            case "length"://当字符长度不在范围内时报错
-                                if (is_string($validate[0])) {
-                                    $validate[0] = explode(',', $validate[0]);
-                                }
-                                if (empty($validate[0][1])) {
-                                    if (strlen($value) != $validate[0][0]) {
-                                        $this->error = $validate[1];
-                                        return false;
-                                    }
-                                } else {
-                                    if (strlen($value) < $validate[0][0] || $value > $validate[0][1]) {
-                                        $this->error = $validate[1];
-                                        return false;
-                                    }
-                                }
-
-                                break;
-                            case "unique"://当字段不是唯一值时报错
-                                $count = $this->query("select {$key} from {$tableName} where {$key}={$validate[0]}")->rowCount();
-                                if ($count) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-
-                            case "preg"://正则
-                                if (!preg_match($validate[0], $value)) {
-                                    $this->error = $validate[1];
-                                    return false;
-                                }
-                                break;
-                            default:
-
-                                break;
+                        if(method_exists ( 'libs\Validate', $validate[2])){
+                            if(! \libs\Validate::$validate[2]($value,$validate[0])){
+                                $this->error[] = $validate[1];
+                                return false;
+                            }
                         }
+
                     }
                 }
                 /*                foreach ($filter as $v) {//格式化
@@ -854,7 +777,7 @@ class Model
 
         if (!$re) {
             $this->transStatus = false;
-            $this->error[] = $this->sql;
+            $this->error[] = '错误信息：'. $this->getException('msg').'  SQL语句：'.$this->sql;
         }
         Debug::stop();
         Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
@@ -897,9 +820,7 @@ class Model
         }
     }
 
-    /*
-     * 清除上次组合的SQL记录，避免重复组合
-     */
+
 
     /**
      * 事务回滚

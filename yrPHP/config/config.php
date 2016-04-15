@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ:284843370
- * Email:nathankwin@163.com
+ * Email:quinnH@163.com
  */
 return array(
     'url_model'          => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
@@ -59,6 +59,10 @@ return array(
     'cookie_path'        => "/",
     'cookie_domain'      => '',//设置域，默认为当前域名
 
+    /*--------------------以下是加密配置---------------------------------------*/
+    'crypt_mode' => 'des3',//现在加密方式只有DES3
+    'crypt_key' => '123456789',//密钥
+    'crypt_iv' =>  '123456789',//初始向量
 );
 
 

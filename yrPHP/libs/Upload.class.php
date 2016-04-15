@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ: 284843370
- * Email: quinnh@163.com
+ * Email: quinnH@163.com
  */
 namespace libs;
 
@@ -26,6 +26,7 @@ class Upload
     public $fileInfo = array();
     public $result = array();
     public $error = array();
+    public $fileSize = 0;
 
     public function __construct($config = array())
     {
@@ -239,21 +240,27 @@ class Upload
         return true;
     }
 
-    public function getFileInfo()
+    public function getFileInfo($inputName = null)
     {
-        $row = reset($this->fileInfo);
-        return count($this->fileInfo) - 1 ?
-            $this->fileInfo :
-            (isset($row['errorCode']) ? $this->getError($row['errorCode']) : $row);
+        if(is_null($inputName)){
+        return $this->fileInfo;
+        }else{
+        if(isset($this->fileInfo[$inputName])){
+         return    $this->fileInfo[$inputName];
+        }else{
+               return false;
+            }
+        }
+
     }
 
 
     /**
-     * 设置上传出错信息
+     * 根据错误代码获得上传出错信息
      * @param null $errorNum
      * @return string
      */
-    public function getError($errorNum = null)
+    public function getError($errorCode = null)
     {
         switch ($errorNum) {
             case 4:

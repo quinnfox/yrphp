@@ -1,0 +1,28 @@
+[15-Apr-2016 13:53:26 PRC] PHP Warning:  Invalid argument supplied for foreach() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 675
+[15-Apr-2016 13:55:38 PRC] PHP Warning:  Invalid argument supplied for foreach() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 675
+[15-Apr-2016 15:14:39 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:14:48 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:15:05 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:15:23 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:15:36 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:15:37 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:15:52 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:16:27 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:16:28 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:16:29 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:16:29 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:16:47 PRC] PHP Fatal error:  Call to undefined function core\getException() in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:09 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:21 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:22 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:25 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:46 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:47 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:48 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:49 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:17:49 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:18:41 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:18:48 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 15:19:22 PRC] PHP Notice:  Array to string conversion in F:\wamp\www\yrphp\yrPHP\core\Model.class.php on line 456
+[15-Apr-2016 17:23:07 PRC] PHP Fatal error:  Undefined class constant 'dirNodeTree' in F:\wamp\www\yrphp\application\controls\Index.class.php on line 28
+[15-Apr-2016 17:23:21 PRC] PHP Fatal error:  Undefined class constant 'dirNodeTree' in F:\wamp\www\yrphp\application\controls\Index.class.php on line 28

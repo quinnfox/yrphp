@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ: 284843370
- * Email: quinnh@163.com
+ * Email: quinnH@163.com
  */
 namespace libs;
 /*
@@ -226,20 +226,17 @@ class File
      * 修改文件名
      *$path 需要修改的文件路径
      *$name 修改后的文件路径及文件名
-     * @param    string $filename
-     * @return    string
+     * @return    bool
      */
     static public function rename($path, $name)
     {
         if (file_exists($path)) {
             if (rename($path, $name)) {
-                return "文件名修改成功";
-            } else {
-                return "文件名修改失败";
+                return true;
             }
-        } else {
-            return "文件不存在";
         }
+            return false;
+
     }
 
     /**
@@ -263,8 +260,9 @@ class File
      * 将整个文件内容读出到一个字符串中
      *
      * @param  string $filename 文件名
-     * @return array
+     * @return string
      */
+
     static public function readsFile($filename)
     {
         if (function_exists('file_get_contents')) {
@@ -420,6 +418,17 @@ class File
         return false;
     }
 
+    /**
+     * 获得文件相关信息
+     * @param $filename 文件路径
+     * @return array|bool
+     * 将会返回包括以下单元的数组 array ：dirname(文件实在目录)、basename(文件名带后缀)、extension（文件后缀
+     * 如果有）、filename(文件名不带后缀)、dev(设备名)、ino(inode 号码)、mode(inode 保护模式)、nlink(被连接数
+     * 目)、uid(所有者的用户 id)、gid(所有者的组 id)、rdev(设备类型，如果是 inode 设备的话)、size(文件大小的
+     * 字节数)、atime(上次访问时间（Unix 时间戳）)、ctime(上次改变时间（Unix 时间戳）)、blksize(文件系统 IO
+     * 的块大小)、blocks(所占据块的数目)。
+     *
+     */
     static public function getFileInfo($filename)
     {
         if (file_exists($filename))
@@ -522,7 +531,7 @@ class File
 
     /**
      * 将字节转换成Kb或者Mb...
-     * 参数 $size为字节大小
+     * @param $size为字节大小
      */
     static public function bitSize($size)
     {

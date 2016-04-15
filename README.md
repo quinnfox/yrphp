@@ -1,16 +1,28 @@
 #目录结构
 www  WEB部署目录（或者子目录）
+
 ├─index.php       入口文件
+
 ├─README.md       README文件
+
 ├─application     应用目录
+
 ├─public          资源文件目录
+
 └─yrPHP           框架目录
+
 │  ├─common      核心公共函数目录
+
 │  ├─config      核心配置目录
+
 │  ├─core        核心类库目录
+
 │  ├─lang        核心语言包目录
+
 │  ├─libs        框架类库目录
+
 │  ├─resource    核心资源文件目录
+
 
 #人口文件
 index.php
@@ -366,11 +378,11 @@ class MyController extends Controller
         parent::__construct();
 
         $this->rule =array(
-		             ['/'.C('left_delimiter').'=dump\(.*\)'.C('right_delimiter').'/']=> '<?php var_dump(\\1);?>',
-					 //更多规则
-					 );
+                     ['/'.C('left_delimiter').'=dump\(.*\)'.C('right_delimiter').'/']=> '<?php var_dump(\\1);?>',
+                     //更多规则
+                     );
     }
-	}
+    }
 ```
 
 
@@ -487,7 +499,7 @@ class UserModel extends Model
     public function userInsert()
     {
       return $this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);
-	   //return int 受影响行数
+       //return int 受影响行数
   }
 }
 
@@ -548,15 +560,15 @@ class UserModel extends Model
        //直接调用父类model，进行操作
         function  model()
         {
-		 $db = Model();
-		 $db->delete(条件，[表名]，[是否自动添加前缀bool]);
+         $db = Model();
+         $db->delete(条件，[表名]，[是否自动添加前缀bool]);
 
         }
        //实例化刚才创建的模型，操作其方法
-		function  userModel()
+        function  userModel()
         {
          $db = Model('UserModel');
-		 $db->userDelete();
+         $db->userDelete();
         }
 ```
 
@@ -571,6 +583,7 @@ $this->update(array 数据，array 条件，[表名]，[是否自动添加前缀
 
 ####数据验证
 >如果 $this->_validate = true 则验证添加或修改的数据
+如果验证有一个不通过则不提交或修改数据
 
 ```php
 <?php
@@ -587,16 +600,18 @@ class UserModel extends Model
         $this->validate=array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
 /*
 *附加规则:
-* require:值域:null 当为空时return false
-* equal:值域:int 当不等于某值时return false
-* notequal:值域:int 当等于某值时return false
-* in:值域:array(1,2,3)|1,2,3 当不存在指定范围时return false
-* notin: 值域:array(1,2,3)|1,2,3  当存在指定范围时return false
-* between: 值域:array(1,30)|1,30 当不存在指定范围时return false
-* notbetween:值域:array(1,30)|1,30 当存在指定范围时return false
-* length:值域:array(10,30)|10,30 当字符长度小于10，大于30时return false || array(30)|30 当字符不等于30时return false
-* unique:值域:string 当该字段在数据库中存在该值域时 return false
-* preg:值域:正则表达式 //当不符合正则表达式时 return false
+* equal:值域:string|null 当值与之相等时，通过验证
+* notequal:值域:string|null 当值与之不相等时 通过验证
+* in:值域:array(1,2,3)|1,2,3 当值存在指定范围时 通过验证
+* notin: 值域:array(1,2,3)|1,2,3  当不存在指定范围时 通过验证
+* between: 值域:array(1,30)|1,30 当存在指定范围时 通过验证
+* notbetween:值域:array(1,30)|1,30 当不存在指定范围时 通过验证
+* length:值域:array(10,30)|10,30 当字符长度大于等于10，小于等于30时 通过验证 || array(30)|30 当字符等于30时 通过验证
+* unique:值域:string 当该字段在数据库中不存在该值时 通过验证
+* email： 值域：string 当值为email格式时 通过验证
+* url： 值域：string 当值为url格式时 通过验证
+* number: 值域：string 当值为数字格式时 通过验证
+* regex:值域:正则表达式 //当符合正则表达式时 通过验证
 */
   }
 
@@ -713,7 +728,7 @@ $this->order('id desc')->get('users');
 ```php
 $this->order('ip')->get('users');
 //生成的SQL语句
-//SELECT  *  FROM  `yrp_users` `GROUP BY `ip`
+//SELECT  *  FROM  `yrp_users` `GROUP BY `ip`
 ```
 
 **HAVING**
@@ -864,6 +879,60 @@ $re = $db->query("select * from yrp_users")->result();
 
 $re = $db->query("update yrp_users name='nathan' where id=500")->rowCount();
 //修改 返回受影响的行数
+```
+
+##事务
+
+####要使用事务来运行你的查询, 你可以使用如下方法:
+1. startTrans(); 开启事务
+2. transComplete(); 自动判断错误 提交或则回滚
+3. commit(); 事务提交
+4. rollback(); 事务回滚
+
+####属性
+**public $transStatus;bool 事务是否发生错误**
+
+```php
+$this->startTrans();
+$this->query('一条SQL查询...');
+$this->query('另一条查询...');
+$re = $this->query('还有一条查询...');
+
+//手动定义错误
+if($re = false){
+$this->transStatus = false;
+//当transStatus 为false时事务失败
+}
+$this->transComplete();
+```
+**或则**
+
+```php
+$this->startTrans();
+$this->query('一条SQL查询...');
+$this->query('另一条查询...');
+$re = $this->query('还有一条查询...');
+
+//手动定义错误
+if($re = false){
+$this->rollback();事务回滚
+}else{
+$this->commit();事务提交
+}
+/*
+if($this->transStatus === false)｛
+$this->rollback();
+｝else{
+$this->commit();
+}
+*/
+```
+
+##错误调试
+```php
+$db = Model();
+$error = $db->error();//返回的是一个数组array
+var_export($error);
 ```
 
 ##数据库缓存
@@ -1081,7 +1150,7 @@ class MyController extends Controller
         parent::__construct();
 
     }
-	}
+    }
 ```
 
 >新建一个控制器，继承我们扩展的控制器类
@@ -1149,10 +1218,260 @@ Test.class.php的文件
         function  index()
         {
          $class = loadClass('libs\MyPage');
-		 $class->index();
+         $class->index();
         }
 ```
 
 ##loadClass($className)以单例模式实例化类
 >请确保类名正确 **区分大小写**
 
+
+
+#系统类库(/yrPHP/libs)
+##加密类     Crypt
+####配置密钥
+>在`APP_PATH`.config/config.php下配置
+
+```PHP
+<?PHP
+    return
+	array('crypt_mode' => 'des3',//现在加密方式只有DES3
+	      'crypt_key' => '123456789',//密钥
+          'crypt_iv' =>  '123456789',//初始向量
+	);
+```
+
+####加密解密
+```PHP
+<?PHP
+  $crypt = loadClass('\libs\Crypt');
+  $crypt->encrypt($str);//加密数据
+  $crypt->decrypt($str);//解密数据
+```
+
+##文件处理类 File
+
+```php
+<?php
+/**
+* 建立文件
+*
+* @param  string $aimUrl 文件地址
+* @param  boolean $overWrite 该参数控制是否覆盖原文件
+* @return  boolean
+*/
+\libs\File::createFile($aimUrl, $overWrite = false);
+
+/**
+ * 递归删除文件夹或文件 
+ * @param  string $aimDir 文件地址
+ * @return  boolean
+ */
+\libs\File::rm($aimDir);
+
+/**
+ * 建立文件夹
+ * @param  string $aimUrl 文件地址
+ * @param  int    $mode 权限
+ * @return  viod
+ */
+\libs\File::mkDir($aimUrl, $mode = 0777);
+
+/**
+ * 移动文件夹或文件
+ * @param  string $oldDir 原地址
+ * @param  string $aimDir 目标地址
+ * @param  boolean $overWrite 该参数控制是否覆盖原文件
+ * @return  boolean
+ */
+\libs\File::mv($oldDir, $aimDir, $overWrite = false)；
+
+/**
+ * 复制文件或则文件夹
+ * @param  string $oldDir
+ * @param  string $aimDir
+ * @param  boolean $overWrite 该参数控制是否覆盖原文件
+ * @return  boolean
+ */
+\libs\File::cp($oldDir, $aimDir, $overWrite = false)；
+
+/**
+ * 修改文件名
+ *$path 需要修改的文件路径
+ *$name 修改后的文件路径及文件名
+ * @return    boolean
+ */
+\libs\File::rename($path, $name)；
+
+/**
+ * 将字符串写入文件
+ * @param  string $filename 文件路径
+ * @param  boolean $str 待写入的字符数据
+ */
+\libs\File::vi($filename, $str);
+
+/**
+ * 将整个文件内容读出到一个字符串中
+ * @param  string $filename 文件路径
+ * @return string
+ */
+\libs\File::readsFile($filename);
+
+/**
+ * 将文件内容读出到一个数组中
+ * @param  string $filename 文件名
+ * @return array
+ */
+\libs\File::readFile2array($filename);
+
+/**
+ * 根据关键词列出目录下所有文件
+ * @param    string $path 路径
+ * @param    string $key 关键词
+ * @param    array $list 增加的文件列表
+ * @return    array    所有满足条件的文件
+ * 返回一个索引为结果集列名的数组
+ */
+\libs\File::dirList($path, $key = '', $list = array())；
+
+/**
+ * 根据关键词列出目录下所有文件
+ *
+ * @param    string $path 路径
+ * @param    string $key 关键词
+ * @param    array $list 增加的文件列表
+ * @return    array    所有满足条件的文件
+ * 返回一个索引为结果集列名和以0开始的列号的数组
+ */
+\libs\File::search($path, $key = '', $list = array())；
+
+/**
+ * 获取文件名后缀
+ * @param    string $filename 文件路径
+ * @return    string
+ */
+\libs\File::fileExt($filename)；
+
+/**
+ * 获得文件相关信息
+ * @param $filename 文件路径
+ * @return array|bool
+ * 将会返回包括以下单元的数组 array ：dirname(文件实在目录)、basename(文件名带后缀)、extension（文件后缀
+ * 如果有）、filename(文件名不带后缀)、dev(设备名)、ino(inode 号码)、mode(inode 保护模式)、nlink(被连接数
+ * 目)、uid(所有者的用户 id)、gid(所有者的组 id)、rdev(设备类型，如果是 inode 设备的话)、size(文件大小的
+ * 字节数)、atime(上次访问时间（Unix 时间戳）)、ctime(上次改变时间（Unix 时间戳）)、blksize(文件系统 IO 
+ * 的块大小)、blocks(所占据块的数目)。
+ */
+\libs\File::getFileInfo($filename);
+
+/**
+ * 统计目录大小
+ * @param    string $dirname 目录
+ * @return    string      比特B
+ */
+\libs\File::getDirSize($dirname)；
+
+/**
+ * 将字节转换成Kb或者Mb...
+ * @param $size为字节大小
+ */
+\libs\File::bitSize($size)；
+
+/**
+ * 返回当前目录层级下所有文件及目录列表
+ * @param    string $dir 路径
+ * @return    array    返回目录列表
+array (
+  1 => 'application',
+  2 => 'public',
+  3 => 'yrPHP',
+)
+
+ */
+\libs\File::dirNodeTree($dir);
+
+/**
+ * 递归循环目录列表，并返回关系层级
+ * @param    string $dir 路径
+ * @param    int $parentid 父id
+ * @param    array $dirs 传入的目录
+ * @return    array    返回目录及子目录列表
+
+ array (
+  1 => 
+  array (
+    'id' => 1,
+    'parentid' => 0,
+    'name' => 'application',
+    'dir' => './application/',
+  ),
+  2 => 
+  array (
+    'id' => 2,
+    'parentid' => 1,
+    'name' => 'common',
+    'dir' => './application/common/',
+  ),
+  ）
+ */
+\libs\File::dirTree($dir, $parentid = 0, $dirs = array())；
+
+```
+
+##文件上传类 Uoload
+>支持多文件上传
+
+####上传配置设置
+|  key | 值选项  | 说明  |
+| ------------ | ------------ | ------------ |
+| maxSize  | int  | 最大的上传文件 KB 默认为0 不限制 　　注意：通常PHP也有这项限制，可以在php.ini文件中指定。通常默认为2MB。|
+| savePath  | `/`  | 上传目录 默认`/`根目录 |
+|  fileName | None  | 自定义上传文件后的名称，不含文件后缀   |
+| allowedTypes  |array()  |  允许上传文件的后缀列表默认空数组为允许所有 |
+|  isRandName | BOOL  |  设置是否随机重命名文件， false不随机 默认 true |
+|  overwrite | BOOL  | 是否覆盖。true则覆盖，false则重命名 　默认false |
+
+------------
+
+
+####init($config)参数初始化
+
+####upload($field)文件上传
+>@param 表单名称 $field，上传文件的表单名称  如果为空则上传 $_FILES数组中所有文件
+
+####getFileInfo($inputName=null);获得上传文件相关属性
+>inputName 表单名 如果为多文件上传 则在表单名后面跟下标
+如果inputName==null 则返回一个以表单名为键的多维数组 return array(inputName1=>array(),inputName2=>array(),...)
+>
+如果inputName表单名不为空 则返回该表单上传的文件信息 如果表单名错误 则 返回false
+>
+如果上传文件有错误 则return array('errorCode'=>错误代码)
+>
+否则 return 包括以下单元的数组 array ：fileName(最终文件名包含后缀)、fileType(文件mime类型)、filePath(包含文件名的完整路径)、origName(上传前的文件名)、fileExt(文件后缀)、 fileSize(文件大小KB)、isImage(是否是图片bool)、imgWidth(图片宽度)、imgHeight(图片高度)
+
+####getError($errorCode = null)
+>$errorCode 根据错误代码获得上传出错信息
+
+```php
+<?php
+ $config = $config = array(
+ 'maxSize'=>100,
+ 'savePath'=>'/ttt',
+ 'isRandName'=>false,
+ 'allowedTypes'=>array('jpg','png')
+ );
+ //参数配置可以在实例化时就传入
+        $up = loadClass('\libs\Upload',$config);
+        $re = $up->upload('file123');
+
+ //参数配置也可以在init方法中传入
+		$up = loadClass('\libs\Upload');
+        $re = $up->init($config)->upload('file123');
+```
+
+##图像处理类 Image
+##验证码类   VerifyCode
+##分页类     Page
+##CURL类     Curl
+##Email 类   PHPMailer
+##验证类     Validate

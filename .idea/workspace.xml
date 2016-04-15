@@ -2,15 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yrPHP/libs/Validate.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Controller.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Controller.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Crypt.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Crypt.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Curl.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Curl.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/File.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/File.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Image.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Image.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controls/Index.class.php" afterPath="$PROJECT_DIR$/application/controls/Index.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Model.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Page.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Page.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Uri.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Uri.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/config.php" afterPath="$PROJECT_DIR$/yrPHP/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/database.php" afterPath="$PROJECT_DIR$/yrPHP/config/database.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/common/functions.php" afterPath="$PROJECT_DIR$/yrPHP/common/functions.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/lang/lang_en.php" afterPath="$PROJECT_DIR$/yrPHP/lang/lang_en.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/route.php" afterPath="$PROJECT_DIR$/yrPHP/config/route.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="F:\wamp\www\yrphp\yrPHP\libs\Verify.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/VerifyCode.class.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,42 +54,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Model.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
+      <file leaf-file-name="Index.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controls/Index.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="33.031746">
-              <caret line="627" column="44" selection-start-line="627" selection-start-column="44" selection-end-line="627" selection-end-column="44" />
+            <state vertical-scroll-proportion="-19.161291">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding>
-                <marker date="1460622560612" expanded="true" signature="6112:6155" placeholder="select count..." />
-                <marker date="1460622560612" expanded="true" signature="11145:11165" placeholder="SELECT ${$fi..." />
-                <marker date="1460622560612" expanded="true" signature="17058:17084" placeholder="DELETE FROM ..." />
-                <marker date="1460622560612" expanded="true" signature="18548:18637" placeholder="INSERT INTO ..." />
-                <marker date="1460622560612" expanded="true" signature="24773:24818" placeholder="select ${{$k..." />
+                <element signature="e#6#89#0#PHP" expanded="true" />
+                <marker date="1460712708835" expanded="true" signature="324:366" placeholder="update ipr_u..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
+      <file leaf-file-name="Upload.class.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4847775">
-              <caret line="478" column="3" selection-start-line="478" selection-start-column="3" selection-end-line="478" selection-end-column="8" />
-              <folding>
-                <marker date="1460628811447" expanded="true" signature="5658:5677" placeholder="..." />
-                <marker date="1460628811447" expanded="true" signature="5731:5748" placeholder="..." />
-                <marker date="1460628811447" expanded="true" signature="5821:5838" placeholder="..." />
-                <marker date="1460628811447" expanded="true" signature="5905:5915" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Controller.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/Controller.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.258064">
-              <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.33333334">
+              <caret line="262" column="39" selection-start-line="262" selection-start-column="39" selection-end-line="262" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -76,40 +80,8 @@
       <file leaf-file-name="File.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/libs/File.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.709677">
-              <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.5161295">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Index.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/controls/Index.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.032258">
-              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-              <folding>
-                <marker date="1460627475578" expanded="true" signature="329:371" placeholder="update ipr_u..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/config/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.967742">
-              <caret line="7" column="32" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="32" />
+            <state vertical-scroll-proportion="-16.32258">
+              <caret line="491" column="38" selection-start-line="491" selection-start-column="27" selection-end-line="491" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -123,13 +95,21 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
-        <option value="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/Controller.class.php" />
         <option value="$PROJECT_DIR$/application/libs/MyPage.class.php" />
-        <option value="$PROJECT_DIR$/application/controls/Index.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
+        <option value="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/Validate.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/Verify.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/Crypt.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/File.class.php" />
+        <option value="$PROJECT_DIR$/application/controls/Index.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" />
       </list>
     </option>
   </component>
@@ -142,10 +122,26 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="166" />
-    <option name="y" value="48" />
+    <option name="x" value="-212" />
+    <option name="y" value="9" />
     <option name="width" value="1655" />
     <option name="height" value="1079" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Blade files</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -242,6 +238,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crypt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -261,24 +279,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yrphp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yrphp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yrPHP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -386,12 +386,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="true" />
   </component>
@@ -414,10 +432,19 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
       <method />
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="" />
@@ -428,17 +455,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="166" y="48" width="1655" height="1079" extended-state="0" />
+    <frame x="-212" y="9" width="1655" height="1079" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14797008" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24387178" sideWeight="0.49565217" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2903834" sideWeight="0.49565217" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1431624" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15461974" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18164676" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934782" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15705128" sideWeight="0.5043478" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -456,7 +484,6 @@
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922733" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922733" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292232" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -468,17 +495,37 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.967742">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="32" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="627" column="44" selection-start-line="627" selection-start-column="44" selection-end-line="627" selection-end-column="44" />
+          <folding>
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="select count..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="SELECT ${$fi..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#101#0#PHP" expanded="true" />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/Controller.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.258064">
+        <state vertical-scroll-proportion="0.0">
           <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
           <folding />
         </state>
@@ -486,7 +533,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/libs/File.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.709677">
+        <state vertical-scroll-proportion="0.0">
           <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
           <folding />
         </state>
@@ -494,7 +541,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.5161295">
+        <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
@@ -502,38 +549,200 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controls/Index.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.032258">
+        <state vertical-scroll-proportion="0.0">
           <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
           <folding>
-            <marker date="1460627475578" expanded="true" signature="329:371" placeholder="update ipr_u..." />
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <marker date="1460712708835" expanded="true" signature="324:366" placeholder="update ipr_u..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/Controller.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/Cache.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.387097">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#91#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/common/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.548387">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/Image.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.67741936">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/Core_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.040983606">
+          <caret line="297" column="9" selection-start-line="297" selection-start-column="9" selection-end-line="297" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.2580647">
+          <caret line="79" column="32" selection-start-line="79" selection-start-column="32" selection-end-line="79" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="33.031746">
-          <caret line="627" column="44" selection-start-line="627" selection-start-column="44" selection-end-line="627" selection-end-column="44" />
+        <state vertical-scroll-proportion="-2.2539682">
+          <caret line="522" column="26" selection-start-line="522" selection-start-column="26" selection-end-line="522" selection-end-column="26" />
           <folding>
-            <marker date="1460622560612" expanded="true" signature="6112:6155" placeholder="select count..." />
-            <marker date="1460622560612" expanded="true" signature="11145:11165" placeholder="SELECT ${$fi..." />
-            <marker date="1460622560612" expanded="true" signature="17058:17084" placeholder="DELETE FROM ..." />
-            <marker date="1460622560612" expanded="true" signature="18548:18637" placeholder="INSERT INTO ..." />
-            <marker date="1460622560612" expanded="true" signature="24773:24818" placeholder="select ${{$k..." />
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="select count..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="SELECT ${$fi..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1460705997297" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.548387">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4847775">
-          <caret line="478" column="3" selection-start-line="478" selection-start-column="3" selection-end-line="478" selection-end-column="8" />
+        <state vertical-scroll-proportion="-9.5161295">
+          <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding>
-            <marker date="1460628811447" expanded="true" signature="5658:5677" placeholder="..." />
-            <marker date="1460628811447" expanded="true" signature="5731:5748" placeholder="..." />
-            <marker date="1460628811447" expanded="true" signature="5821:5838" placeholder="..." />
-            <marker date="1460628811447" expanded="true" signature="5905:5915" placeholder="..." />
+            <element signature="e#6#101#0#PHP" expanded="true" />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1460705997249" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.903225">
+          <caret line="62" column="15" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/VerifyCode.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.16129">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.5161295">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/Validate.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.4920635">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#91#0#PHP" expanded="true" />
+            <marker date="1460706107824" expanded="true" signature="-1:-1" placeholder="select ${{$k..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/Crypt.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.032259">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/MyTpl.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.774194">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.967742">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/File.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.32258">
+          <caret line="491" column="38" selection-start-line="491" selection-start-column="27" selection-end-line="491" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controls/Index.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.161291">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding>
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <marker date="1460712708835" expanded="true" signature="324:366" placeholder="update ipr_u..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="262" column="39" selection-start-line="262" selection-start-column="39" selection-end-line="262" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>

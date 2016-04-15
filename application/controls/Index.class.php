@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by young.
- * User: Nathan
+ * Created by yrPHP.
+ * User: Quinn
  * QQ:284843370
- * Email:nathankvin@163.com
+ * Email:quinnH@163.com
  */
 use core\Controller;
 
@@ -25,11 +25,8 @@ class index extends Controller
 
         //var_dump($re);
 
-
-        $data = I('get.id','111');
-
-
-        echo($data);
+        $re = \libs\File::dirNodeTree('./');
+        var_export($re);
     }
 
     function  index1()

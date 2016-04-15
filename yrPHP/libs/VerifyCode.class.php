@@ -1,13 +1,13 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ: 284843370
- * Email: quinnh@163.com
+ * Email: quinnH@163.com
  */
 namespace libs;
 
-class Verify
+class VerifyCode
 {
 
 //图片对象、宽度、高度、验证码长度

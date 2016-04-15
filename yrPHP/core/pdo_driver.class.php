@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ:284843370
- * Email:nathankwin@163.com
+ * Email:quinnH@163.com
  */
 namespace core;
 

@@ -2,9 +2,14 @@
 namespace libs\crypt;
 class DES3
 {
-    var $key = "AttyRelationsWeAreTopOneOfTheWord";
-    var $iv = "01234567";
- 
+    public $key;
+    public $iv;
+
+    function __construct(){
+    $this->key = C('crypt_key');
+    $this->iv = C('crypt_iv');
+    }
+
     function encrypt($input){
         $size = mcrypt_get_block_size(MCRYPT_3DES,MCRYPT_MODE_CBC);
         $input = $this->pkcs5_pad($input, $size);

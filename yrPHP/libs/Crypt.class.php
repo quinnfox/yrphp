@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Nathan
+ * User: Quinn
  * QQ: 284843370
- * Email: quinnh@163.com
+ * Email: quinnH@163.com
  */
 namespace libs;
 
@@ -12,9 +12,16 @@ class Crypt
 {
     function __construct()
     {
-/*        require 'crypt/DES3.class.php';
-        $this->class = new crypt\DES3();*/
-        $this->class = loadClass('libs\crypt\DES3');
+        $mode = C('crypt_mode');
+        switch ($mode){
+            case "des3":
+            $this->class = loadClass('libs\crypt\DES3');
+                break;
+            default:
+            die('¥ÌŒÛº”√‹∑Ω Ω');
+                break;
+        }
+
 
     }
     function encrypt($input){
