@@ -262,7 +262,7 @@ class Upload
      */
     public function getError($errorCode = null)
     {
-        switch ($errorNum) {
+        switch ($errorCode) {
             case 4:
                 $str = "没有文件被上传";
                 break;

@@ -2,37 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yrPHP/libs/Validate.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Controller.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Controller.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Crypt.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Crypt.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Curl.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Curl.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/crypt/DES3.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/File.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/File.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Image.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Image.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controls/Index.class.php" afterPath="$PROJECT_DIR$/application/controls/Index.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Model.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Page.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Page.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Uri.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Uri.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/config.php" afterPath="$PROJECT_DIR$/yrPHP/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/database.php" afterPath="$PROJECT_DIR$/yrPHP/config/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/common/functions.php" afterPath="$PROJECT_DIR$/yrPHP/common/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/lang/lang_en.php" afterPath="$PROJECT_DIR$/yrPHP/lang/lang_en.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/route.php" afterPath="$PROJECT_DIR$/yrPHP/config/route.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="F:\wamp\www\yrphp\yrPHP\libs\Verify.class.php" afterPath="$PROJECT_DIR$/yrPHP/libs/VerifyCode.class.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,8 +40,8 @@
       <file leaf-file-name="Upload.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
-              <caret line="262" column="39" selection-start-line="262" selection-start-column="39" selection-end-line="262" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.38686132">
+              <caret line="264" column="29" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -122,8 +92,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-212" />
-    <option name="y" value="9" />
+    <option name="x" value="115" />
+    <option name="y" value="27" />
     <option name="width" value="1655" />
     <option name="height" value="1079" />
   </component>
@@ -455,7 +425,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-212" y="9" width="1655" height="1079" extended-state="0" />
+    <frame x="115" y="27" width="1655" height="1079" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14797008" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -740,8 +710,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/libs/Upload.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="262" column="39" selection-start-line="262" selection-start-column="39" selection-end-line="262" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.38686132">
+          <caret line="264" column="29" selection-start-line="264" selection-start-column="29" selection-end-line="264" selection-end-column="29" />
           <folding />
         </state>
       </provider>
