@@ -32,17 +32,7 @@ abstract class Controller extends MyTpl
      * 缓存初始化 判断缓存ID是否合理 避免生成无用静态文件
      */
     private function checkCacheId(){
-        $param = '';
-        $act = C('actName');
-        switch ($act){
-            case "index":
 
-                break;
-            default:
-                $param = '';
-                break;
-        }
-        $this->init($param);
     }
 
     public function __call($method, $args)
