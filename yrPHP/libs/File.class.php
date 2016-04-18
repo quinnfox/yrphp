@@ -179,7 +179,7 @@ class File
             self::unlinkFile($aimUrl);
         }
         $aimDir = dirname($aimUrl);
-        self::createDir($aimDir);
+        self::mkDir($aimDir);
         copy($fileUrl, $aimUrl);
         return true;
     }
@@ -204,7 +204,7 @@ class File
             return false;
         }
         if (!file_exists($aimDir)) {
-            self::createDir($aimDir);
+            self::mkDir($aimDir);
         }
         $dirHandle = opendir($oldDir);
         while (false !== ($file = readdir($dirHandle))) {
@@ -247,10 +247,14 @@ class File
      */
     static public function vi($filename, $str)
     {
-        if (function_exists(file_put_contents)) {
+        $path = pathinfo($filename,PATHINFO_DIRNAME);
+
+        if(!is_dir($path))   self::mkDir($path);
+
+        if (function_exists('file_put_contents')) {
             file_put_contents($filename, $str);
         } else {
-            $fp = fopen($filename, "wb");
+            $fp = fopen($filename, "w+");
             fwrite($fp, $str);
             fclose($fp);
         }

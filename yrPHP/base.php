@@ -87,6 +87,9 @@ if (C('url_model') == 0) { //普通模式 GET
 
 }
 
+
+if(!is_dir(APP_PATH)) \core\Structure::run();
+
 $nowAction = $className . '/' . $action;
 
 $classPath = APP_PATH . 'controls/' . ucfirst($className) . '.class.php';

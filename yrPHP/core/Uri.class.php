@@ -31,6 +31,10 @@ class Uri
         $this->parseUrl();
     }
 
+    /**
+     * 解析URL
+     * @return array|string
+     */
     public function parseUrl()
     {
         if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {
@@ -53,35 +57,6 @@ class Uri
     }
 
 
-    /**
-     * @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'
-     * @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php
-     * @return string
-     */
-    function getUrl($url = '', $indexPage = true)
-    {
-        if (isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST'])) {
-            $base_url = (isHttps() ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']
-                . substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
-        } else {
-            $base_url = 'http://localhost/';
-        }
-
-        if (C('url_model') != 2) {
-
-            if ($indexPage) {
-                $base_url .= 'index.php' . '/';
-            }
-
-
-        }
-        if ($url === ''){
-            $base_url .= $this->path;
-        }else{
-            $base_url .= ltrim($url, '/');
-        }
-        return $base_url;
-    }
 
     /**
      * 返回路由替换过后的uri 数组
@@ -150,6 +125,10 @@ class Uri
         return $this->parseRoutes();
     }
 
+    /**
+     * 在问号 ? 之后的所有字符串
+     * @return mixed
+     */
     public function getQuery()
     {
         return $this->query;

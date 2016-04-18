@@ -12,32 +12,12 @@ class index extends Controller
     function __construct()
     {
         parent::__construct();
-        $this->caching = 0;
+
     }
 
 
     function  index()
     {
-        $db = Model();
-/*        $re = $db->query("update ipr_users set fullname=? where id=?",array(array('1659','1659'),array('1660','1660')));
-        //echo $db->count();
-        var_export($re->rowCount());*/
-
-        //var_dump($re);
-
-        $re = \libs\File::dirNodeTree('./');
-        var_export($re);
+    echo "<h1>欢迎使用yrPHP 有什么建议或则问题 请随时联系我<br/>QQ：284843370<br/>email:quinnH@163.com</h1>";
     }
-
-    function  index1()
-    {
-        $db = Model();
-        /*        $re = $db->query("update ipr_users set fullname=? where id=?",array(array('1659','1659'),array('1660','1660')));
-                //echo $db->count();
-                var_export($re->rowCount());*/
-        $re = $db->get('users')->row();
-
-
-        echo "Hello World";
     }
-}

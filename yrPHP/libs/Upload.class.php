@@ -314,16 +314,6 @@ class Upload
      */
     private function checkMimes($ext = '')
     {
-/*
-        if (!self::$mimes)
-            self::$mimes = require(BASE_PATH . 'config/mimes.php');
-
-        if (isset(self::$mimes[$this->fileExt])) {
-            return is_array(self::$mimes[$this->fileExt])
-                ? in_array($file['type'], self::$mimes[$this->fileExt], true)
-                : (self::$mimes[$this->fileExt] === $file['type']);
-        }
-        */
 
         if (empty($ext)) return false;
         $mimes = array(

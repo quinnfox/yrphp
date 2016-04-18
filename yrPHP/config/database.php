@@ -22,6 +22,7 @@ return array(
         'charset'     => 'utf8',
     ),
     //从服务器可以配置多个,也可以不配置，不做读写分离
+    /*
     'slaveServer'  => array(
         array(
             'dsn'         => '',
@@ -48,6 +49,7 @@ return array(
             'charset'     => 'utf8',
         ),
     ),
+    */
 );
 
 

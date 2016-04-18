@@ -1,6 +1,8 @@
+#简介
+yrPHP运用大量的单例及工厂模式，确保用最少的资源做最多的事，采用了自动加载，基本上无需手动加载类库文件，还集成了缓存技术及页面静态化技术，确保运行速度及响应速度
+
 #目录结构
 www  WEB部署目录（或者子目录）
-
 ├─index.php       入口文件
 
 ├─README.md       README文件
@@ -37,6 +39,35 @@ index.php
 ```
 
 > 注意：APP的定义必须是当前目录下的文件名,不需要标明路径
+>系统会在第一次调用时 自动生成项目目录结构
+
+#应用目录
+
+www  WEB部署目录（或者子目录）
+├─index.php       入口文件
+
+├─application     应用目录
+
+│  ├─controls    默认控制器目录
+
+│  ├─models      默认模型目录
+
+│  ├─models      默认视图目录
+
+│  ├─common      自定义公共函数目录
+
+│  ├─config      自定义配置目录
+
+│  ├─core        自定义核心类库目录
+
+│  ├─lang        自定义语言包目录
+
+│  ├─libs        自定义类库目录
+
+│  ├─runtime    缓存目录
+.
+.
+.
 
 ###系统核心常量
 
@@ -64,6 +95,44 @@ example.com/class/function/ID
 1. 第一段表示调用控制器**类**。
 2. 第二段表示调用类中的**函数**或方法。
 3. 第三及更多的段表示的是传递给控制器的**参数**，如 ID 或其他各种变量。
+
+####获得URL
+>getUrl($url,$indexPage);//如果参数为空 则返回现在所在所在的根目录如`http://example.com/index.php/news/index/id`
+则返回 `http://example.com/`
+否则返回拼接后的URL
+`/**`
+`* @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'`
+`* @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php`
+`* @return string`
+`*/`
+
+##解析URL (\core\Uri类)
+**分析`http://example.com/index.php/news/index/id`**
+
+
+####rsegment($n = null, $no_result = null)
+>返回路由替换过后的uri 数组(也就是实际所访问的地址) 分割一个详细的URI分段。n 为你想要得到的段数
+1. news
+2. index
+3. id
+>
+下标n从1开始 如果为空 则默认返回 $no_result
+
+####segment($n = null, $no_result = null)
+>返回没有经过路由替换的uri 数组(也就是现在所访问的地址) 分割一个详细的URI分段。n 为你想要得到的段数
+1. news
+2. index
+3. id
+>
+下标n从1开始 如果为空 则默认返回 $no_result
+
+####getPath()
+>返回没有经过路由替换的uri 字符串(也就是现在所访问的地址)
+/news/index/id
+
+####getRPath()
+>返回经过路由替换过后的uri 字符串(也就是实际所访问的地址)
+/news/index/id
 
 ##URL模式
 这种URL模式就是系统默认的PATHINFO模式，不同的URL模式获取模块和操作的方法不同，yrphp支持的URL模式有三种：普通模式、PATHINFO模式、REWRITE重写模式 可以通过设置 config/config.php 文件，配置$config[‘url_model’] 参数改变URL模式。
@@ -251,6 +320,34 @@ C(array($key=>$value,$key1=>$value1));
 ```
 
 ###加载视图
+display($fileName, $tplVars = '', $cacheId = '');
+
+>$fileName 提供模板文件的文件名
+ $tpl_var 动态数据
+ $cacheId 缓存ID 当有个文件有多个缓存时，$cacheId不能为空，否则会重复覆盖
+ display方法会自动生成缓存文件 但常常我们的display方法会在最后调用 导致我们display之前的逻辑判断及数据读取做无用功 所以我们可以在 构造函数在调用checkCacheId方法（系统已经自动调用 你无需再次调用 你只要**重写checkCacheId方法**就可），checkCacheId方法如下
+ */
+
+```php
+    /**
+     * 重写这个方法 在构造函数中调用
+     * 缓存初始化 判断缓存ID是否合理 避免生成无用静态文件
+     */
+    private function checkCacheId(){
+        $act = C('actName');
+        switch ($act){
+            case "index":
+                $param =$_GET['id'];
+              //  if($param=='') error404('参数错误');
+
+                break;
+            default:
+                $param = '';
+                break;
+        }
+        $this->init($param);//$param 缓存ID
+    }
+```
 
 ```php
 $this->display('name');
@@ -1235,10 +1332,10 @@ Test.class.php的文件
 ```PHP
 <?PHP
     return
-	array('crypt_mode' => 'des3',//现在加密方式只有DES3
-	      'crypt_key' => '123456789',//密钥
+  array('crypt_mode' => 'des3',//现在加密方式只有DES3
+        'crypt_key' => '123456789',//密钥
           'crypt_iv' =>  '123456789',//初始向量
-	);
+  );
 ```
 
 ####加密解密
@@ -1465,7 +1562,7 @@ array (
         $re = $up->upload('file123');
 
  //参数配置也可以在init方法中传入
-		$up = loadClass('\libs\Upload');
+    $up = loadClass('\libs\Upload');
         $re = $up->init($config)->upload('file123');
 ```
 

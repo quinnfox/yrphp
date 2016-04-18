@@ -92,9 +92,7 @@ function getUrl($url = '', $indexPage = true)
 
 
     }
-    if ($url === '') {
-        $base_url .= ltrim('/', loadClass('core\Uri')->getPath());
-    } else {
+    if (!empty($url)) {
         $base_url .= ltrim($url, '/');
     }
     return $base_url;

@@ -23,8 +23,7 @@ abstract class Controller extends MyTpl
         $this->rightDelimiter = C('right_delimiter'); //模板文件中使用的“右”分隔符号
 
         $this->uri = loadClass('core\Uri');
-
-
+        $this->checkCacheId();
     }
 
 
@@ -33,11 +32,10 @@ abstract class Controller extends MyTpl
      * 缓存初始化 判断缓存ID是否合理 避免生成无用静态文件
      */
     private function checkCacheId(){
+        $param = '';
         $act = C('actName');
         switch ($act){
             case "index":
-                $param =$_GET['id'];
-                if($param=='') error404('参数错误');
 
                 break;
             default:
