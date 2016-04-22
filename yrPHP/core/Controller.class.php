@@ -6,9 +6,9 @@
  * Email:quinnH@163.com
  */
 namespace core;
-requireCache('MyTpl.class.php');
+requireCache('YrTpl.class.php');
 
-abstract class Controller extends MyTpl
+abstract class Controller extends YrTpl
 {
     function __construct()
     {
