@@ -113,20 +113,20 @@ class YrTpl
         $right = preg_quote($this->rightDelimiter, '/');
 
 
-        $this->rule['/' . $left . '\s*=\$(.*)\s*' . $right . '/isU'] = "<?php echo $\\1;?>";//输出变量
-        $this->rule['/' . $left . '\s*=(\s*.*\(.*\)\s*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出函数
-        $this->rule['/' . $left . '\s*foreach\s*(.*)\s*' . $right . '/isU'] = "<?php foreach(\\2){?>";//foreach
-        $this->rule['/' . $left . '\s*loop\s*\$(.*)\s*' . $right . '/isU'] = "<?php foreach(\$\\1 as \$k=>\$v){?>";//loop
-        $this->rule['/' . $left . '\s*while\s*\((.*)\)\s*' . $right . '/isU'] = "<?php while(\\1){?>";//while
-        $this->rule['/' . $left . '\s*for\s*\((.*)\)\s*' . $right . '/isU'] = "<?php for(\\1){ ?>";//for
-        $this->rule['/' . $left . '\s*if\s*\((.*)\)\s*' . $right . '/isU'] = "<?php if(\\1){?>\n";//判断 if
-        $this->rule['/' . $left . '\s*else\s*if\s*\((.*)\)\s*' . $right . '/'] = "<?php }else if(\\1){?>";//判断 ifelse
-        $this->rule['/' . $left . '\s*else\s*' . $right . '/'] = "<?php }else{?>";//判断 else
-        $this->rule['/' . $left . '\s*(\/foreach|\/for|\/while|\/if|\/loop)\s*' . $right . '/isU'] = "<?php } ?>";//end
-        $this->rule['/' . $left . '\s*(include|require)\s+(.*)\s*' . $right . '/isU'] = "<?php \$this->display('\\2');?>";//包含标签
-        $this->rule['/' . $left . '\s*assign\s+(.*)\s*=\s*(.*)' . $right . '/isU'] = "<?php \\1 = \\2;?>";//分配变量
-        $this->rule['/' . $left . '\s*(break|continue)\s*' . $right . '/isU'] = "<?php \\1;?>";//跳出循环
-        $this->rule['/' . $left . '\s*(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $right . '/isU'] = "<?php \\1\\2;?>";//运算
+        $this->rule['/' . $left . '=\$(.*)\s*' . $right . '/isU'] = "<?php echo $\\1;?>";//输出变量
+        $this->rule['/' . $left . '=(\s*.*\(.*\)\s*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出函数
+        $this->rule['/' . $left . 'foreach\s*(.*)\s*' . $right . '/isU'] = "<?php foreach(\\2){?>";//foreach
+        $this->rule['/' . $left . 'loop\s*\$(.*)\s*' . $right . '/isU'] = "<?php foreach(\$\\1 as \$k=>\$v){?>";//loop
+        $this->rule['/' . $left . 'while\s*\((.*)\)\s*' . $right . '/isU'] = "<?php while(\\1){?>";//while
+        $this->rule['/' . $left . 'for\s*\((.*)\)\s*' . $right . '/isU'] = "<?php for(\\1){ ?>";//for
+        $this->rule['/' . $left . 'if\s*\((.*)\)\s*' . $right . '/isU'] = "<?php if(\\1){?>\n";//判断 if
+        $this->rule['/' . $left . 'else\s*if\s*\((.*)\)\s*' . $right . '/'] = "<?php }else if(\\1){?>";//判断 ifelse
+        $this->rule['/' . $left . 'else\s*' . $right . '/'] = "<?php }else{?>";//判断 else
+        $this->rule['/' . $left . '(\/foreach|\/for|\/while|\/if|\/loop)\s*' . $right . '/isU'] = "<?php } ?>";//end
+        $this->rule['/' . $left . '(include|require)\s+(.*)\s*' . $right . '/isU'] = "<?php \$this->display('\\2');?>";//包含标签
+        $this->rule['/' . $left . 'assign\s+(.*)\s*=\s*(.*)' . $right . '/isU'] = "<?php \\1 = \\2;?>";//分配变量
+        $this->rule['/' . $left . '(break|continue)\s*' . $right . '/isU'] = "<?php \\1;?>";//跳出循环
+        $this->rule['/' . $left . '(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $right . '/isU'] = "<?php \\1\\2;?>";//运算
 
 
 
