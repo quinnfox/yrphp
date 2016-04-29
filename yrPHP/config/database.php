@@ -4,6 +4,7 @@
  * User: Quinn
  * QQ:284843370
  * Email:quinnH@163.com
+ * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 
 //数据库配置例子 请将该文件复制到你的项目下的config文件夹下 不允许直接在该文件下配置

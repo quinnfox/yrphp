@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/yrPHP/core/Structure.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yrPHP/lang/lang_en.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yrPHP/libs/Validate.class.php" charset="UTF-8" />
   </component>
 </project>

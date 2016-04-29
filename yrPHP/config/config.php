@@ -4,6 +4,7 @@
  * User: Quinn
  * QQ:284843370
  * Email:quinnH@163.com
+ * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 return array(
     'url_model'          => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：

@@ -1572,3 +1572,4 @@ array (
 ##CURL类     Curl
 ##Email 类   PHPMailer
 ##验证类     Validate
+##购物车类   ShopCart

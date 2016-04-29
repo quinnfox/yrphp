@@ -4,6 +4,7 @@
  * User: Quinn
  * QQ: 284843370
  * Email: quinnH@163.com
+ * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
 
@@ -12,7 +13,7 @@ class Validate
 
 
     /**
-     * µ±Á½¸öÖµÏàµÈÊ± return true
+     * å½“ä¸¤ä¸ªå€¼ç›¸ç­‰æ—¶ return true
      * @param string $data
      * @param string $val
      * @return bool
@@ -27,7 +28,7 @@ class Validate
     }
 
     /**
-     * µ±Á½¸ö²»ÖµÏàµÈÊ± return true
+     * å½“ä¸¤ä¸ªä¸å€¼ç›¸ç­‰æ—¶ return true
      * @param string $data
      * @param string $val
      * @return bool
@@ -42,7 +43,7 @@ class Validate
     }
 
     /**
-     * µ±´æÔÚÖ¸¶¨·¶Î§Ê±return true
+     * å½“å­˜åœ¨æŒ‡å®šèŒƒå›´æ—¶return true
      * @param string $data
      * @param array|string $range
      * @return bool
@@ -52,7 +53,7 @@ class Validate
         if(is_string($range)){
             $range = explode(',', $range);
         }elseif(!is_array($range)){
-         return false;
+            return false;
         }
 
         if (in_array($range,$data)) return true;
@@ -62,7 +63,7 @@ class Validate
 
 
     /**
-     * µ±²»´æÔÚÖ¸¶¨·¶Î§Ê±return true
+     * å½“ä¸å­˜åœ¨æŒ‡å®šèŒƒå›´æ—¶return true
      * @param null $data
      * @param array|string $range
      * @return bool
@@ -82,7 +83,7 @@ class Validate
 
 
     /**
-     * µ±´æÔÚÖ¸¶¨·¶Î§Ê±return true
+     * å½“å­˜åœ¨æŒ‡å®šèŒƒå›´æ—¶return true
      * @param null $data
      * @param array|string $range
      * @return bool
@@ -98,7 +99,7 @@ class Validate
         $max = max($range);
         $min = min($range);
         if ($data >= $min && $data <= $max) {
-        return true;
+            return true;
         }
 
         return false;
@@ -106,7 +107,7 @@ class Validate
 
 
     /**
-     * µ±²»´æÔÚÖ¸¶¨·¶Î§Ê±return true
+     * å½“ä¸å­˜åœ¨æŒ‡å®šèŒƒå›´æ—¶return true
      * @param null $data
      * @param array|string $range
      * @return bool
@@ -129,7 +130,7 @@ class Validate
     }
 
     /**
-     * µ±Êı¾İ¿âÖĞÖµ´æÔÚÊ± return false
+     * å½“æ•°æ®åº“ä¸­å€¼å­˜åœ¨æ—¶ return false
      * @param $tableName
      * @param $field
      * @param $val
@@ -143,7 +144,7 @@ class Validate
         return true;
     }
     /**
-     * µ±×Ö·û³¤¶È´æÔÚÖ¸¶¨·¶Î§Ê±return true
+     * å½“å­—ç¬¦é•¿åº¦å­˜åœ¨æŒ‡å®šèŒƒå›´æ—¶return true
      * @param null $data
      * @param array|string $range
      * @return bool
@@ -162,9 +163,9 @@ class Validate
         $min = min($range);
         $strLen = strlen($data);
         if($max == $min){
-        if($strLen == $max){
-            return true;
-        }
+            if($strLen == $max){
+                return true;
+            }
         }elseif ($strLen >= $min && $strLen <= $max) {
             return true;
         }
@@ -173,8 +174,8 @@ class Validate
     }
 
     /**
-     * Email¸ñÊ½ÑéÖ¤
-     * @param	string	$value	ĞèÒªÑéÖ¤µÄÖµ
+     * Emailæ ¼å¼éªŒè¯
+     * @param	string	$value	éœ€è¦éªŒè¯çš„å€¼
      */
     static function email($value) {
         $rules= "/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/";
@@ -184,8 +185,8 @@ class Validate
         return true;
     }
     /**
-     * URL¸ñÊ½ÑéÖ¤
-     * @param	string	$value	ĞèÒªÑéÖ¤µÄÖµ
+     * URLæ ¼å¼éªŒè¯
+     * @param	string	$value	éœ€è¦éªŒè¯çš„å€¼
      */
     static function url($value) {
 
@@ -195,8 +196,8 @@ class Validate
         return true;
     }
     /**
-     * Êı×Ö¸ñÊ½ÑéÖ¤
-     * @param	string	$value	ĞèÒªÑéÖ¤µÄÖµ
+     * æ•°å­—æ ¼å¼éªŒè¯
+     * @param	string	$value	éœ€è¦éªŒè¯çš„å€¼
      */
     static function number($value) {
 
@@ -207,8 +208,8 @@ class Validate
 
     }
     /**
-     * »õ±Ò¸ñÊ½ÑéÖ¤
-     * @param	string	$value	ĞèÒªÑéÖ¤µÄÖµ
+     * è´§å¸æ ¼å¼éªŒè¯
+     * @param	string	$value	éœ€è¦éªŒè¯çš„å€¼
      */
     static function currency($value) {
 
@@ -220,12 +221,43 @@ class Validate
     }
 
     /**
-     * Ê¹ÓÃ×Ô¶¨ÒåµÄÕıÔò±í´ïÊ½½øĞĞÑéÖ¤
-     * @param	string	$value	ĞèÒªÑéÖ¤µÄÖµ
-     * @param	string	$rules	ÕıÔò±í´ïÊ½
+     * ä½¿ç”¨è‡ªå®šä¹‰çš„æ­£åˆ™è¡¨è¾¾å¼è¿›è¡ŒéªŒè¯
+     * @param	string	$value	éœ€è¦éªŒè¯çš„å€¼
+     * @param	string	$rules	æ­£åˆ™è¡¨è¾¾å¼
      */
     static function regex($value,$rules) {
         if(!preg_match($rules, $value)) return false;
+
+        return true;
+
+    }
+
+
+    /**
+     * åˆ¤æ–­æ˜¯å¦ä¸ºæ‰‹æœºå·ç 
+     * @param	string	$value	æ‰‹æœºå·ç 
+     */
+    static  function phone($value = '') {
+
+        $rules='/^1\d{10}$/';
+        if(!preg_match($rules, $value))  return false;
+
+        return true;
+
+    }
+
+
+    /**
+     * åˆ¤æ–­éªŒè¯ç çš„ç¡®ä¸å¦
+     * @param string $value
+     * @param string $code
+     * @return bool
+     */
+    static  function verifyCode($value = '',$code='verify') {
+
+        if (!session_id()) return false;
+
+        if($_SESSION[$code] != strtolower($value)) return false;
 
         return true;
 

@@ -493,4 +493,41 @@ function error404($msg = '', $url = '', $time = 3)
     die;
 }
 
+/**
+ *例  clientDown('http://img.bizhi.sogou.com/images/2012/02/13/66899.jpg');
+ * @param $url 一个远程文件
+ * @return bool
+ */
+function clientDown($url){
 
+    if(empty($url)) return false;
+
+    $fileName = basename($url);
+    ob_start();
+    ob_clean();
+
+    if(function_exists('curl_init')){
+        $ch=curl_init();
+        $timeout=5;
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+        $content=curl_exec($ch);
+        curl_close($ch);
+    }else{
+        $content = file_get_contents($url);
+    }
+
+    echo $content;
+
+    //file_put_contents($fileName, $content);//保存到服务器
+    header('Content-Description: File Download');
+    header('Content-type: application.octet-stream');
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Content-Length: ' . ob_get_length());
+    header('Content-Disposition: attachment; filename='.$fileName);
+
+}
