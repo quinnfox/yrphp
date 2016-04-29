@@ -426,7 +426,7 @@ $this->display('name',array('name'=>'yrPHP'));
 ####foreach
 ```php
 {assign $config = C()}
-{foreach $config as $k=>$v}
+{foreach ($config as $k=>$v)}
 <tr>
     {if ($k=='openCache')}
     {break}
@@ -1332,10 +1332,10 @@ Test.class.php的文件
 ```PHP
 <?PHP
     return
-  array('crypt_mode' => 'des3',//现在加密方式只有DES3
-        'crypt_key' => '123456789',//密钥
+    array('crypt_mode' => 'des3',//现在加密方式只有DES3
+          'crypt_key' => '123456789',//密钥
           'crypt_iv' =>  '123456789',//初始向量
-  );
+    );
 ```
 
 ####加密解密
@@ -1562,7 +1562,7 @@ array (
         $re = $up->upload('file123');
 
  //参数配置也可以在init方法中传入
-    $up = loadClass('\libs\Upload');
+        $up = loadClass('\libs\Upload');
         $re = $up->init($config)->upload('file123');
 ```
 
