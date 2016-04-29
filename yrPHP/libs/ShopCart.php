@@ -9,18 +9,29 @@
  */
 namespace libs;
 
-class ShopCarts
+<?php
+/**
+ * Created by yrPHP.
+ * User: Quinn
+ * QQ: 284843370
+ * Email: quinnH@163.com
+ * GitHub: https://GitHubhub.com/quinnfox/yrphp
+ *
+ */
+
+class ShopCart
 {
 
-    public $singleCartContents = array();
-    public $multiCartContents = array();
-    public $saveMode = 'session';
+    protected $singleCartContents = array();
+    protected $multiCartContents = array();
+    protected $error = '';
+    public $saveMode = 'cookie';
     public $mallMode = true;//商城模式 true多商家 false单商家
 
     public function __construct($params = array())
     {
         if(isset($params['mallMode'])){
-        $this->mallMode = $params['mallMode'];
+            $this->mallMode = $params['mallMode'];
         }
 
         if(isset($params['mallMode'])){
@@ -43,7 +54,7 @@ class ShopCarts
         if ($this->saveMode == 'session') {
             $data = isset($_SESSION['cartContents']) ? $_SESSION['cartContents'] : array();
         } else {
-            $data = isset($_COOKIE['cartContents']) ? $_COOKIE['cartContents'] : array();
+            $data = isset($_COOKIE['cartContents']) ? json_decode($_COOKIE['cartContents'],true) : array();
         }
 
         if ($this->mallMode) {
@@ -79,9 +90,11 @@ class ShopCarts
 
         }
 
+        if(!isset($rowId)) return false;
         if (in_array(false, $rowId)) {
             return false;
         }
+
 
         if ($this->mallMode) {
             $this->saveCart($this->multiCartContents);
@@ -104,13 +117,13 @@ class ShopCarts
     protected function _insert($item = array())
     {
         if (!is_array($item) OR count($item) === 0) {
-            log_message('error', 'The insert method must be passed an array containing data.');
+            $this->error = '插入的数据必须是数组格式';
             return false;
         }
 
 
         if (!isset($item['id'], $item['qty'], $item['price'], $item['name'])) {
-            log_message('error', 'The cart array must contain a product ID, quantity, price, and name.');
+            $this->error = '数组必须包含 id(产品ID),qty(商品数量),price(商品价格),name(商品名称)';
             return false;
         }
 
@@ -124,6 +137,7 @@ class ShopCarts
         }
         $item['rowId'] = $rowId;
         $item['subtotal'] = $item['qty'] * $item['price'];
+
         if (isset($this->singleCartContents[$rowId])) {
             $this->singleCartContents[$rowId]['qty'] += $item['qty'];
             $this->singleCartContents[$rowId]['subtotal'] += $item['subtotal'];
@@ -131,6 +145,7 @@ class ShopCarts
         } else {
             $this->singleCartContents[$rowId] = $item;
         }
+
 
         if (isset($item['seller']) && $this->mallMode) {
             $this->multiCartContents[$item['seller']][$rowId] = $this->singleCartContents[$rowId];
@@ -152,7 +167,7 @@ class ShopCarts
             $_SESSION['cartContents'] = $cartContent;
         } else {
 
-            setcookie('cartContents', $cartContent, time() + 36000);
+            setcookie('cartContents', json_encode($cartContent), time() + 36000,'/');
 
         }
 
@@ -201,6 +216,7 @@ class ShopCarts
     {
 
         if (!isset($this->singleCartContents[$item['rowId']])) {
+            $this->error = '数组必须包含 rowId(唯一标识符)';
             return false;
         }
 
@@ -273,7 +289,7 @@ class ShopCarts
      * 显示购物车中总共的项目数量
      * @return int
      */
-    public function totalItems()
+    public function total_items()
     {
         return count($this->singleCartContents);
     }
@@ -282,7 +298,7 @@ class ShopCarts
      * 显示购物车中的总计金额
      * @return int
      */
-    public function totalPrice()
+    public function total()
     {
         $total = 0;
         foreach ($this->singleCartContents as $v) {
@@ -314,7 +330,11 @@ class ShopCarts
         if ($this->saveMode == 'session') {
             unset($_SESSION['cartContents']);
         } else {
-            setcookie('cartContents', '', -1);
+            setcookie('cartContents', 'die', time()-3600,'/');
         }
+    }
+
+    public function getError(){
+        return $this->error;
     }
 }
