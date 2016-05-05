@@ -114,8 +114,7 @@ class YrTpl
         $right = preg_quote($this->rightDelimiter, '/');
 
 
-        $this->rule['/' . $left . '=\$(.*)\s*' . $right . '/isU'] = "<?php echo $\\1;?>";//输出变量
-        $this->rule['/' . $left . '=(\s*.*\(.*\)\s*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出函数
+        $this->rule['/' . $left . '=(.*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出变量、常量或函数
         $this->rule['/' . $left . 'foreach\s*\((.*)\)\s*' . $right . '/isU'] = "<?php foreach(\\1){?>";//foreach
         $this->rule['/' . $left . 'loop\s*\$(.*)\s*' . $right . '/isU'] = "<?php foreach(\$\\1 as \$k=>\$v){?>";//loop
         $this->rule['/' . $left . 'while\s*\((.*)\)\s*' . $right . '/isU'] = "<?php while(\\1){?>";//while
