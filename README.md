@@ -135,9 +135,9 @@ example.com/class/function/ID
 /news/index/id
 
 ##URL模式
-这种URL模式就是系统默认的PATHINFO模式，不同的URL模式获取模块和操作的方法不同，yrphp支持的URL模式有三种：普通模式、PATHINFO模式、REWRITE重写模式 可以通过设置 config/config.php 文件，配置$config[‘url_model’] 参数改变URL模式。
+这种URL模式就是系统默认的PATHINFO模式，不同的URL模式获取模块和操作的方法不同，yrphp支持的URL模式有三种：普通模式、PATHINFO模式、REWRITE重写模式 可以通过设置 config/config.php 文件，配置$config[‘urlType’] 参数改变URL模式。
 
-|  URL模式 |  url_model设置 |
+|  URL模式 |  urlType设置 |
 | ------------ | ------------ |
 |0   | 普通模式  |
 |1   | PATHINFO模式  |
@@ -147,8 +147,8 @@ example.com/class/function/ID
 1. 普通模式：example.com?c=class&m=function
 普通模式通过GET获得测试
 ```php
-$config['controller_trigger'] = 'c'; //控制器名
-$config['function_trigger'] = 'm'; //方法名
+$config['ctlTrigger'] = 'c'; //控制器名
+$config['actTrigger'] = 'm'; //方法名
 ```
 2.PATHINFO模式：如上
 3.REWRITE重写模式：
@@ -257,8 +257,8 @@ yrPHP框架中所有配置文件的定义格式均采用返回**PHP数组**的�
 ```php
 //项目配置文件
 return array(
-       'url_model'  => '2', //URL访问模式
-       'default_controller' => 'Index', // 默认控制器名称
+       'urlType'  => '2', //URL访问模式
+       'defaultCtl' => 'Index', // 默认控制器名称
        //更多配置参数
        //...);
 ```

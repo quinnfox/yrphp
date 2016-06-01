@@ -84,7 +84,7 @@ function getUrl($url = '', $indexPage = true)
         $base_url = 'http://localhost/';
     }
 
-    if (C('url_model') != 2) {
+    if (C('urlType') != 2) {
 
         if ($indexPage) {
             $base_url .= 'index.php' . '/';

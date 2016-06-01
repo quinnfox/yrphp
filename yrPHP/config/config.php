@@ -7,12 +7,12 @@
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 return array(
-    'url_model'          => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
+    'urlType'          => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
     // 0 (普通模式); 1 (PATHINFO 模式); 2(REWRITE重写模式) 默认为PATHINFO 模式
-    'controller_trigger' => 'c',
-    'function_trigger'   => 'm',
-    'default_controller' => 'Index', // 默认控制器名称
-    'default_action'     => 'index', // 默认操作名称
+    'ctlTrigger' => 'c',
+    'actTrigger'   => 'm',
+    'defaultCtl' => 'Index', // 默认控制器名称
+    'defaultAct'     => 'index', // 默认操作名称
     'contentType'        => 'text/html', //指定客户端能够接收的内容类型
     'charset'            => 'UTF-8', //采用编码格式
     'timezone'           => 'PRC', //时区

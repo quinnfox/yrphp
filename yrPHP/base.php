@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Nathan
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:nathankwin@163.com
  */
 
 define('STARTTIME', microtime(true));
@@ -14,7 +14,6 @@ define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架�
 define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
 define("APP_PATH", ROOT_PATH . rtrim(APP, '/') . '/'); //用户项目的应用绝对路径
 define("CORE_PATH", BASE_PATH . 'core/'); //框架核心类库
-define("LIBS_PATH", BASE_PATH . 'libs/'); //框架集成常用类库
 require CORE_PATH . "Debug.class.php";
 //包含系统公共函数
 require BASE_PATH . "common/functions.php";
@@ -70,36 +69,80 @@ if (isset($_GET['lang'])) {
     }
 }
 
+if (isset($_GET['country'])) {
+    $_SESSION['country'] = strtoupper($_GET['country']);
+} else {
+    if (!isset($_SESSION['country'])) {
+        $_SESSION['country'] = 'CN';
+    }
+}
 
 $langPath = APP_PATH . 'lang/lang_' . $_SESSION['lang'] . '.php';
 if (file_exists($langPath)) getLang(require $langPath);
 
 $url = loadClass('core\Uri')->rsegment();
 
-if (C('url_model') == 0) { //普通模式 GET
-    $className = empty($_GET[C('controller_trigger')]) ? C('default_controller') : strtolower($_GET[C('controller_trigger')]);
+$ctrBasePath = APP_PATH . 'controls/';
 
-    $action = empty($_GET[C('function_trigger')]) ? C('default_action') : strtolower($_GET[C('function_trigger')]);
+
+if (C('urlType') == 0) { //普通模式 GET
+
+    if (empty($_GET[C('ctlTrigger')])) {
+        $className = C('defaultCtl');
+    } else {
+        $url = ltrim('/', strtolower($_GET[C('ctlTrigger')]));
+
+        foreach ($url as $k => $v) {
+
+            if (is_dir($ctrBasePath . $v)) {
+                $ctrBasePath = $ctrBasePath . $v . '/';
+                $className = empty($url[$k + 1]) ? C('defaultCtl') : strtolower($url[$k + 1]);
+            } else {
+                break;
+            }
+        }
+
+    }
+
+    $action = empty($_GET[C('actTrigger')]) ? C('defaultAct') : strtolower($_GET[C('actTrigger')]);
+
 } else { //(PATHINFO 模式)
-    $className = empty($url[1]) ? C('default_controller') : strtolower($url[1]);
 
-    $action = empty($url[2]) ? C('default_action') : strtolower($url[2]);
+       $className = C('defaultCtl');
+        $action = C('defaultCtl');
+
+    foreach ($url as $k => $v) {
+        $v = strtolower($v);
+
+        if (is_dir($ctrBasePath . $v)) {
+            $ctrBasePath = $ctrBasePath . $v . '/';
+            $className = empty($url[$k + 1]) ? C('defaultCtl') : strtolower($url[$k + 1]);
+            $action = empty($url[$k + 2]) ? C('defaultCtl') : strtolower($url[$k + 2]);
+        } else {
+            break;
+        }
+    }
 
 }
 
 
-if(!is_dir(APP_PATH)) \core\Structure::run();
 
 $nowAction = $className . '/' . $action;
 
-$classPath = APP_PATH . 'controls/' . ucfirst($className) . '.class.php';
+$classPath = $ctrBasePath . ucfirst($className) . '.class.php';
 
 C(array('classPath' => $classPath, 'ctlName' => $className, 'actName' => $action, 'lang' => $_SESSION['lang']));
 
 if (file_exists($classPath)) {
     require $classPath;
-    $class = loadClass($className);
-    $class->$action();
+
+    if (class_exists($className)) {
+
+        $class = loadClass($className);
+
+         $class->$action();
+
+    }
 
 } else {
 
