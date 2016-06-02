@@ -243,7 +243,7 @@ function filter(& $data = null)
  * </code>
  * @param string $name 变量的名称 支持指定类型
  * @param bool|false $default 默认值
- * @param null $filter 参数过滤方法 array|string
+ * @param null $filter 参数过滤方法 默认调用配置里的defaultFilter array或string 用|分割
  * @return array
  */
 function I($name = '', $default = null, $filter = null)
@@ -300,7 +300,7 @@ function I($name = '', $default = null, $filter = null)
         }
     }
 
-    if (isset($filter)) C('defaultFilter', $filter);
+    if (!is_null($filter)) C('defaultFilter', $filter);
 
     array_walk($data, 'filter');//回调过滤数据
 
@@ -494,7 +494,7 @@ function error404($msg = '', $url = '', $time = 3)
 }
 
 /**
- *例  clientDown('http://img.bizhi.sogou.com/images/2012/02/13/66899.jpg');
+ * 例  clientDown('http://img.bizhi.sogou.com/images/2012/02/13/66899.jpg');
  * @param $url 一个远程文件
  * @return bool
  */
