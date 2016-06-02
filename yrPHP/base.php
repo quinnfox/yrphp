@@ -9,24 +9,33 @@
 define('STARTTIME', microtime(true));
 ini_set('memory_limit', -1);
 //set_time_limit(18000) ;
-//PHP程序所有需要的路径，都使用相对路径
+
+//yrPHP框架所有需要的绝对路径
 define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架的路径
 define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
 define("APP_PATH", ROOT_PATH . rtrim(APP, '/') . '/'); //用户项目的应用绝对路径
 define("CORE_PATH", BASE_PATH . 'core/'); //框架核心类库
+
 require CORE_PATH . "Debug.class.php";
 //包含系统公共函数
 require BASE_PATH . "common/functions.php";
+
 //包含自定义公共函数
-if (file_exists(APP_PATH . "common/functions.php")) {
-	require APP_PATH . "common/functions.php";
+$commonPath = \libs\File::search(APP_PATH . 'common', '.php');
+foreach ($commonPath as $v) {
+
+	require $v;
+
 }
 
 //包含系统配置文件
 C(require BASE_PATH . "config/config.php");
+
 //包含自定义配置文件
 $configPath = APP_PATH . "config/config.php";
+
 if (defined('APP_MODE')) {
+
 	$configPath = APP_PATH . "config/config_" . APP_MODE . ".php";
 }
 
@@ -34,8 +43,11 @@ if (file_exists($configPath)) {
 	C(require $configPath);
 }
 
-header("Content-Type:" . C('contentType') . ";charset=" . C('charset')); //设置系统的输出字符为utf-8
-date_default_timezone_set(C('timezone')); //设置时区（默认中国）
+//设置系统的输出字符为utf-8
+header("Content-Type:" . C('contentType') . ";charset=" . C('charset'));
+
+//设置时区（默认中国）
+date_default_timezone_set(C('timezone'));
 
 if ($sessionName = C('session_name')) {
 	session_name($sessionName);
@@ -51,12 +63,17 @@ if ($session_expire = C('session_expire')) {
 }
 ini_set('session.cookie_domain', C('session_domain'));
 
-error_reporting(-1); //报告所有PHP错误
+//报告所有PHP错误
+error_reporting(-1);
+
 if (C('logRecord')) {
-	ini_set('log_errors', 1); //设置是否将脚本运行的错误信息记录到服务器错误日志或者error_log之中
-	ini_set('error_log', C('logFile')); //将错误信息写进日志 APP.'runtime/Logs'.date('Y-m-d').'.txt'
+	//设置是否将脚本运行的错误信息记录到服务器错误日志或者error_log之中
+	ini_set('log_errors', 1);
+	//将错误信息写进日志 APP.'runtime/Logs'.date('Y-m-d').'.txt'
+	ini_set('error_log', C('logFile'));
 }
 
+//是否开启调试模式
 if (!defined('DEBUG')) {
 	define('DEBUG', false);
 }
@@ -69,23 +86,29 @@ if (DEBUG) {
 }
 
 if (isset($_GET['lang'])) {
+
 	$_SESSION['lang'] = strtolower($_GET['lang']);
 } else {
+
 	if (!isset($_SESSION['lang'])) {
 		$_SESSION['lang'] = 'en';
 	}
 }
 
 if (isset($_GET['country'])) {
+
 	$_SESSION['country'] = strtoupper($_GET['country']);
 } else {
+
 	if (!isset($_SESSION['country'])) {
 		$_SESSION['country'] = 'CN';
 	}
 }
 
 $langPath = APP_PATH . 'lang/lang_' . $_SESSION['lang'] . '.php';
+
 if (file_exists($langPath)) {
+
 	getLang(require $langPath);
 }
 
@@ -125,10 +148,13 @@ if (C('urlType') == 0) {
 		$v = strtolower($v);
 
 		if (is_dir($ctrBasePath . $v)) {
+
 			$ctrBasePath = $ctrBasePath . $v . '/';
 			$className = empty($url[$k + 1]) ? C('defaultCtl') : strtolower($url[$k + 1]);
 			$action = empty($url[$k + 2]) ? C('defaultCtl') : strtolower($url[$k + 2]);
+
 		} else {
+
 			$className = empty($url[$k]) ? C('defaultCtl') : strtolower($url[$k]);
 			$action = empty($url[$k + 1]) ? C('defaultCtl') : strtolower($url[$k + 1]);
 			break;
