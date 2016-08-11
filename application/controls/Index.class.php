@@ -16,20 +16,10 @@ class index extends Controller
     }
 
 
-    function  index()
+    function index()
     {
-    echo "<h1>欢迎使用yrPHP 有什么建议或则问题 请随时联系我<br/>QQ：284843370<br/>email:kwinwong@hotmail.com</h1>";
+        echo "<h1>欢迎使用yrPHP 有什么建议或则问题 请随时联系我<br/>QQ：284843370<br/>email:kwinwong@hotmail.com</h1>";
     }
 
 
-    function img(){
-
-
-
-        $config = array('width'=>100,'height'=>40);
-      $thumb = loadClass('\libs\VerifyCode',$config);
-
-        $thumb->show();
-    }
-
-        }
+}
