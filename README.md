@@ -1569,7 +1569,25 @@ array (
 ##图像处理类 Image
 ##验证码类   VerifyCode
 ```
+<?php
 	//同其他类库调用方法一样
+  /*
+  //配置 以下都为默认值
+  $config = array(
+            'width'=>100,//图片宽度
+            'height'=>40，//图片长度
+            'size'=>21,//字体大小
+            'font'=>BASE_PATH .'resource/font/1.ttf',//字体 
+            'len'=>4,//字符串长度，默认4个
+            'type'=>4,//默认是大小写数字混合型，1 2 3 4分别表示 小写、大写、数字型、混合型
+            'backColor'=>'#eeeeee',//背景色，默认是浅灰色
+            'pixelNum'=>666,//干扰点个数
+            'lineNum'=> 10, //干扰线条数
+  );
+
+  */
+
+
   $config = array('width'=>100,'height'=>40);
   $thumb = loadClass('\libs\VerifyCode',$config);
 

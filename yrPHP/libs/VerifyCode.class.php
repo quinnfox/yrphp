@@ -15,14 +15,16 @@ class VerifyCode
 
 //随机字符串、y轴坐标值、随机颜色
     private $img;
-    private $width;//图片宽度
-    private $height;//图片高度
+    private $width = 100;//图片宽度
+    private $height = 40;//图片高度
     private $size = 21;//字体大小
     private $font;//字体
     private $randStr;//随机字符
     private $len = 4;//随机字符串长度
     private $type;//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
     private $backColor = '#eeeeee';     //背景色，默认是浅灰色
+    private $pixelNum = 666; //干扰点个数
+    private $lineNum = 10; //干扰线条数
 
     function __construct($config = array())
     {
@@ -134,7 +136,7 @@ class VerifyCode
 
             $x = ($this->width / $this->len) * $i;
 
-            $y = $this->height - ($fontInfo['height']/2);
+            $y = $this->height - ($fontInfo['height'] / 2);
 
             //var_export($y);die;
             imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $str);
@@ -162,7 +164,9 @@ class VerifyCode
             case 3:
                 $str = $str3;
                 break;
-
+            case 4:
+                $str = $str3;
+                break;
             default:
                 $str = $str1 . $str2 . $str3;
                 break;
@@ -217,7 +221,7 @@ class VerifyCode
      */
     private function interferingPixel()
     {
-        for ($i = 0; $i < 666; $i++) {
+        for ($i = 0; $i < $this->pixelNum; $i++) {
             $color = $this->getRandColor(true);
             imagesetpixel($this->img, rand() % 100, rand() % 100, $color);
         }
@@ -231,7 +235,7 @@ class VerifyCode
      */
     private function interferingLine()
     {
-        for ($j = 0; $j < 10; $j++) {
+        for ($j = 0; $j < $this->lineNum; $j++) {
             $rand_x = rand(2, $this->width);
             $rand_y = rand(2, $this->height);
             $rand_x2 = rand(2, $this->width);
