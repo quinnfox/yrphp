@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace core\cache;
@@ -16,7 +16,7 @@ class Redis implements Cache
     static function getInstance()
     {
         if (!extension_loaded('redis')) {
-            die('Ã»ÓÐ°²×°redisÀ©Õ¹');
+            die('Ã»ï¿½Ð°ï¿½×°redisï¿½ï¿½Õ¹');
         }
         if (is_object(self::$object)) {
             return self::$object;
@@ -31,7 +31,7 @@ class Redis implements Cache
                     self::$object->connect($conf[0], $conf[1]);
                 }
             } else {
-                die('²ÎÊý´íÎó');
+                die('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
             }
             self::$object->select(0);
             return self::$object;
@@ -40,7 +40,7 @@ class Redis implements Cache
     }
 
     /**
-     * Èç¹û²»´æÔÚ»òÔòÒÑ¹ýÆÚÔò·µ»Øtrue
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½true
      */
     public function isExpired($key)
     {
@@ -49,7 +49,7 @@ class Redis implements Cache
 
 
     /**
-     * ÉèÖÃ»º´æ
+     * ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
      * @param $key
      * @param $val
      * @return mixed
@@ -61,7 +61,7 @@ class Redis implements Cache
     }
 
     /**
-     * »ñµÃ»º´æ
+     * ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
      * @param $key
      * @return mixed
      */
@@ -71,7 +71,7 @@ class Redis implements Cache
     }
 
     /**
-     * Çå¿Õ»º´æ
+     * ï¿½ï¿½Õ»ï¿½ï¿½ï¿½
      * @return mixed
      */
     public function clear()
@@ -80,7 +80,7 @@ class Redis implements Cache
     }
 
     /**
-     *¸ù¾ÝkeyÖµÉ¾³ý»º´æ
+     *ï¿½ï¿½ï¿½ï¿½keyÖµÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param string $key
      */
     public function del($key = '')

@@ -2,9 +2,9 @@
 /**
  * 自动生成目录结构
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  *
  */
@@ -22,9 +22,9 @@ class Structure
 /**
  * 自定义函数库
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  */
 
 st;
@@ -33,9 +33,9 @@ st;
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  */
 use core\Controller;
 
@@ -50,7 +50,7 @@ class index extends Controller
 
     function  index()
     {
-    echo "<h1>欢迎使用yrPHP 有什么建议或则问题 请随时联系我<br/>QQ：284843370<br/>email:quinnH@163.com</h1>";
+    echo "<h1>欢迎使用yrPHP 有什么建议或则问题 请随时联系我<br/>QQ：284843370<br/>email:kwinwong@hotmail.com</h1>";
     }
     }
 st;
@@ -75,9 +75,9 @@ st;
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  */
 
 return array(
@@ -103,6 +103,7 @@ st;
             APP_PATH . 'models/index.html'              => $html,
             APP_PATH . 'runtime/index.html'             => $html,
             APP_PATH . 'runtime/cache/index.html'       => $html,
+            APP_PATH . 'runtime/session/index.html'       => $html,
             APP_PATH . 'runtime/compile_tpl/index.html' => $html,
             APP_PATH . 'runtime/data/index.html'        => $html,
             APP_PATH . 'runtime/Logs/index.html'        => $html,

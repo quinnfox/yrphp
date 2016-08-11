@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 return array(
@@ -21,6 +21,7 @@ return array(
     'logRecord'          => true,   // 默认错误记录日志
     'logFile'            => APP_PATH . 'runtime/Logs/' . date('Y-m-d') . '.txt', // 日志记录类型 默认为文件方式
 
+    'ctrBasePath'           => APP_PATH . 'controls/', //设置控制器目录位置
     'modelDir'           => APP_PATH . "models/", //设置模型目录位置
     /*--------------------以下是模版配置---------------------------------------*/
     'setTemplateDir'     => APP_PATH . "views/", //设置模板目录位置
@@ -36,7 +37,7 @@ return array(
 
     /*--------------------以下是数据库配置---------------------------------------*/
     'openCache'          => true, //是否开启缓存
-    'defaultFilter'      => 'htmlspecialchars', // 默认参数过滤方法 用于I函数过滤 多个用|分割stripslashes|htmlspecialchars
+    'defaultFilter'      => 'htmlspecialchars', // 默认参数过滤方法 用于I函数过滤 多个用|分割 如：stripslashes|htmlspecialchars
     'dbCacheTime'        => 0, //数据缓存时间0表示永久
     'dbCacheType'        => 'file', //数据缓存类型 file|memcache|memcached|redis
     //单个item大于1M的数据存memcache和读取速度比file

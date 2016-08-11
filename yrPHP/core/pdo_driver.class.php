@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 namespace core;
@@ -183,6 +183,10 @@ class pdo_driver extends PDO
         return parent::lastInsertId();
     }
 
+    /**
+     * 返回受上一个 SQL 语句影响的行数 
+     * @return bool
+     */
     public function rowCount()
     {
         if (empty($this->PDOStatement)) {

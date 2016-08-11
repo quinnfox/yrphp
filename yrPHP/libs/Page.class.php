@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
@@ -64,7 +64,7 @@ class Page
         /* 计算分页信息 */
         $this->totalPages = ceil($this->totalRows / $this->listRows); //总页数
 
-        $this->nowPage = empty($_GET[$this->p]) ? 1 : intval($_GET[$this->p]);//现在行
+        $this->nowPage = empty($_GET[$this->p]) ? 1 : (int) $_GET[$this->p];//现在行
 
         $this->urlParam = empty($this->urlParam) ? $_GET : $this->urlParam;//参数
 
@@ -106,7 +106,7 @@ class Page
     private function prev()
     {
         if ($this->nowPage > 1)
-            return $this->prevTagOpen . '<a href="' . $this->url . $this->p . '=' . intval($this->nowPage - 1) . '">' . $this->prevLink . '</a>' . $this->prevTagClose;
+            return $this->prevTagOpen . '<a href="' . $this->url . $this->p . '=' . $this->nowPage - 1 . '">' . $this->prevLink . '</a>' . $this->prevTagClose;
     }
 
     /**
@@ -143,7 +143,7 @@ class Page
     private function next()
     {
         if ($this->nowPage != $this->totalPages)
-            return $this->nextTagOpen . '<a href="' . $this->url . $this->p . '=' . intval($this->nowPage + 1) . '">' . $this->nextLink . '</a>' . $this->nextTagClose;
+            return $this->nextTagOpen . '<a href="' . $this->url . $this->p . '=' . $this->nowPage + 1 . '">' . $this->nextLink . '</a>' . $this->nextTagClose;
 
     }
 

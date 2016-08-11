@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  *
  * 系统函数库
  */
@@ -48,6 +48,20 @@ spl_autoload_register(function ($className) {
     core\Debug::addMsg(array('path' => $classPath, 'time' => core\Debug::spent()), 1);
 }
 );
+
+
+/**
+ * 访问控制器的原始资源
+ * 返回当前实例控制器对象
+ *
+ * @return Controller 资源
+ */
+function &get_instance()
+{
+    return core\Controller::get_instance();
+}
+
+
 /**
  * 获取和设置配置参数 支持批量定义
  * @param string|array $name 配置变量
@@ -409,6 +423,18 @@ function isAjaxRequest()
     return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 }
 
+
+/**
+ * 判断是不是 POST 请求
+ *
+ * @return    bool
+ */
+function isPost()
+{
+    return ($_SERVER['REQUEST_METHOD'] == 'POST');
+}
+
+
 /**
  * 判断是否SSL协议
  * @return boolean
@@ -498,23 +524,24 @@ function error404($msg = '', $url = '', $time = 3)
  * @param $url 一个远程文件
  * @return bool
  */
-function clientDown($url){
+function clientDown($url)
+{
 
-    if(empty($url)) return false;
+    if (empty($url)) return false;
 
     $fileName = basename($url);
     ob_start();
     ob_clean();
 
-    if(function_exists('curl_init')){
-        $ch=curl_init();
-        $timeout=5;
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-        $content=curl_exec($ch);
+    if (function_exists('curl_init')) {
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $content = curl_exec($ch);
         curl_close($ch);
-    }else{
+    } else {
         $content = file_get_contents($url);
     }
 
@@ -528,6 +555,88 @@ function clientDown($url){
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Pragma: public');
     header('Content-Length: ' . ob_get_length());
-    header('Content-Disposition: attachment; filename='.$fileName);
+    header('Content-Disposition: attachment; filename=' . $fileName);
 
+}
+
+/**
+ * 获取某个月第一天与最后一天的时间戳
+ * @param  [type] $month [description]
+ * @param  string $year [description]
+ * @return [type]        [description]
+ */
+function getMonthTime($month, $year = '')
+{
+    if (empty($year)) $year = date('Y');
+
+    $date['firstDay'] = strtotime($year . '-' . $month . '-1');
+    $date['firstDayFormat'] = date('Y-m-d', $date['firstDay']);
+    $date['lastDay'] = strtotime($date['firstDayFormat'] . '+1 month') - 1;
+    $date['lastDayFormat'] = date('Y-m-d', $date['lastDay']);
+    return $date;
+}
+
+
+/**
+ * //新浪根据IP获得地址
+ * @param string $ip
+ * @return mixed|string
+ * array ( 'ret' => 1, 'start' => -1, 'end' => -1, 'country' => '中国', 'province' => '浙江', 'city' => '杭州', 'district' => '', 'isp' => '', 'type' => '', 'desc' => '', )
+ */
+function Ip2Area($ip = '')
+{
+    $ch = curl_init();
+    $options[CURLOPT_URL] = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=' . $ip;
+    $options[CURLOPT_RETURNTRANSFER] = true;
+    curl_setopt_array($ch, $options);
+    $re = curl_exec($ch);
+    $area = json_decode($re, true);
+    if (!is_array($area) || $area['ret'] == -1) return '未知地区';
+    return $area;
+    return $area['country'] . '  ' . $area['province'] . '  ' . $area['city'];
+
+}
+
+
+/**
+ * 生成随机字符
+ * @param  string $type w：英文字符 d：数字 wd: dw:数字加英文字符
+ * @param  integer $len [description]
+ * @return [type]        [description]
+ */
+function randStr($type = 'w', $len = 8)
+{
+    $type = strtolower($type);
+
+    switch ($type) {
+        case 'w':
+            $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            break;
+        case 'dw':
+        case 'wd':
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            break;
+        case 'd':
+            $pool = '0123456789';
+            break;
+        default:
+            $pool = mt_rand();
+            break;
+    }
+
+    return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+
+}
+
+
+/**
+ * 页面跳转
+ * @param null $url
+ */
+function gotoUrl($url = null)
+{
+    if (is_null($url)) $url = getUrl();
+    $location = "parent.window.location.href=\"$url\";";
+    echo "<script type='text/javascript'>$location</script>";
+    die;
 }

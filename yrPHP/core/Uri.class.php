@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 
@@ -52,11 +52,10 @@ class Uri
         } elseif (strpos($path, dirname($_SERVER['SCRIPT_NAME'])) === 0) {
             $this->path = (string)substr($this->path, strlen(dirname($_SERVER['SCRIPT_NAME'])));
         }
-
+        
         return array('path' => $this->path, 'query' => $this->query);
 
     }
-
 
 
     /**
@@ -74,6 +73,12 @@ class Uri
 
         return $uri;
     }
+
+    public function rpart($n = null, $no_result = null)
+    {
+        $this->rsegment($n = null, $no_result = null);
+    }
+
 
     /**
      * 路由验证
@@ -106,6 +111,12 @@ class Uri
         if (is_int($n)) return isset($uri[$n]) ? $uri[$n] : $no_result;
 
         return $uri;
+    }
+
+
+    public function part($n = null, $no_result = null)
+    {
+        $this->segment($n = null, $no_result = null);
     }
 
     /**

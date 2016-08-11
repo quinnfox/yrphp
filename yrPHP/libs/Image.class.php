@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
@@ -16,9 +16,10 @@ class Image
     private $img = false;
 
 
-    public function __construct($imgPath)
+    public function __construct($imgPath = null)
     {
-        $this->open($imgPath);
+        if (file_exists($imgPath))
+            $this->open($imgPath);
     }
 
 
@@ -41,10 +42,10 @@ class Image
         $pathInfo = pathinfo($imgPath);//array(dirname,basename,extension,filename)
         //设置图像信息
         $this->info = array_merge($pathInfo, array(
-            'width'  => $info[0],
+            'width' => $info[0],
             'height' => $info[1],
-            'type'   => image_type_to_extension($info[2], false),
-            'mime'   => $info['mime'],
+            'type' => image_type_to_extension($info[2], false),
+            'mime' => $info['mime'],
 
         ));
 
@@ -77,28 +78,34 @@ class Image
     /**
      * 缩略图
      * @param $config
-     * array('width'=>100,'height'=>100,'ratio'=>0.5);
-     * @param int $mode 1等比例 2 按指定长宽缩放
-     * 如果设置了$config['per']则按照$config['ratio']比例缩放 否则按给定宽高除于原图宽高的最小比例缩放
+     * array('width'=>100,'height'=>100,'pre'=>0.5);
+     * 如果设置了$config['per']则按照$config['per']比例缩放 否则按给定宽高 (X除于原图宽高的最小比例缩放)
      */
-    public function thumb($config, $mode = 1)
+    public function thumb($config)
     {
-        $w = empty($config['width']) ? $this->info['width'] : $config['width'];
-        $h = empty($config['width']) ? $this->info['height'] : $config['height'];
-        switch ($mode) {
-            case "1":
+
+        if (isset($config['per'])) {
+
+            $w = $this->info['width'] * $config['per'];
+
+            $h = $this->info['height'] * $config['per'];
+
+        } else {
+
+            $w = empty($config['width']) ? $this->info['width'] : $config['width'];
+
+            $h = empty($config['width']) ? $this->info['height'] : $config['height'];
+        }
+        /*
                 //计算缩放比例
                 $ratio = isset($config['per']) ? $config['per']
                     : min($this->info['width'] / $w, $this->info['height'] / $h);
                 //设置缩略图的坐标及宽度和高度
                 $w = $w * $ratio;
                 $h = $h * $ratio;
-                break;
 
-            default:
+               */
 
-                break;
-        }
 
         $this->cut($this->info['width'], $this->info['height'], 1, $w, $h);
 
@@ -185,7 +192,6 @@ class Image
         return $this;
 
     }
-
 
     /**
      * 为图片添加文字水印
@@ -288,6 +294,8 @@ class Image
         return $this;
     }
 
+
+
     /**
      * 添加水印图片
      * @param  string $water 水印图片路径
@@ -298,8 +306,9 @@ class Image
      *                                7为底端居左，8为底端居中，9为底端居右；
      *                                指定位置 array(100,100) | array('x'=>100,'y'=>100)
      * @param  integer $alpha 水印透明度
+     * @param  integer $waterConf array('width'=>100,'height'=>100) 调整水印大小 默认调用原图
      */
-    public function watermark($water, $position = 0, $alpha = 100)
+    public function watermark($water, $position = 0, $alpha = 100, $waterConf = array())
     {
         //资源检测
         if (empty($this->img)) die('没有可以被添加水印的图像资源');
@@ -311,10 +320,31 @@ class Image
             die('非法水印文件');
         }
         $x = $y = 0;
+
+
         $w = $waterInfo[0];
         $h = $waterInfo[1];
 
         $water = $this->getImg($water, $waterInfo[2]);
+
+        if (!empty($waterConf)) {
+            $waterWidth = empty($waterConf['width']) ? $w : $waterConf['width'];
+            $waterHeight = empty($waterConf['height']) ? $h : $waterConf['height'];
+
+            $dstImg = imagecreatetruecolor($waterWidth, $waterHeight);
+            // 调整默认颜色
+            $color = imagecolorallocatealpha($dstImg, 255, 255, 255, 127);
+            imagefill($dstImg, 0, 0, $color);
+            imagecopyresampled($dstImg, $water, 0, 0, 0, 0, $waterWidth, $waterHeight, $w, $h);
+
+            imagedestroy($water); //销毁原图
+            $water = $dstImg;
+
+            $w = $waterWidth;
+            $h = $waterHeight;
+        }
+
+
         //设定水印图像的混色模式
         imagealphablending($water, true);
 
@@ -383,7 +413,7 @@ class Image
     /**
      * 保存图像
      * @param  string $imgname 图像保存名称
-     * @param  string $type 图像类型
+     * @param  string $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
      * @param  integer $quality 图像质量
      * @param  boolean $interlace 是否对JPEG类型图像设置隔行扫描
      */
@@ -422,9 +452,9 @@ class Image
     }
 
     /**
-     * 下载
-     * @param null $downFileName
-     * @param null $type
+     * 客服端下载
+     * @param null $downFileName 文件名 默认为原文件名
+     * @param null $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
      */
     public function down($downFileName = null, $type = null)
     {
@@ -437,8 +467,8 @@ class Image
     }
 
     /**
-     * 显示
-     * @param null $type
+     * 直接在浏览器显示图片
+     * @param null $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
      * @return bool
      */
     public function show($type = null)
@@ -466,6 +496,10 @@ class Image
 
     }
 
+    /**
+     * 获得图片的基本信息
+     * @return array(dirname,basename,extension,filename,width,height,type,mime)
+     */
     public function getInfo()
     {
         return $this->info;

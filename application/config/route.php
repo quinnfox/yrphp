@@ -1,11 +1,11 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  */
 /**
- * Â·ÓÉ¹æÔò ¾ÍÊÇÕýÔòÆ¥Åä
+ * Â·ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
  */
-//$route['abc/test1/(.*)'] = 'users/test/:1';//·ÃÎÊabc/test1/123 ÔòÊµ¼Ê·ÃÎÊµÄÊÇusers/test/123
+//$route['abc/test1/(.*)'] = 'users/test/:1';//ï¿½ï¿½ï¿½ï¿½abc/test1/123 ï¿½ï¿½Êµï¿½Ê·ï¿½ï¿½Êµï¿½ï¿½ï¿½users/test/123

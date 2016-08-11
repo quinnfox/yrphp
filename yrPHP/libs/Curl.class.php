@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ:284843370
- * Email:quinnH@163.com
+ * Email:kwinwong@hotmail.com
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
@@ -18,6 +18,7 @@ class Curl
     }
 
     /**
+     * 设置需要获取的URL地址
      * [setUrl description]
      * @param string $url [description]
      */
@@ -40,11 +41,11 @@ class Curl
         return $this;
     }
 
+
     /**
-     * 是否验证证书
-     * @param  boolean $verify 是否验证证书
-     * @param  string $path 验证证书时，证书路径
-     * @return [type]          [description]
+     * @param bool $verify 是否验证证书 默认false不验证
+     * @param string $path 验证证书时，证书路径
+     * @return $this
      */
     function sslVerify($verify = false, $path = '')
     {
@@ -60,10 +61,14 @@ class Curl
     }
 
     /**
-     * @param string $userPassword 格式为："[username]:[password]"
+     * 传递一个连接中需要的用户名和密码
+     * @param array|string $userPassword 格式为：array('userName','password') 或则, "username:password"
      */
     function setUserPassword($userPassword = '')
     {
+        if (is_array($userPassword)) {
+            $userPassword = implode(':',$userPassword);
+        }
         $this->options[CURLOPT_USERPWD] = $userPassword; //传递一个连接中需要的用户名和密码
         return $this;
     }
@@ -74,13 +79,15 @@ class Curl
     function setHeader($header = array())
     {
         $this->options[CURLOPT_HTTPHEADER] = $header; //一个用来设置HTTP头字段的数组
+        $this->options[CURLOPT_HEADER] = 1;//启用时会将头文件的信息作为数据流输出。
         return $this;
     }
 
 
     /**
+     * 启用时会发送一个常规的POST请求，默认类型为：application/x-www-form-urlencoded，就像表单提交的一样
      * @param array|string $data
-     * @param string $enctype application|multipart
+     * @param string $enctype application|multipart  默认为application，文件上传请用multipart
      */
     function post($data = array(), $enctype = 'application')
     {
@@ -96,6 +103,7 @@ class Curl
 
 
     /**
+     * 启用时会发送一个常规的GET请求
      * @param array|string $data array('user'=>'admin','pass'=>'admin') | admin&admin
      * @return $this
      */
@@ -133,11 +141,16 @@ class Curl
         $cookieString = '';
         if (is_array($cookies)) {
             foreach ($cookies as $name => $value) {
-                $cookieString .= $name . '=' . $value . ';';
+                $value = trim($value);
+                $cookieString .= $name . '=' . $value . '; ';
             }
+
         } else {
             $cookieString = $cookies;
         }
+
+        $cookieString = trim($cookieString);
+
         $this->options[CURLOPT_COOKIE] = $cookieString;//cookie字符串
         return $this;
     }
@@ -153,6 +166,11 @@ class Curl
     }
 
 
+    /**
+     * 执行一个cURL会话 返回执行的结果
+     * @param bool $debug 是否开启调试模式 如果为true将打印调试信息
+     * @return mixed
+     */
     function exec($debug = false)
     {
         $this->options[CURLOPT_RETURNTRANSFER] = true; //将 curl_exec() 获取的信息以文件流的形式返回，而不是直接输出。

@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
@@ -19,7 +19,7 @@ class Crypt
             $this->class = loadClass('libs\crypt\DES3');
                 break;
             default:
-            die('´íÎó¼ÓÃÜ·½Ê½');
+            die('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü·ï¿½Ê½');
                 break;
         }
 

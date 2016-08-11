@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by yrPHP.
- * User: Quinn
+ * User: Kwin
  * QQ: 284843370
- * Email: quinnH@163.com
+ * Email: kwinwong@hotmail.com
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  */
 namespace libs;
@@ -17,12 +17,12 @@ class VerifyCode
     private $img;
     private $width;//图片宽度
     private $height;//图片高度
-    private $size = 25;//字体大小
-    private $font ;//字体
+    private $size = 21;//字体大小
+    private $font;//字体
     private $randStr;//随机字符
     private $len = 4;//随机字符串长度
     private $type;//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
-    private $backColor = '#B0B0B0';     //背景色，默认是浅灰色
+    private $backColor = '#eeeeee';     //背景色，默认是浅灰色
 
     function __construct($config = array())
     {
@@ -31,12 +31,12 @@ class VerifyCode
         $this->init($config);
     }
 
-    function  init($config = array())
+    function init($config = array())
     {
         foreach ($config as $k => $v) {
             $this->$k = $v;
         }
-        $this->font =  empty($this->font)?BASE_PATH.'resource/font/1.ttf':$this->font;
+        $this->font = empty($this->font) ? BASE_PATH . 'resource/font/1.ttf' : $this->font;
         return $this;
     }
 
@@ -51,11 +51,11 @@ class VerifyCode
         $img = imageJPEG($this->img);
     }
 
-    private function setText()
+        private function setText_bak()
     {
         $this->getStr();
         //获取文字信息
-        $angle = mt_rand(-10,10);
+        $angle = 0;
         $rect = imagettfbbox($this->size, $angle, $this->font, $this->randStr);
 
 
@@ -65,11 +65,11 @@ class VerifyCode
         $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
 
         $fontInfo = array(
-            "left"   => abs($minX) - 1,
-            "top"    => abs($minY) - 1,
-            "width"  => $maxX - $minX,
+            "left" => abs($minX) - 1,
+            "top" => abs($minY) - 1,
+            "width" => $maxX - $minX,
             "height" => $maxY - $minY,
-            "box"    => $rect
+            "box" => $rect
         );
 
         $x = $minX;
@@ -80,8 +80,8 @@ class VerifyCode
         $y += $this->height / 2;
         $x += $this->width - $w;
 
-        if($this->width < $fontInfo['width'] + $fontInfo['left']) $this->width = $fontInfo['width'] + $fontInfo['left'];
-        if($this->height < $fontInfo['height']) $this->height = $fontInfo['height'];
+        if ($this->width < $fontInfo['width'] + $fontInfo['left']) $this->width = $fontInfo['width'] + $fontInfo['left'];
+        if ($this->height < $fontInfo['height']) $this->height = $fontInfo['height'];
 
         $this->setBackColor();
 
@@ -90,7 +90,46 @@ class VerifyCode
 
 
         $color = $this->getRandColor();
-        imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $this->randStr);
+        // imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $this->randStr);
+
+        return $this;
+    }
+    private function setText()
+    {
+        $this->getStr();
+                $this->setBackColor();
+        //获取文字信息
+        $angle = 0;
+
+
+        $x = $y = 0;
+        for ($i = 0; $i < $this->len; $i++) {
+            $color = $this->getRandColor();
+
+            $str = substr($this->randStr, $i, 1);
+                 $rect = imagettfbbox($this->size, $angle, $this->font, $str);
+
+
+        $minX = min(array($rect[0], $rect[2], $rect[4], $rect[6]));
+        $maxX = max(array($rect[0], $rect[2], $rect[4], $rect[6]));
+        $minY = min(array($rect[1], $rect[3], $rect[5], $rect[7]));
+        $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
+
+        $fontInfo = array(
+            "left" => abs($minX) - 1,
+            "top" => abs($minY) - 1,
+            "width" => $maxX - $minX,
+            "height" => $maxY - $minY,
+            "box" => $rect
+        );
+
+
+
+        $x += $fontInfo['width'];
+        $y = $this->height -  $fontInfo['height'];
+            imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font,$str );
+        }
+        // imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $this->randStr);
 
         return $this;
     }

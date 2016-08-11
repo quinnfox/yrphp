@@ -37,28 +37,28 @@ namespace libs;
 try {
 $mail = new PHPMailer(true);
 $mail->IsSMTP();
-$mail->CharSet='UTF-8'; //ÉèÖÃÓÊ¼þµÄ×Ö·û±àÂë£¬ÕâºÜÖØÒª£¬²»È»ÖÐÎÄÂÒÂë
-$mail->SMTPAuth   = true;                  //¿ªÆôÈÏÖ¤
+$mail->CharSet='UTF-8'; //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+$mail->SMTPAuth   = true;                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
 $mail->Port       = 25;
 $mail->Host       = "smtp.163.com";
-$mail->Username   = "quinnfox@163.com";
+$mail->Username   = "quinnfox@163.com";// SMTP username  æ³¨æ„ï¼šæ™®é€šé‚®ä»¶è®¤è¯ä¸éœ€è¦åŠ  @åŸŸ
 $mail->Password   = "***********";
-//$mail->IsSendmail(); //Èç¹ûÃ»ÓÐsendmail×é¼þ¾Í×¢ÊÍµô£¬·ñÔò³öÏÖ¡°Could  not execute: /var/qmail/bin/sendmail ¡±µÄ´íÎóÌáÊ¾
-$mail->AddReplyTo("284843370@qq.com","mckee");//»Ø¸´µØÖ·
+//$mail->IsSendmail(); //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½sendmailï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½Could  not execute: /var/qmail/bin/sendmail ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+$mail->AddReplyTo("284843370@qq.com","mckee");//ï¿½Ø¸ï¿½ï¿½ï¿½Ö·
 $mail->From       = "quinnfox@163.com";
 $mail->FromName   = "www.phpddt.com";
 $to = "284843370@qq.com";
 $mail->AddAddress($to);
-$mail->Subject  = "phpmailer²âÊÔ±êÌâ";
-$mail->Body = "<h1>phpmailÑÝÊ¾</h1>ÕâÊÇphpµãµãÍ¨£¨<font color=red>www.phpddt.com</font>£©¶ÔphpmailerµÄ²âÊÔÄÚÈÝ";
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; //µ±ÓÊ¼þ²»Ö§³ÖhtmlÊ±±¸ÓÃÏÔÊ¾£¬¿ÉÒÔÊ¡ÂÔ
-$mail->WordWrap   = 80; // ÉèÖÃÃ¿ÐÐ×Ö·û´®µÄ³¤¶È
-//$mail->AddAttachment("f:/test.png");  //¿ÉÒÔÌí¼Ó¸½¼þ
+$mail->Subject  = "phpmailerï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½";
+$mail->Body = "<h1>phpmailï¿½ï¿½Ê¾</h1>ï¿½ï¿½ï¿½ï¿½phpï¿½ï¿½ï¿½Í¨ï¿½ï¿½<font color=red>www.phpddt.com</font>ï¿½ï¿½ï¿½ï¿½phpmailerï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; //ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ö§ï¿½ï¿½htmlÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½
+$mail->WordWrap   = 80; // ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
+//$mail->AddAttachment("f:/test.png");  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½
 $mail->IsHTML(true);
 $mail->Send();
-echo 'ÓÊ¼þÒÑ·¢ËÍ';
+echo 'ï¿½Ê¼ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½';
 } catch (phpmailerException $e) {
-echo "ÓÊ¼þ·¢ËÍÊ§°Ü£º".$e->errorMessage();
+echo "ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½".$e->errorMessage();
 }
  *
  */
