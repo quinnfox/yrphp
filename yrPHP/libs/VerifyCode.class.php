@@ -51,7 +51,7 @@ class VerifyCode
         $img = imageJPEG($this->img);
     }
 
-        private function setText_bak()
+    private function setText_bak()
     {
         $this->getStr();
         //获取文字信息
@@ -94,10 +94,11 @@ class VerifyCode
 
         return $this;
     }
+
     private function setText()
     {
         $this->getStr();
-                $this->setBackColor();
+        $this->setBackColor();
         //获取文字信息
         $angle = 0;
 
@@ -107,29 +108,38 @@ class VerifyCode
             $color = $this->getRandColor();
 
             $str = substr($this->randStr, $i, 1);
-                 $rect = imagettfbbox($this->size, $angle, $this->font, $str);
+            $rect = imagettfbbox($this->size, $angle, $this->font, $str);
 
 
-        $minX = min(array($rect[0], $rect[2], $rect[4], $rect[6]));
-        $maxX = max(array($rect[0], $rect[2], $rect[4], $rect[6]));
-        $minY = min(array($rect[1], $rect[3], $rect[5], $rect[7]));
-        $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
+            $minX = min(array($rect[0], $rect[2], $rect[4], $rect[6]));
+            $maxX = max(array($rect[0], $rect[2], $rect[4], $rect[6]));
+            $minY = min(array($rect[1], $rect[3], $rect[5], $rect[7]));
+            $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
 
-        $fontInfo = array(
-            "left" => abs($minX) - 1,
-            "top" => abs($minY) - 1,
-            "width" => $maxX - $minX,
-            "height" => $maxY - $minY,
-            "box" => $rect
-        );
+            //字体位置
+            $fontInfo = array(
+                "left" => abs($minX) - 1,
+                "top" => abs($minY) - 1,
+                "width" => $maxX - $minX,
+                "height" => $maxY - $minY,
+                "box" => $rect
+            );
 
 
+//            if ($i == 0) {
+//                $x += $fontInfo['left'];
+//            } else {
+//                $x += $fontInfo['width'];
+//            }
 
-        $x += $fontInfo['width'];
-        $y = $this->height -  $fontInfo['height'];
-            imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font,$str );
+            $x = ($this->width / $this->len) * $i;
+
+            $y = $this->height - ($fontInfo['height']/2);
+
+            //var_export($y);die;
+            imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $str);
         }
-        // imagettftext($this->img, $this->size, $angle, $x, $y, $color, $this->font, $this->randStr);
+
 
         return $this;
     }
@@ -139,9 +149,9 @@ class VerifyCode
      */
     private function getStr()
     {
-        $str1 = 'abcdefghijklmnopqrstuvwxyz';
-        $str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $str3 = '0123456789';
+        $str1 = 'abcdefghijkmnpqrstuvwxyz';
+        $str2 = 'ABCDEFGHIJKLMNPQRSTUVWXYZ';
+        $str3 = '123456789';
         switch ($this->type) {
             case 1:
                 $str = $str1;
@@ -197,7 +207,7 @@ class VerifyCode
      */
     private function getRandColor($alpha = false)
     {
-        $alpha = $alpha === false ? 0 : (is_int($alpha) ? $alpha : rand(0, 30));
+        $alpha = $alpha === false ? 0 : (is_int($alpha) ? $alpha : rand(0, 60));
         return imagecolorallocatealpha($this->img, rand(0, 100), rand(0, 150), rand(0, 200), $alpha);
     }
 
@@ -207,8 +217,8 @@ class VerifyCode
      */
     private function interferingPixel()
     {
-        for ($i = 0; $i < 100; $i++) {
-            $color = $this->getRandColor();
+        for ($i = 0; $i < 666; $i++) {
+            $color = $this->getRandColor(true);
             imagesetpixel($this->img, rand() % 100, rand() % 100, $color);
         }
 
@@ -226,7 +236,7 @@ class VerifyCode
             $rand_y = rand(2, $this->height);
             $rand_x2 = rand(2, $this->width);
             $rand_y2 = rand(2, $this->height);
-            $color = $this->getRandColor();
+            $color = $this->getRandColor(true);
             imageline($this->img, $rand_x, $rand_y, $rand_x2, $rand_y2, $color);
         }
 

@@ -1568,6 +1568,14 @@ array (
 
 ##图像处理类 Image
 ##验证码类   VerifyCode
+```
+	//同其他类库调用方法一样
+  $config = array('width'=>100,'height'=>40);
+  $thumb = loadClass('\libs\VerifyCode',$config);
+
+  $thumb->show();
+```
+
 ##分页类     Page
 ##CURL类     Curl
 ##Email 类   PHPMailer
