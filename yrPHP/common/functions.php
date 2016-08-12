@@ -382,7 +382,11 @@ function cookie($key = '', $val = '')
      * setcookie("user", "", time()-3600);
      */
     if (is_null($key)) {
-        //unset($_COOKIE);
+        
+        foreach ($_COOKIE as $key => $value) {
+        	 setcookie($cookie_prefix . $key, "", time() - 3600);
+        }
+        
         return true;
     }
 
