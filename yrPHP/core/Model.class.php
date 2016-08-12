@@ -939,19 +939,162 @@ class Model
         $this->error = array();
     }
 
-    /**
-     * @param $table
-     * @param $field
-     * @return Model
-     */
-    function add_field($tableName, $field,$auto = true)
-    {
-        if (!empty($tableName)) {
-            $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
-        }
 
-        $sql = "alter table " . $this->tableName  . " add " . $field . " CHARACTER SET utf8 COLLATE utf8_general_ci NULL";
+    /*--------------------------数据库操作功能---------------------------------*/
+    /*
+   * 创建数据库，并且主键是id
+   * table 要查询的表名
+   */
+    function createTable($table, $key = 'id')
+    {
+        $table = $this->tablePrefix . $table;
+        //    $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL  AUTO_INCREMENT primary key)ENGINE = MyISAM;";
+        $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL  primary key)ENGINE = MyISAM;";
+        $this->query($sql);
+
+    }
+
+
+    /**
+     * 删除表
+     * @param $table
+     * @return mixed
+     */
+
+    function DropTable($table)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = " DROP TABLE IF EXISTS `$table`";
         return $this->query($sql);
+    }
+
+
+    /*
+    * 检测表是否存在，也可以获取表中所有字段的信息
+    * table 要查询的表名
+    * return 表里所有字段的信息
+    */
+    function checkTable($table)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = "desc `$table`";
+        $info = $this->query($sql);
+        return $info;
+    }
+
+    /*
+     * 检测字段是否存在，也可以获取字段信息(只能是一个字段)
+     * table 表名
+     * field 字段名
+     */
+    function checkField($table, $field)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = "desc `$table` $field";
+        $info = $this->query($sql);
+        return $info;
+    }
+
+    /*
+     * 添加字段
+     * table 表名
+     * info  字段信息数组 array
+     * return 字段信息 array
+     */
+    function addField($table, $info)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = "alter table `$table` add ";
+        $sql .= $this->filterFieldInfo($info);
+        return $this->query($sql);
+    }
+
+    /*
+     * 修改字段
+     * 不能修改字段名称，只能修改
+     */
+    function editField($table, $info)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = "alter table `$table` modify ";
+        $sql .= $this->filterFieldInfo($info);
+        $this->query($sql);
+        $this->checkField($table, $info['name']);
+    }
+
+    /*
+     * 字段信息数组处理，供添加更新字段时候使用
+     * info[name]   字段名称
+     * info[type]   字段类型
+     * info[length]  字段长度
+     * info[isNull]  是否为空
+     * info['default']   字段默认值
+     * info['comment']   字段备注
+     */
+    private function filterFieldInfo($info)
+    {
+        if (!is_array($info))
+            return
+                $newInfo = array();
+        $newInfo['name'] = $info['name'];
+        $newInfo['type'] = $info['type'];
+        switch ($info['type']) {
+            case 'varchar':
+            case 'char':
+                $newInfo['length'] = empty($info['length']) ? 100 : $info['length'];
+                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
+                $newInfo['default'] = empty($info['default']) ? '' : 'DEFAULT ' . $info['default'];
+                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
+                break;
+            case 'int':
+                $newInfo['length'] = empty($info['length']) ? 7 : $info['length'];
+                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
+                $newInfo['default'] = empty($info['default']) ? '' : 'DEFAULT ' . $info['default'];
+                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
+                break;
+            case 'text':
+                $newInfo['length'] = '';
+                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
+                $newInfo['default'] = '';
+                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
+                break;
+        }
+        $sql = $newInfo['name'] . ' ' . $newInfo['type'];
+        $sql .= (!empty($newInfo['length'])) ? ($newInfo['length']) . " " : ' ';
+        $sql .= $newInfo['isNull'] . '';
+        $sql .= $newInfo['default'];
+        $sql .= $newInfo['comment'];
+        return $sql;
+    }
+
+    /*
+     * 删除字段
+     * 如果返回了字段信息则说明删除失败，返回false，则为删除成功
+     */
+    function dropField($table, $field)
+    {
+        $table = $this->tablePrefix . $table;
+        $sql = "alter table `$table` drop column $field";
+        $this->query($sql);
+        $this->checkField($table, $field);
+    }
+
+    /*
+     * 获取指定表中指定字段的信息(多字段)
+     */
+    function getFieldInfo($table, $field)
+    {
+        $table = $this->tablePrefix . $table;
+        $info = array();
+        if (is_string($field)) {
+            $this->checkField($table, $field);
+        } else {
+            foreach ($field as $v) {
+                $table = $this->tablePrefix . $table;
+                $info[$v] = $this->checkField($table, $v);
+            }
+        }
+        return $info;
     }
 
 
