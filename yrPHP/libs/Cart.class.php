@@ -8,6 +8,7 @@
  * GitHub: https://GitHubhub.com/quinnfox/yrphp
  *
  */
+namespace libs;
 class Cart
 {
 
@@ -65,16 +66,22 @@ class Cart
      */
     public function contents()
     {
+    	
+   
         $data = '';
         if ($this->saveMode == 'session' && isset($_SESSION[$this->key])) {
+        	
+        	
             $data = $_SESSION[$this->key];
         } else if (isset($_COOKIE[$this->key])) {
             $data = json_decode($_COOKIE[$this->key], true);
         }
         $data = empty($data) ? array() : $data;
 
+      
         if ($this->mallMode) {
             foreach ($data as $v) {
+     
                 foreach ($v as $kk => $vv) {
                     $this->singleCartContents[$kk] = $vv;
                 }
@@ -91,12 +98,14 @@ class Cart
     /**
      * 添加单条或多条购物车项目
      * @param array $items
+     * @param bool $accumulation 是否累加
      * @return bool|string
      */
-    public function insert($items = array())
+    public function insert($items = array(), $accumulation = true)
     {
+
         if (isset($items['id'])) {
-            $rowId[] = $this->_insert($items);
+            $rowId[] = $this->_insert($items,$accumulation);
         } elseif (is_array(reset($items))) {
 
             foreach ($items as $v) {
@@ -127,10 +136,12 @@ class Cart
     /**
      * 添加单条购物车项目
      * @param array $items
+     * @param bool $accumulation 是否累加
      * @return bool|string
      */
-    protected function _insert($item = array())
+    protected function _insert($item = array(), $accumulation = false)
     {
+
         if (!is_array($item) OR count($item) === 0) {
             $this->error = '插入的数据必须是数组格式';
             return false;
@@ -158,8 +169,13 @@ class Cart
         if (isset($this->singleCartContents[$rowId])) {
             $this->singleCartContents[$rowId] = array_merge($this->singleCartContents[$rowId], $item);
 
-            $this->singleCartContents[$rowId]['qty'] += $item['qty'];
-            $this->singleCartContents[$rowId]['subtotal'] += $item['subtotal'];
+            if ($accumulation) {
+                $this->singleCartContents[$rowId]['qty'] += $item['qty'];
+                $this->singleCartContents[$rowId]['subtotal'] += $item['subtotal'];
+            } else {
+                $this->singleCartContents[$rowId]['qty'] = $item['qty'];
+                $this->singleCartContents[$rowId]['subtotal'] = $item['subtotal'];
+            }
 
         } else {
             $this->singleCartContents[$rowId] = $item;
@@ -245,7 +261,7 @@ class Cart
 
 
         if (isset($item['qty'])) {
-            $item['qty'] = (int)$item['qty'];
+            $item['qty'] = intval($item['qty']);
             if ($item['qty'] <= 0) {
                 $this->remove($item['rowId']);
                 return true;

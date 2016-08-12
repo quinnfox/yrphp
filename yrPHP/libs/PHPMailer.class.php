@@ -37,28 +37,28 @@ namespace libs;
 try {
 $mail = new PHPMailer(true);
 $mail->IsSMTP();
-$mail->CharSet='UTF-8'; //�����ʼ����ַ����룬�����Ҫ����Ȼ��������
-$mail->SMTPAuth   = true;                  //������֤
-$mail->Port       = 25;
-$mail->Host       = "smtp.163.com";
-$mail->Username   = "quinnfox@163.com";// SMTP username  注意：普通邮件认证不需要加 @域
-$mail->Password   = "***********";
-//$mail->IsSendmail(); //���û��sendmail�����ע�͵���������֡�Could  not execute: /var/qmail/bin/sendmail ���Ĵ�����ʾ
-$mail->AddReplyTo("284843370@qq.com","mckee");//�ظ���ַ
-$mail->From       = "quinnfox@163.com";
-$mail->FromName   = "www.phpddt.com";
-$to = "284843370@qq.com";
+$mail->CharSet='UTF-8'; //设置邮件的字符编码，这很重要，不然中文乱码
+$mail->SMTPAuth = true; //开启认证
+$mail->Port = 25;
+$mail->Host = "smtp.163.com";
+$mail->Username = "phpddt1990@163.com";
+$mail->Password = "这是密码";
+//$mail->IsSendmail(); //如果没有sendmail组件就注释掉，否则出现“Could not execute: /var/qmail/bin/sendmail ”的错误提示
+$mail->AddReplyTo("phpddt1990@163.com","mckee");//回复地址
+$mail->From = "phpddt1990@163.com";
+$mail->FromName = "www.phpddt.com";
+$to = "987044391@qq.com";
 $mail->AddAddress($to);
-$mail->Subject  = "phpmailer���Ա���";
-$mail->Body = "<h1>phpmail��ʾ</h1>����php���ͨ��<font color=red>www.phpddt.com</font>����phpmailer�Ĳ�������";
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; //���ʼ���֧��htmlʱ������ʾ������ʡ��
-$mail->WordWrap   = 80; // ����ÿ���ַ����ĳ���
-//$mail->AddAttachment("f:/test.png");  //������Ӹ���
+$mail->Subject = "phpmailer测试标题";
+$mail->Body = "<h1>phpmail演示</h1>这是php点点通（<font color=red>www.phpddt.com</font>）对phpmailer的测试内容";
+$mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; //当邮件不支持html时备用显示，可以省略
+$mail->WordWrap = 80; // 设置每行字符串的长度
+//$mail->AddAttachment("f:/test.png"); //可以添加附件
 $mail->IsHTML(true);
 $mail->Send();
-echo '�ʼ��ѷ���';
+echo '邮件已发送';
 } catch (phpmailerException $e) {
-echo "�ʼ�����ʧ�ܣ�".$e->errorMessage();
+echo "邮件发送失败：".$e->errorMessage();
 }
  *
  */
