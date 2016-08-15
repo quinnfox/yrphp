@@ -248,7 +248,7 @@ function filter(& $data = null)
 }
 
 /**
- *  * 获取输入参数 支持过滤和默认值
+ * 获取输入参数 支持过滤和默认值
  * 使用方法:
  * <code>
  * I('id',0); 获取id参数 自动判断get或者post
@@ -383,8 +383,8 @@ function cookie($key = '', $val = '')
      */
     if (is_null($key)) {
         
-        foreach ($_COOKIE as $key => $value) {
-        	 setcookie($cookie_prefix . $key, "", time() - 3600);
+        foreach ($_COOKIE as $k => $v) {
+        	 setcookie($cookie_prefix . $k, "", time() - 3600);
         }
         
         return true;
