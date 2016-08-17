@@ -8,47 +8,6 @@
  * 系统函数库
  */
 
-/*
-/设置包含目录（类所在的全部目录）,  PATH_SEPARATOR 分隔符号 Linux(:) Windows(;)
-$include_path=get_include_path();                         //原基目录
-$include_path.=PATH_SEPARATOR.ROOT_PATH;       //框架中基类所在的目录
-//设置include包含文件所在的所有目录
-set_include_path($include_path);
-*/
-//spl_autoload_register('autoLoadClass');//注册自动加载函数
-spl_autoload_register(function ($className) {
-    core\Debug::start();
-    $classList = array();
-    if (isset($classList[$className])) {
-        $classPath = $classList[$className];
-    } else {
-        $classPath = "";
-        $path = explode('\\', $className);
-
-        if (false !== strpos($className, '\\')) {
-            $className = array_pop($path);
-            $pathCount = count($path) - 1;
-            $classPath = implode('/', $path) . '/' . $className . '.class.php';
-
-            if (file_exists(APP_PATH . $classPath)) {
-                $classPath = APP_PATH . $classPath;
-            } else if (file_exists(BASE_PATH . $classPath)) {
-                $classPath = BASE_PATH . $classPath;
-            } else if (strtolower($path[0]) == 'model') {
-                $classPath = APP_PATH . 'models' . '/' . $className . '.class.php';
-            } else {
-                return false;
-            }
-        }
-    }
-
-    if (file_exists($classPath)) requireCache($classPath);
-
-    core\Debug::stop();
-    core\Debug::addMsg(array('path' => $classPath, 'time' => core\Debug::spent()), 1);
-}
-);
-
 
 /**
  * 访问控制器的原始资源

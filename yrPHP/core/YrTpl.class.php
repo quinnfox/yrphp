@@ -9,19 +9,18 @@
 namespace core;
 class YrTpl
 {
-    protected static $callNumber = 0;       //防止重复调用
-    public $cacheIdRule = array();      //定义通过模板引擎组合后文件存放目录
-    protected $templateDir; //编译好的模版文件名
-    protected $comFileName;   //定义编译文件存放目录
-    protected $compileDir; //bool 设置缓存是否开启
-    protected $caching = true;    //定义缓存时间
-    protected $cacheLifeTime = 3600; //定义生成的缓存文件地址
+    protected static $callNumber = 0;    //防止重复调用
+    protected $templateDir;  //定义通过模板引擎组合后文件存放目录
+    protected $comFileName;  //编译好的模版文件名
+    protected $compileDir; //定义编译文件存放目录
+    protected $caching = true;   //bool 设置缓存是否开启
+    protected $cacheLifeTime = 3600;  //定义缓存时间
     protected $cacheDir;          //定义生成的缓存文件名
-    protected $cacheFile;       //在模板中嵌入动态数据变量的左定界符号
-    protected $leftDelimiter = '{';    //在模板中嵌入动态数据变量的右定界符号
-    protected $rightDelimiter = '}'; //内部使用的临时变量
+    protected $cacheFile;      //定义生成的缓存文件地址
+    protected $leftDelimiter = '{';   //在模板中嵌入动态数据变量的左定界符号
+    protected $rightDelimiter = '}'; //在模板中嵌入动态数据变量的右定界符号
     protected $rule = array();//替换搜索的模式的数组 array(搜索的模式 => 用于替换的字符串 )
-    protected $tplVars = array();
+    protected $tplVars = array(); //内部使用的临时变量
 
     public function __construct()
     {
@@ -78,6 +77,16 @@ class YrTpl
 
         require($this->comFileName);
 
+        $this->content = ob_get_contents();
+        ob_end_clean();
+
+        if ($cacheId === true) {
+            return $this->content;
+        } else {
+            $this->setCache();
+            echo $this->content;
+        }
+
     }
 
     /**
@@ -98,13 +107,14 @@ class YrTpl
             $this->cacheFile .= empty($cacheId) ? '' : '_' . $cacheId;
             $this->cacheFile .= '.html';
 
-
-            if (file_exists($this->cacheFile)  && filemtime($this->cacheFile) > filemtime($this->ctlFile)  && filemtime($this->cacheLifeTime)+$this->cacheLifeTime > time()) {
-                requireCache($this->cacheFile);
-                exit;
+            if (file_exists($this->cacheFile)) {
+                $cacheFileMTime = filemtime($this->cacheFile);
+                if (file_exists($this->cacheFile) && $cacheFileMTime > filemtime($this->ctlFile) && $cacheFileMTime + $this->cacheLifeTime > time()) {
+                    requireCache($this->cacheFile);
+                    exit;
+                }
+                self::$callNumber++;
             }
-            self::$callNumber++;
-
         }
     }
 
@@ -129,7 +139,6 @@ class YrTpl
         $this->rule['/' . $left . '(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $right . '/isU'] = "<?php \\1\\2;?>";//运算
 
 
-
         $content = preg_replace(array_keys($this->rule), array_values($this->rule), $content);
 
         //变量替换
@@ -140,30 +149,25 @@ class YrTpl
 
     }
 
+
     /**
-     * 析构函数 最后生成静态文件
+     *  生成静态文件
      */
-    function __destruct()
+    protected function setCache()
     {
-        $content = ob_get_contents();
-
-
-        if(file_exists($this->comFileName) && $this->caching){
-            if(!file_exists($this->cacheFile)){
-                file_put_contents($this->cacheFile, $content);
-            }elseif($this->cacheLifeTime != 0 && filemtime($this->cacheFile) + $this->cacheLifeTime < time()){
-                file_put_contents($this->cacheFile, $content);
+        if (file_exists($this->comFileName) && $this->caching) {
+            if (!file_exists($this->cacheFile)) {
+                file_put_contents($this->cacheFile, $this->content);
+            } elseif ($this->cacheLifeTime != 0 && filemtime($this->cacheFile) + $this->cacheLifeTime < time()) {
+                file_put_contents($this->cacheFile, $this->content);
             }
         }
 
-        ob_end_flush();
-        if (DEBUG) {
-            ini_set('display_errors', 1);
-            echo Debug::message();
-        } else {
-            ini_set('display_errors', 0);
-        }
+        // ob_end_flush();
+        ob_end_clean();
+
     }
+
 
     /**
      * 清空缓存 默认清空所以缓存
@@ -212,5 +216,17 @@ class YrTpl
             unlink($file);
         }
     }
+
+
+    /**
+     * 析构函数
+     */
+    function __destruct()
+    {
+        if (DEBUG) {
+            echo Debug::message();
+        }
+    }
+
 }
 

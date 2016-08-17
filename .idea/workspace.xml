@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/config.php" afterPath="$PROJECT_DIR$/yrPHP/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Cache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/common/functions.php" afterPath="$PROJECT_DIR$/yrPHP/common/functions.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,16 +29,17 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="384" column="8" selection-start-line="384" selection-start-column="8" selection-end-line="384" selection-end-column="8" />
+            <state relative-caret-position="186">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
-                <marker date="1471224135684" expanded="true" signature="5719:5738" ph="..." />
-                <marker date="1471224135684" expanded="true" signature="5740:5744" ph="&lt;" />
-                <marker date="1471224135684" expanded="true" signature="5750:5756" ph=" " />
-                <marker date="1471224135684" expanded="true" signature="5792:5809" ph="..." />
-                <marker date="1471224135684" expanded="true" signature="5817:5821" ph="&gt;" />
-                <marker date="1471224135684" expanded="true" signature="5882:5899" ph="..." />
-                <marker date="1471224135684" expanded="true" signature="5966:5976" ph="..." />
+                <element signature="e#6#106#0#PHP" expanded="true" />
+                <marker date="1471423513152" expanded="true" signature="4316:4335" ph="..." />
+                <marker date="1471423513152" expanded="true" signature="4337:4341" ph="&lt;" />
+                <marker date="1471423513152" expanded="true" signature="4347:4353" ph=" " />
+                <marker date="1471423513152" expanded="true" signature="4389:4406" ph="..." />
+                <marker date="1471423513152" expanded="true" signature="4414:4418" ph="&gt;" />
+                <marker date="1471423513152" expanded="true" signature="4479:4496" ph="..." />
+                <marker date="1471423513152" expanded="true" signature="4563:4573" ph="..." />
               </folding>
             </state>
           </provider>
@@ -79,12 +75,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="179">
-                <caret line="488" column="70" selection-start-line="488" selection-start-column="70" selection-end-line="488" selection-end-column="70" />
+              <first_editor relative-caret-position="521">
+                <caret line="504" column="5" selection-start-line="504" selection-start-column="5" selection-end-line="504" selection-end-column="5" />
                 <folding>
                   <marker date="1471418980245" expanded="true" signature="3733:3788" ph="{...}" />
                   <marker date="1471418980245" expanded="true" signature="3815:3865" ph="{...}" />
@@ -154,6 +150,28 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="YrTpl.class.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+              <folding>
+                <element signature="e#7#144#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Model.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -193,26 +211,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Redis.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Memcached.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -246,13 +244,10 @@
         <option value="$PROJECT_DIR$/yrPHP/base.api.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/pdo_driver.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/Debug.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/Image.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/Uri.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/base.php" />
         <option value="$PROJECT_DIR$/application/controls/buyer/test/Index.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/Controller.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/Curl.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/Page.class.php" />
@@ -273,6 +268,9 @@
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
+        <option value="$PROJECT_DIR$/yrPHP/base.php" />
+        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
       </list>
     </option>
   </component>
@@ -440,6 +438,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="yrPHP" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -562,16 +578,16 @@
       <workItem from="1469341679501" duration="8595000" />
       <workItem from="1469805052562" duration="3479000" />
       <workItem from="1470891694195" duration="7780000" />
-      <workItem from="1471415323171" duration="3663000" />
+      <workItem from="1471415323171" duration="9144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91704000" />
+    <option name="totallyTimeSpent" value="97185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14797008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19722815" sideWeight="0.49565217" order="1" side_tool="false" content_ui="combo" />
@@ -763,14 +779,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/MyModel.class.php" />
-    <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/libs/Cart.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -818,14 +826,6 @@
           <folding>
             <element signature="e#1340#2767#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -877,22 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="384" column="8" selection-start-line="384" selection-start-column="8" selection-end-line="384" selection-end-column="8" />
-          <folding>
-            <marker date="1471224135684" expanded="true" signature="5719:5738" ph="..." />
-            <marker date="1471224135684" expanded="true" signature="5740:5744" ph="&lt;" />
-            <marker date="1471224135684" expanded="true" signature="5750:5756" ph=" " />
-            <marker date="1471224135684" expanded="true" signature="5792:5809" ph="..." />
-            <marker date="1471224135684" expanded="true" signature="5817:5821" ph="&gt;" />
-            <marker date="1471224135684" expanded="true" signature="5882:5899" ph="..." />
-            <marker date="1471224135684" expanded="true" signature="5966:5976" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="404">
@@ -929,8 +913,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="179">
-            <caret line="488" column="70" selection-start-line="488" selection-start-column="70" selection-end-line="488" selection-end-column="70" />
+          <first_editor relative-caret-position="521">
+            <caret line="504" column="5" selection-start-line="504" selection-start-column="5" selection-end-line="504" selection-end-column="5" />
             <folding>
               <marker date="1471418980245" expanded="true" signature="3733:3788" ph="{...}" />
               <marker date="1471418980245" expanded="true" signature="3815:3865" ph="{...}" />
@@ -1001,6 +985,41 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="223">
           <caret line="262" column="14" selection-start-line="262" selection-start-column="14" selection-end-line="262" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#106#0#PHP" expanded="true" />
+            <marker date="1471423513152" expanded="true" signature="4316:4335" ph="..." />
+            <marker date="1471423513152" expanded="true" signature="4337:4341" ph="&lt;" />
+            <marker date="1471423513152" expanded="true" signature="4347:4353" ph=" " />
+            <marker date="1471423513152" expanded="true" signature="4389:4406" ph="..." />
+            <marker date="1471423513152" expanded="true" signature="4414:4418" ph="&gt;" />
+            <marker date="1471423513152" expanded="true" signature="4479:4496" ph="..." />
+            <marker date="1471423513152" expanded="true" signature="4563:4573" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding>
+            <element signature="e#7#144#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

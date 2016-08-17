@@ -501,7 +501,7 @@ return array(
 
 ##使用方法
 
-```
+```php
 <?php
 
 /**
