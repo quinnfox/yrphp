@@ -31,24 +31,46 @@ class File implements Cache
     public function isExpired($key)
     {
         $file = $this->dbCachePath . $key . '.' . $this->dbCacheExt;
-        if (file_exists($file)) {
-            if ($this->dbCacheTime === 0) return false;
-            if (filectime($file) + $this->dbCacheTime < time()) {
-                return false;
-            }
+        if (!file_exists($file)) return false;
+
+        $contents = myUnSerialize(file_get_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt));
+
+        if ($contents['ttl'] != 0 && $contents['ttl'] > $contents['time']) {
+            \libs\file::rm($file);
+            return false;
         }
 
         return true;
     }
 
-    public function set($key, $val)
+    public function set($key, $val, $timeout = null)
     {
-        return file_put_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt, mySerialize($val));
+
+        $contents = array(
+            'time' => time(),
+            'ttl' => is_null($timeout) ? $this->dbCacheExt : $timeout,
+            'data' => $val
+        );
+
+
+        return file_put_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt, mySerialize($contents));
     }
 
-    public function get($key)
+    public function get($key = null)
     {
-        return myUnSerialize(file_get_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt));
+        if (is_null($key)) return false;
+
+        $file = $this->dbCachePath . $key . '.' . $this->dbCacheExt;
+        if (!file_exists($file)) return false;
+
+        $contents = myUnSerialize(file_get_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt));
+
+        if ($contents['ttl'] != 0 && $contents['ttl'] > $contents['time']) {
+            \libs\file::rm($file);
+            return false;
+        }
+
+        return $contents['data'];
     }
 
     public function clear()
@@ -60,8 +82,10 @@ class File implements Cache
      *
      * @param string $key
      */
-    public function del($key = '')
+    public function del($key = null)
     {
+        if(is_null($key)) return false;
+
         $file = \libs\file::search($this->dbCachePath, $key);
         foreach ($file as $k => $v) {
             \libs\file::rm($v);

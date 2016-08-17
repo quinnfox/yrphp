@@ -25,13 +25,11 @@ return array(
     /*--------------------以下是模版配置---------------------------------------*/
     'setTemplateDir'     => APP_PATH . "views/", //设置模板目录位置
     'setCompileDir'      => APP_PATH . "runtime/compile_tpl/", //设置模板被编译成PHP文件后的文件位置
-    'auto_literal'       => false, //忽略限定符周边的空白
     'caching'            => 1, //缓存开关 1开启，0为关闭
     'setCacheDir'        => (APP_PATH . "runtime/cache/"), //设置缓存的目录
     'cache_lifetime'     => 60 * 60 * 24 * 7, //设置缓存的时间
     'left_delimiter'     => "{", //模板文件中使用的“左”分隔符号
     'right_delimiter'    => "}", //模板文件中使用的“右”分隔符号
-//    'setPluginsDir'      => '', // 设置插件目录。即自定义的一系列函数所在位置。
 
 
     /*--------------------以下是数据库配置---------------------------------------*/

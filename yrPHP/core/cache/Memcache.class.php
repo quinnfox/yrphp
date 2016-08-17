@@ -12,6 +12,7 @@ namespace core\cache;
 class Memcache implements Cache
 {
     private static $object;
+
     static function getInstance()
     {
         if (!extension_loaded('memcache')) {
@@ -54,21 +55,29 @@ class Memcache implements Cache
         return true;
     }
 
-    public function get($key)
+    public function get($key = null)
     {
+        if (is_null($key)) return false;
+
         return myUnSerialize(self::getInstance()->get($key));
     }
 
 
-
-    public function set($key = '', $val = '', $timeout = 0)
+    /**
+     * @param string $key
+     * @param string $val
+     * @param null $timeout
+     * @return bool
+     */
+    public function set($key, $val, $timeout = null)
     {
         $timeout = is_null($timeout) ? C('dbCacheTime') : $timeout;
         return self::getInstance()->set($key, mySerialize($val), 0, $timeout);
     }
 
-    public function del($key = '')
+    public function del($key = null)
     {
+        if(is_null($key)) return false;
 
         return self::getInstance()->delete($key);
     }

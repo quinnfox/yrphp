@@ -311,7 +311,6 @@ C(array($key=>$value,$key1=>$value1));
 /*--------------------以下是模版配置---------------------------------------*/
 'setTemplateDir' => APP_PATH . "views/", //设置模板目录位置
 'setCompileDir' => APP_PATH . "runtime/compile_tpl/", //设置模板被编译成PHP文件后的文件位置
-'auto_literal' => false, //忽略限定符周边的空白
 'caching' => 1, //缓存开关 1开启，0为关闭
 'setCacheDir' => (APP_PATH . "runtime/cache/"), //设置缓存的目录
 'cache_lifetime' => 60 * 60 * 24 * 7, //设置缓存的时间 0表示永久
@@ -482,7 +481,67 @@ class MyController extends Controller
     }
 ```
 
+#缓存
+##配置
 
+```php
+return array(
+--------------------以下是数据缓存配置---------------------------------------*/
+'dbCacheTime' => 0, //数据缓存时间0表示永久
+'dbCacheType' => 'file', //数据缓存类型 file|memcache|memcached|redis
+//单个item大于1M的数据存memcache和读取速度比file
+'dbCachePath' => APP_PATH . 'runtime/data/',//数据缓存文件地址(仅对file有效)
+'dbCacheExt' => 'php',//生成的缓存文件后缀(仅对file有效)
+
+'memcache' => '127.0.0.1:11211',//string|array多个用数组传递 array('127.0.0.1:11211','127.0.0.1:1121')
+
+'redis' =>'127.0.0.1:6379',//string|array多个用数组传递 array('127.0.0.1:6379','127.0.0.1:6378')
+);
+```
+
+##使用方法
+
+```
+<?php
+
+/**
+* 获取缓存实例
+* $dbCacheType 缓存存储方式默认为文件，可以根据需要修改配置文件
+*
+*/
+$cache = core\cache::getInstance($dbCacheType)
+/**
+ * 设置缓存
+ * @param string $key 要设置值的key
+ * @param string $val 要存储的数据
+ * @param null $timeout 有效期单位秒 0代表永久
+ * @return bool
+ */
+
+$cache->set($key = '', $val = '', $timeout = null);
+
+/**
+* 获取缓存
+* @param $key 要获取值的key
+* @return mixed
+*/
+$cache->get($key);
+
+/**
+* 删除缓存
+* @param $key 要删除值的key
+* @return mixed
+*/
+$cache->del($key);
+
+
+/**
+* 清空所有缓存 慎用
+* @return mixed
+*/
+$cache->clear();
+
+```
 
 
 #模型
@@ -1038,9 +1097,11 @@ var_export($error);
 
 ```php
 return array(
-/*--------------------以下是数据库配置---------------------------------------*/
+/*--------------------以下是数据库缓存配置---------------------------------------*/
 'openCache' => true, //是否开启缓存
-'defaultFilter' => 'htmlspecialchars', // 默认参数过滤方法 用于I函数过滤 多个用|分割stripslashes|htmlspecialchars
+
+
+/*--------------------以下是数据缓存配置---------------------------------------*/
 'dbCacheTime' => 0, //数据缓存时间0表示永久
 'dbCacheType' => 'file', //数据缓存类型 file|memcache|memcached|redis
 //单个item大于1M的数据存memcache和读取速度比file
@@ -1176,6 +1237,8 @@ cookie('id');
 //删除
 cookie('id',null);
 
+//清空cookie
+cookie(null);
 /**********************************************************/
 /**
  * 判断是不是 AJAX 请求

@@ -14,7 +14,8 @@ class Cache
     static function getInstance($dbCacheType = null)
     {
         $dbCacheType = is_null($dbCacheType) ? C('dbCacheType') : $dbCacheType;
-
+        $dbCacheType = strtolower($dbCacheType);
+            
         switch ($dbCacheType) {
             case "file":
                 $class = loadClass('core\cache\File');

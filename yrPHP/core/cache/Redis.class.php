@@ -31,7 +31,7 @@ class Redis implements Cache
                     self::$object->connect($conf[0], $conf[1]);
                 }
             } else {
-                 die('参数错误');
+                die('参数错误');
             }
             self::$object->select(0);
             return self::$object;
@@ -65,8 +65,10 @@ class Redis implements Cache
      * @param $key
      * @return mixed
      */
-    public function get($key = '')
+    public function get($key = null)
     {
+        if (is_null($key)) return false;
+
         return myUnSerialize(self::getInstance()->get($key));
     }
 
@@ -83,8 +85,10 @@ class Redis implements Cache
      * 根据key值删除缓存
      * @param string $key
      */
-    public function del($key = '')
+    public function del($key = null)
     {
+        if (is_null($key)) return false;
+
         $keys = self::getInstance()->keys("*{$key}*");
         return self::getInstance()->delete($keys);
     }

@@ -16,20 +16,22 @@ interface   Cache
      */
     public function isExpired($key);
 
-    /**
-     * 设置缓存
-     * @param $key
-     * @param $val
-     * @return mixed
-     */
-    public function set($key, $val);
 
     /**
-     * 获得缓存
+     * 设置缓存
+     * @param string $key 要设置值的key
+     * @param string $val 要存储的数据
+     * @param null $timeout 有效期单位秒 0代表永久
+     * @return bool
+     */
+    public function set($key, $val, $timeout = null);
+
+    /**
+     * 获取缓存
      * @param $key
      * @return mixed
      */
-    public function get($key);
+    public function get($key = null);
 
     /**
      * 清空缓存
@@ -38,10 +40,10 @@ interface   Cache
     public function clear();
 
     /**
-     *根据key值删除缓存
+     * 根据key值删除缓存
      * @param string $key
      */
-    public function del($key = '');
+    public function del($key = null);
 
 
 }

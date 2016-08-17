@@ -56,20 +56,24 @@ class Memcached implements Cache
         return true;
     }
 
-    public function get($key)
+    public function get($key = null)
     {
+        if (is_null($key)) return false;
+
         return self::getInstance()->get($key);
     }
 
 
-    public function set($key = '', $val = '', $timeout = 0)
+    public function set($key = '', $val = '', $timeout = null)
     {
         $timeout = is_null($timeout) ? C('dbCacheTime') : $timeout;
         return self::getInstance()->set($key, $val, $timeout);
     }
 
-    public function del($key = '')
+    public function del($key = null)
     {
+        if(is_null($key)) return false;
+
         return self::getInstance()->delete($key);
     }
 
