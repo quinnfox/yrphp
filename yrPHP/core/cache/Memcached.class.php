@@ -58,14 +58,14 @@ class Memcached implements Cache
 
     public function get($key)
     {
-        return myUnSerialize(self::getInstance()->get($key));
+        return self::getInstance()->get($key);
     }
 
 
-    public function set($key = '', $val = '', $timeout = null)
+    public function set($key = '', $val = '', $timeout = 0)
     {
         $timeout = is_null($timeout) ? C('dbCacheTime') : $timeout;
-        return self::getInstance()->set($key, mySerialize($val), $timeout);
+        return self::getInstance()->set($key, $val, $timeout);
     }
 
     public function del($key = '')

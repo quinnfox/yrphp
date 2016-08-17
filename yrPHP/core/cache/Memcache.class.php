@@ -61,7 +61,7 @@ class Memcache implements Cache
 
 
 
-    public function set($key = '', $val = '', $timeout = null)
+    public function set($key = '', $val = '', $timeout = 0)
     {
         $timeout = is_null($timeout) ? C('dbCacheTime') : $timeout;
         return self::getInstance()->set($key, mySerialize($val), 0, $timeout);

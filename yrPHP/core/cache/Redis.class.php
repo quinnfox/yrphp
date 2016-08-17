@@ -16,7 +16,7 @@ class Redis implements Cache
     static function getInstance()
     {
         if (!extension_loaded('redis')) {
-            die('û�а�װredis��չ');
+            die('没有安装redis扩展');
         }
         if (is_object(self::$object)) {
             return self::$object;
@@ -31,7 +31,7 @@ class Redis implements Cache
                     self::$object->connect($conf[0], $conf[1]);
                 }
             } else {
-                die('��������');
+                 die('参数错误');
             }
             self::$object->select(0);
             return self::$object;
@@ -40,7 +40,7 @@ class Redis implements Cache
     }
 
     /**
-     * ��������ڻ����ѹ����򷵻�true
+     * 如果不存在或则已过期则返回true
      */
     public function isExpired($key)
     {
@@ -49,7 +49,7 @@ class Redis implements Cache
 
 
     /**
-     * ���û���
+     * 设置缓存
      * @param $key
      * @param $val
      * @return mixed
@@ -61,7 +61,7 @@ class Redis implements Cache
     }
 
     /**
-     * ��û���
+     * 获得缓存
      * @param $key
      * @return mixed
      */
@@ -71,7 +71,7 @@ class Redis implements Cache
     }
 
     /**
-     * ��ջ���
+     * 清空缓存
      * @return mixed
      */
     public function clear()
@@ -80,12 +80,12 @@ class Redis implements Cache
     }
 
     /**
-     *����keyֵɾ������
+     * 根据key值删除缓存
      * @param string $key
      */
     public function del($key = '')
     {
-        $keys = self::getInstance()->keys("*$key*");
+        $keys = self::getInstance()->keys("*{$key}*");
         return self::getInstance()->delete($keys);
     }
 
