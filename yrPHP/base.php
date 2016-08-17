@@ -28,6 +28,7 @@ class Entry
          */
         spl_autoload_register('self::autoLoadClass');
 
+
         require CORE_PATH . "Debug.class.php";
         //包含系统公共函数
         require BASE_PATH . "common/functions.php";
@@ -75,7 +76,10 @@ class Entry
         error_reporting(-1); //报告所有PHP错误
         if (C('logRecord')) {
             ini_set('log_errors', 1); //设置是否将脚本运行的错误信息记录到服务器错误日志或者error_log之中
-            ini_set('error_log', C('logFile')); //将错误信息写进日志 APP.'runtime/Logs'.date('Y-m-d').'.txt'
+            $logFile = C('logFile') . '/sys_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+            ini_set('error_log', $logFile); //将错误信息写进日志 APP.'runtime/Logs'/sys_log_' . date("Y-m-d") . '.log'
+            //开启自定义错误日志
+            set_error_handler(array('Entry', "yrError"));
         }
 
         if (!defined('DEBUG')) {
@@ -154,6 +158,52 @@ class Entry
         core\Debug::addMsg(array('path' => $classPath, 'time' => core\Debug::spent()), 1);
     }
 
+
+    /**
+     * 错误处理函数
+     * @param $errNo
+     * @param $errStr
+     * @param $errFile
+     * @param $errLine
+     * @return bool
+     */
+    static function yrError($errNo, $errStr, $errFile, $errLine)
+    {
+
+        $log_file = C('logFile') . '/%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+        $template = '';
+
+        switch ($errNo) {
+            case E_USER_ERROR:
+                $template .= "用户ERROR级错误，必须修复 错误编号[$errNo] $errStr ";
+                $template .= "错误位置 文件$errFile,第 $errLine 行\n";
+                $log_file = sprintf($log_file, 'error');
+
+                break;
+            case E_WARNING://运行时警告（非致命的错误）2 
+            case E_USER_WARNING:
+                $template .= "用户WARNING级错误，建议修复 错误编号[$errNo] $errStr ";
+                $template .= "错误位置 文件$errFile,第 $errLine 行\n";
+                $log_file = sprintf($log_file, 'warning');
+                break;
+
+            case E_NOTICE://运行时注意消息（可能是或者可能不是一个问题） 8
+            case E_USER_NOTICE:
+                $template .= "用户NOTICE级错误，不影响系统，可不修复 错误编号[$errNo] $errStr ";
+                $template .= "错误位置 文件$errFile,第 $errLine 行\n";
+                $log_file = sprintf($log_file, 'notice');
+                break;
+
+            default:
+                $template .= "未知错误类型: 错误编号[$errNo] $errStr  ";
+                $template .= "错误位置 文件$errFile,第 $errLine 行\n";
+                $log_file = sprintf($log_file, 'unknown');
+                break;
+        }
+
+        file_put_contents($log_file, $template, FILE_APPEND);
+        return true;
+    }
 
     static function run()
     {

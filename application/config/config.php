@@ -19,7 +19,7 @@ return array(
     'urlSuffix'          => '.html',     // 默认URL文件后缀
     /* -----------错误处理----------------------------------*/
     'logRecord'          => true,   // 默认错误记录日志
-    'logFile'            => APP_PATH . 'runtime/Logs/' . date('Y-m-d') . '.txt', // 日志记录类型 默认为文件方式
+    'logFile'            => APP_PATH . 'runtime/Logs/', // 日志记录目录
 
     'modelDir'           => APP_PATH . "models/", //设置模型目录位置
     /*--------------------以下是模版配置---------------------------------------*/

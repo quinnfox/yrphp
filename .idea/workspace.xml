@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/common/functions.php" afterPath="$PROJECT_DIR$/yrPHP/common/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/config.php" afterPath="$PROJECT_DIR$/yrPHP/config/config.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,28 +30,18 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="613">
+              <caret line="594" column="3" selection-start-line="594" selection-start-column="3" selection-end-line="594" selection-end-column="3" />
               <folding>
                 <element signature="e#6#106#0#PHP" expanded="true" />
-                <marker date="1471423513152" expanded="true" signature="4316:4335" ph="..." />
-                <marker date="1471423513152" expanded="true" signature="4337:4341" ph="&lt;" />
-                <marker date="1471423513152" expanded="true" signature="4347:4353" ph=" " />
-                <marker date="1471423513152" expanded="true" signature="4389:4406" ph="..." />
-                <marker date="1471423513152" expanded="true" signature="4414:4418" ph="&gt;" />
-                <marker date="1471423513152" expanded="true" signature="4479:4496" ph="..." />
-                <marker date="1471423513152" expanded="true" signature="4563:4573" ph="..." />
+                <marker date="1471431617425" expanded="true" signature="4316:4335" ph="..." />
+                <marker date="1471431617425" expanded="true" signature="4337:4341" ph="&lt;" />
+                <marker date="1471431617425" expanded="true" signature="4347:4353" ph=" " />
+                <marker date="1471431617425" expanded="true" signature="4389:4406" ph="..." />
+                <marker date="1471431617425" expanded="true" signature="4414:4418" ph="&gt;" />
+                <marker date="1471431617425" expanded="true" signature="4479:4496" ph="..." />
+                <marker date="1471431617425" expanded="true" signature="4563:4573" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="File.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/File.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -79,70 +70,75 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="521">
-                <caret line="504" column="5" selection-start-line="504" selection-start-column="5" selection-end-line="504" selection-end-column="5" />
+              <first_editor relative-caret-position="255">
+                <caret line="493" column="41" selection-start-line="493" selection-start-column="41" selection-end-line="493" selection-end-column="41" />
                 <folding>
-                  <marker date="1471418980245" expanded="true" signature="3733:3788" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="3815:3865" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="7537:7810" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="7566:7804" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="7632:7796" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="8909:9834" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="8947:9214" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="9271:9831" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="9281:9548" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="9559:9826" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="11119:11318" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="11156:11197" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="11231:11316" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="11529:11584" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="11637:11728" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="11784:11867" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="12166:13019" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="12203:12893" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="12359:12887" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="12927:13017" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="20666:20805" ph=" 获取和设置配置参数 支持批量定义  具体请看配置章节 ..." />
-                  <marker date="1471418980245" expanded="true" signature="20932:21090" ph=" @param string $url URL表达式，格式：'[模块/控制器/操作##锚点@域名]?参数1=值1&amp;参数2=值2...' ..." />
-                  <marker date="1471418980245" expanded="true" signature="21197:21288" ph=" 获取语言 支持批量定义 ..." />
-                  <marker date="1471418980245" expanded="true" signature="21404:21581" ph=" 以单例模式实例化类 ..." />
-                  <marker date="1471418980245" expanded="true" signature="21673:21794" ph=" 如果存在自定义的模型类，则实例化自定义模型类，如果不存在，则会实例化Model基类,同时对于已实例化过的模型，不会重复去实例化。 ..." />
-                  <marker date="1471418980245" expanded="true" signature="21898:22217" ph=" 获取输入参数 支持过滤和默认值 ..." />
-                  <marker date="1471418980245" expanded="true" signature="22344:22419" ph=" 管理session ..." />
-                  <marker date="1471418980245" expanded="true" signature="22710:22784" ph=" 管理cookie ..." />
-                  <marker date="1471418980245" expanded="true" signature="23045:23120" ph=" 判断是不是 AJAX 请求 ..." />
-                  <marker date="1471418980245" expanded="true" signature="23215:23249" ph=" 判断是否SSL协议 ..." />
-                  <marker date="1471418980245" expanded="true" signature="23338:23410" ph=" 优化的require_once ..." />
-                  <marker date="1471418980245" expanded="true" signature="23513:23566" ph="base64编码压缩序列化数据 ..." />
-                  <marker date="1471418980245" expanded="true" signature="23670:23712" ph=" 反序列化 ..." />
-                  <marker date="1471418980245" expanded="true" signature="23817:23910" ph="404跳转 ..." />
-                  <marker date="1471418980245" expanded="true" signature="24265:24352" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="24302:24346" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="24563:24618" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="24645:24695" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="24941:24996" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="25023:25073" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="25206:25261" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="25288:25378" ph="{...}" />
-                  <marker date="1471418980245" expanded="true" signature="25552:25680" ph="..." />
-                  <marker date="1471418980245" expanded="true" signature="25844:25945" ph=" 建立文件 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26005:26073" ph=" 递归删除文件夹或文件  ..." />
-                  <marker date="1471418980245" expanded="true" signature="26105:26191" ph=" 建立文件夹 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26240:26378" ph=" 移动文件夹或文件 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26439:26569" ph=" 复制文件或则文件夹 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26630:26702" ph=" 修改文件名 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26743:26823" ph=" 将字符串写入文件 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26863:26936" ph=" 将整个文件内容读出到一个字符串中 ..." />
-                  <marker date="1471418980245" expanded="true" signature="26977:27045" ph=" 将文件内容读出到一个数组中 ..." />
-                  <marker date="1471418980245" expanded="true" signature="27091:27254" ph=" 根据关键词列出目录下所有文件 ..." />
-                  <marker date="1471418980245" expanded="true" signature="27317:27491" ph=" 根据关键词列出目录下所有文件 ..." />
-                  <marker date="1471418980245" expanded="true" signature="27553:27622" ph=" 获取文件名后缀 ..." />
-                  <marker date="1471418980245" expanded="true" signature="27661:28042" ph=" 获得文件相关信息 ..." />
-                  <marker date="1471418980245" expanded="true" signature="28085:28159" ph=" 统计目录大小 ..." />
-                  <marker date="1471418980245" expanded="true" signature="28200:28242" ph=" 将字节转换成Kb或者Mb... ..." />
-                  <marker date="1471418980245" expanded="true" signature="28277:28425" ph=" 返回当前目录层级下所有文件及目录列表 ..." />
-                  <marker date="1471418980245" expanded="true" signature="28463:28863" ph=" 递归循环目录列表，并返回关系层级 ..." />
-                  <marker date="1471418980245" expanded="true" signature="30046:30144" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="3733:3788" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="3815:3865" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="7537:7810" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="7566:7804" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="7632:7796" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="8381:8433" ph=" 获取缓存实例 ..." />
+                  <marker date="1471427685631" expanded="true" signature="8486:8609" ph=" 设置缓存 ..." />
+                  <marker date="1471427685631" expanded="true" signature="8669:8716" ph=" 获取缓存 ..." />
+                  <marker date="1471427685631" expanded="true" signature="8742:8789" ph=" 删除缓存 ..." />
+                  <marker date="1471427685631" expanded="true" signature="8816:8845" ph=" 清空所有缓存 慎用 ..." />
+                  <marker date="1471427685631" expanded="true" signature="8912:9837" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="8950:9217" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="9274:9834" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="9284:9551" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="9562:9829" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="11122:11321" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="11159:11200" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="11234:11319" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="11532:11587" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="11640:11731" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="11787:11870" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="12169:13022" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="12206:12896" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="12362:12890" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="12930:13020" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="20669:20808" ph=" 获取和设置配置参数 支持批量定义  具体请看配置章节 ..." />
+                  <marker date="1471427685631" expanded="true" signature="20935:21093" ph=" @param string $url URL表达式，格式：'[模块/控制器/操作##锚点@域名]?参数1=值1&amp;参数2=值2...' ..." />
+                  <marker date="1471427685631" expanded="true" signature="21200:21291" ph=" 获取语言 支持批量定义 ..." />
+                  <marker date="1471427685631" expanded="true" signature="21407:21584" ph=" 以单例模式实例化类 ..." />
+                  <marker date="1471427685631" expanded="true" signature="21676:21797" ph=" 如果存在自定义的模型类，则实例化自定义模型类，如果不存在，则会实例化Model基类,同时对于已实例化过的模型，不会重复去实例化。 ..." />
+                  <marker date="1471427685631" expanded="true" signature="21901:22220" ph=" 获取输入参数 支持过滤和默认值 ..." />
+                  <marker date="1471427685631" expanded="true" signature="22347:22422" ph=" 管理session ..." />
+                  <marker date="1471427685631" expanded="true" signature="22713:22787" ph=" 管理cookie ..." />
+                  <marker date="1471427685631" expanded="true" signature="23048:23123" ph=" 判断是不是 AJAX 请求 ..." />
+                  <marker date="1471427685631" expanded="true" signature="23218:23252" ph=" 判断是否SSL协议 ..." />
+                  <marker date="1471427685631" expanded="true" signature="23341:23413" ph=" 优化的require_once ..." />
+                  <marker date="1471427685631" expanded="true" signature="23516:23569" ph="base64编码压缩序列化数据 ..." />
+                  <marker date="1471427685631" expanded="true" signature="23673:23715" ph=" 反序列化 ..." />
+                  <marker date="1471427685631" expanded="true" signature="23820:23913" ph="404跳转 ..." />
+                  <marker date="1471427685631" expanded="true" signature="24268:24355" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="24305:24349" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="24566:24621" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="24648:24698" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="24944:24999" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="25026:25076" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="25209:25264" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="25291:25381" ph="{...}" />
+                  <marker date="1471427685631" expanded="true" signature="25555:25683" ph="..." />
+                  <marker date="1471427685631" expanded="true" signature="25847:25948" ph=" 建立文件 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26008:26076" ph=" 递归删除文件夹或文件  ..." />
+                  <marker date="1471427685631" expanded="true" signature="26108:26194" ph=" 建立文件夹 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26243:26381" ph=" 移动文件夹或文件 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26442:26572" ph=" 复制文件或则文件夹 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26633:26705" ph=" 修改文件名 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26746:26826" ph=" 将字符串写入文件 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26866:26939" ph=" 将整个文件内容读出到一个字符串中 ..." />
+                  <marker date="1471427685631" expanded="true" signature="26980:27048" ph=" 将文件内容读出到一个数组中 ..." />
+                  <marker date="1471427685631" expanded="true" signature="27094:27257" ph=" 根据关键词列出目录下所有文件 ..." />
+                  <marker date="1471427685631" expanded="true" signature="27320:27494" ph=" 根据关键词列出目录下所有文件 ..." />
+                  <marker date="1471427685631" expanded="true" signature="27556:27625" ph=" 获取文件名后缀 ..." />
+                  <marker date="1471427685631" expanded="true" signature="27664:28045" ph=" 获得文件相关信息 ..." />
+                  <marker date="1471427685631" expanded="true" signature="28088:28162" ph=" 统计目录大小 ..." />
+                  <marker date="1471427685631" expanded="true" signature="28203:28245" ph=" 将字节转换成Kb或者Mb... ..." />
+                  <marker date="1471427685631" expanded="true" signature="28280:28428" ph=" 返回当前目录层级下所有文件及目录列表 ..." />
+                  <marker date="1471427685631" expanded="true" signature="28466:28866" ph=" 递归循环目录列表，并返回关系层级 ..." />
+                  <marker date="1471427685631" expanded="true" signature="30049:30147" ph="..." />
                 </folding>
               </first_editor>
               <second_editor />
@@ -150,11 +146,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="YrTpl.class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="YrTpl.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+            <state relative-caret-position="412">
+              <caret line="134" column="116" selection-start-line="134" selection-start-column="116" selection-end-line="134" selection-end-column="116" />
               <folding />
             </state>
           </provider>
@@ -163,11 +159,21 @@
       <file leaf-file-name="base.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+            <state relative-caret-position="530">
+              <caret line="194" column="22" selection-start-line="194" selection-start-column="22" selection-end-line="194" selection-end-column="22" />
               <folding>
                 <element signature="e#7#144#0#PHP" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="21" column="65" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -194,8 +200,8 @@
       <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="76" />
+            <state relative-caret-position="19">
+              <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -220,7 +226,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/yrPHP/lang/lang_en.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/MyTpl.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/Validate.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/ShopCart.php" />
@@ -261,16 +266,17 @@
         <option value="$PROJECT_DIR$/yrphp/application/common/functions.php" />
         <option value="$PROJECT_DIR$/yrphp/libs/VerifyCode.class.php" />
         <option value="$PROJECT_DIR$/application/controls/Index.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/File.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Memcache.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
         <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
         <option value="$PROJECT_DIR$/yrPHP/base.php" />
-        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
+        <option value="$PROJECT_DIR$/application/config/config.php" />
       </list>
     </option>
   </component>
@@ -478,6 +484,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -578,15 +602,15 @@
       <workItem from="1469341679501" duration="8595000" />
       <workItem from="1469805052562" duration="3479000" />
       <workItem from="1470891694195" duration="7780000" />
-      <workItem from="1471415323171" duration="9144000" />
+      <workItem from="1471415323171" duration="11875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97185000" />
+    <option name="totallyTimeSpent" value="99916000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14797008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -763,14 +787,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controls/Goods.class.php" />
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -869,14 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="404">
@@ -910,73 +918,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="134" column="116" selection-start-line="134" selection-start-column="116" selection-end-line="134" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="521">
-            <caret line="504" column="5" selection-start-line="504" selection-start-column="5" selection-end-line="504" selection-end-column="5" />
+          <first_editor relative-caret-position="255">
+            <caret line="493" column="41" selection-start-line="493" selection-start-column="41" selection-end-line="493" selection-end-column="41" />
             <folding>
-              <marker date="1471418980245" expanded="true" signature="3733:3788" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="3815:3865" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="7537:7810" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="7566:7804" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="7632:7796" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="8909:9834" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="8947:9214" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="9271:9831" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="9281:9548" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="9559:9826" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="11119:11318" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="11156:11197" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="11231:11316" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="11529:11584" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="11637:11728" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="11784:11867" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="12166:13019" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="12203:12893" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="12359:12887" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="12927:13017" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="20666:20805" ph=" 获取和设置配置参数 支持批量定义  具体请看配置章节 ..." />
-              <marker date="1471418980245" expanded="true" signature="20932:21090" ph=" @param string $url URL表达式，格式：'[模块/控制器/操作##锚点@域名]?参数1=值1&amp;参数2=值2...' ..." />
-              <marker date="1471418980245" expanded="true" signature="21197:21288" ph=" 获取语言 支持批量定义 ..." />
-              <marker date="1471418980245" expanded="true" signature="21404:21581" ph=" 以单例模式实例化类 ..." />
-              <marker date="1471418980245" expanded="true" signature="21673:21794" ph=" 如果存在自定义的模型类，则实例化自定义模型类，如果不存在，则会实例化Model基类,同时对于已实例化过的模型，不会重复去实例化。 ..." />
-              <marker date="1471418980245" expanded="true" signature="21898:22217" ph=" 获取输入参数 支持过滤和默认值 ..." />
-              <marker date="1471418980245" expanded="true" signature="22344:22419" ph=" 管理session ..." />
-              <marker date="1471418980245" expanded="true" signature="22710:22784" ph=" 管理cookie ..." />
-              <marker date="1471418980245" expanded="true" signature="23045:23120" ph=" 判断是不是 AJAX 请求 ..." />
-              <marker date="1471418980245" expanded="true" signature="23215:23249" ph=" 判断是否SSL协议 ..." />
-              <marker date="1471418980245" expanded="true" signature="23338:23410" ph=" 优化的require_once ..." />
-              <marker date="1471418980245" expanded="true" signature="23513:23566" ph="base64编码压缩序列化数据 ..." />
-              <marker date="1471418980245" expanded="true" signature="23670:23712" ph=" 反序列化 ..." />
-              <marker date="1471418980245" expanded="true" signature="23817:23910" ph="404跳转 ..." />
-              <marker date="1471418980245" expanded="true" signature="24265:24352" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="24302:24346" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="24563:24618" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="24645:24695" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="24941:24996" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="25023:25073" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="25206:25261" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="25288:25378" ph="{...}" />
-              <marker date="1471418980245" expanded="true" signature="25552:25680" ph="..." />
-              <marker date="1471418980245" expanded="true" signature="25844:25945" ph=" 建立文件 ..." />
-              <marker date="1471418980245" expanded="true" signature="26005:26073" ph=" 递归删除文件夹或文件  ..." />
-              <marker date="1471418980245" expanded="true" signature="26105:26191" ph=" 建立文件夹 ..." />
-              <marker date="1471418980245" expanded="true" signature="26240:26378" ph=" 移动文件夹或文件 ..." />
-              <marker date="1471418980245" expanded="true" signature="26439:26569" ph=" 复制文件或则文件夹 ..." />
-              <marker date="1471418980245" expanded="true" signature="26630:26702" ph=" 修改文件名 ..." />
-              <marker date="1471418980245" expanded="true" signature="26743:26823" ph=" 将字符串写入文件 ..." />
-              <marker date="1471418980245" expanded="true" signature="26863:26936" ph=" 将整个文件内容读出到一个字符串中 ..." />
-              <marker date="1471418980245" expanded="true" signature="26977:27045" ph=" 将文件内容读出到一个数组中 ..." />
-              <marker date="1471418980245" expanded="true" signature="27091:27254" ph=" 根据关键词列出目录下所有文件 ..." />
-              <marker date="1471418980245" expanded="true" signature="27317:27491" ph=" 根据关键词列出目录下所有文件 ..." />
-              <marker date="1471418980245" expanded="true" signature="27553:27622" ph=" 获取文件名后缀 ..." />
-              <marker date="1471418980245" expanded="true" signature="27661:28042" ph=" 获得文件相关信息 ..." />
-              <marker date="1471418980245" expanded="true" signature="28085:28159" ph=" 统计目录大小 ..." />
-              <marker date="1471418980245" expanded="true" signature="28200:28242" ph=" 将字节转换成Kb或者Mb... ..." />
-              <marker date="1471418980245" expanded="true" signature="28277:28425" ph=" 返回当前目录层级下所有文件及目录列表 ..." />
-              <marker date="1471418980245" expanded="true" signature="28463:28863" ph=" 递归循环目录列表，并返回关系层级 ..." />
-              <marker date="1471418980245" expanded="true" signature="30046:30144" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="3733:3788" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="3815:3865" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="7537:7810" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="7566:7804" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="7632:7796" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="8381:8433" ph=" 获取缓存实例 ..." />
+              <marker date="1471427685631" expanded="true" signature="8486:8609" ph=" 设置缓存 ..." />
+              <marker date="1471427685631" expanded="true" signature="8669:8716" ph=" 获取缓存 ..." />
+              <marker date="1471427685631" expanded="true" signature="8742:8789" ph=" 删除缓存 ..." />
+              <marker date="1471427685631" expanded="true" signature="8816:8845" ph=" 清空所有缓存 慎用 ..." />
+              <marker date="1471427685631" expanded="true" signature="8912:9837" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="8950:9217" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="9274:9834" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="9284:9551" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="9562:9829" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="11122:11321" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="11159:11200" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="11234:11319" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="11532:11587" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="11640:11731" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="11787:11870" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="12169:13022" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="12206:12896" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="12362:12890" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="12930:13020" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="20669:20808" ph=" 获取和设置配置参数 支持批量定义  具体请看配置章节 ..." />
+              <marker date="1471427685631" expanded="true" signature="20935:21093" ph=" @param string $url URL表达式，格式：'[模块/控制器/操作##锚点@域名]?参数1=值1&amp;参数2=值2...' ..." />
+              <marker date="1471427685631" expanded="true" signature="21200:21291" ph=" 获取语言 支持批量定义 ..." />
+              <marker date="1471427685631" expanded="true" signature="21407:21584" ph=" 以单例模式实例化类 ..." />
+              <marker date="1471427685631" expanded="true" signature="21676:21797" ph=" 如果存在自定义的模型类，则实例化自定义模型类，如果不存在，则会实例化Model基类,同时对于已实例化过的模型，不会重复去实例化。 ..." />
+              <marker date="1471427685631" expanded="true" signature="21901:22220" ph=" 获取输入参数 支持过滤和默认值 ..." />
+              <marker date="1471427685631" expanded="true" signature="22347:22422" ph=" 管理session ..." />
+              <marker date="1471427685631" expanded="true" signature="22713:22787" ph=" 管理cookie ..." />
+              <marker date="1471427685631" expanded="true" signature="23048:23123" ph=" 判断是不是 AJAX 请求 ..." />
+              <marker date="1471427685631" expanded="true" signature="23218:23252" ph=" 判断是否SSL协议 ..." />
+              <marker date="1471427685631" expanded="true" signature="23341:23413" ph=" 优化的require_once ..." />
+              <marker date="1471427685631" expanded="true" signature="23516:23569" ph="base64编码压缩序列化数据 ..." />
+              <marker date="1471427685631" expanded="true" signature="23673:23715" ph=" 反序列化 ..." />
+              <marker date="1471427685631" expanded="true" signature="23820:23913" ph="404跳转 ..." />
+              <marker date="1471427685631" expanded="true" signature="24268:24355" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="24305:24349" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="24566:24621" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="24648:24698" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="24944:24999" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="25026:25076" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="25209:25264" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="25291:25381" ph="{...}" />
+              <marker date="1471427685631" expanded="true" signature="25555:25683" ph="..." />
+              <marker date="1471427685631" expanded="true" signature="25847:25948" ph=" 建立文件 ..." />
+              <marker date="1471427685631" expanded="true" signature="26008:26076" ph=" 递归删除文件夹或文件  ..." />
+              <marker date="1471427685631" expanded="true" signature="26108:26194" ph=" 建立文件夹 ..." />
+              <marker date="1471427685631" expanded="true" signature="26243:26381" ph=" 移动文件夹或文件 ..." />
+              <marker date="1471427685631" expanded="true" signature="26442:26572" ph=" 复制文件或则文件夹 ..." />
+              <marker date="1471427685631" expanded="true" signature="26633:26705" ph=" 修改文件名 ..." />
+              <marker date="1471427685631" expanded="true" signature="26746:26826" ph=" 将字符串写入文件 ..." />
+              <marker date="1471427685631" expanded="true" signature="26866:26939" ph=" 将整个文件内容读出到一个字符串中 ..." />
+              <marker date="1471427685631" expanded="true" signature="26980:27048" ph=" 将文件内容读出到一个数组中 ..." />
+              <marker date="1471427685631" expanded="true" signature="27094:27257" ph=" 根据关键词列出目录下所有文件 ..." />
+              <marker date="1471427685631" expanded="true" signature="27320:27494" ph=" 根据关键词列出目录下所有文件 ..." />
+              <marker date="1471427685631" expanded="true" signature="27556:27625" ph=" 获取文件名后缀 ..." />
+              <marker date="1471427685631" expanded="true" signature="27664:28045" ph=" 获得文件相关信息 ..." />
+              <marker date="1471427685631" expanded="true" signature="28088:28162" ph=" 统计目录大小 ..." />
+              <marker date="1471427685631" expanded="true" signature="28203:28245" ph=" 将字节转换成Kb或者Mb... ..." />
+              <marker date="1471427685631" expanded="true" signature="28280:28428" ph=" 返回当前目录层级下所有文件及目录列表 ..." />
+              <marker date="1471427685631" expanded="true" signature="28466:28866" ph=" 递归循环目录列表，并返回关系层级 ..." />
+              <marker date="1471427685631" expanded="true" signature="30049:30147" ph="..." />
             </folding>
           </first_editor>
           <second_editor />
@@ -988,37 +1009,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="613">
+          <caret line="594" column="3" selection-start-line="594" selection-start-column="3" selection-end-line="594" selection-end-column="3" />
           <folding>
             <element signature="e#6#106#0#PHP" expanded="true" />
-            <marker date="1471423513152" expanded="true" signature="4316:4335" ph="..." />
-            <marker date="1471423513152" expanded="true" signature="4337:4341" ph="&lt;" />
-            <marker date="1471423513152" expanded="true" signature="4347:4353" ph=" " />
-            <marker date="1471423513152" expanded="true" signature="4389:4406" ph="..." />
-            <marker date="1471423513152" expanded="true" signature="4414:4418" ph="&gt;" />
-            <marker date="1471423513152" expanded="true" signature="4479:4496" ph="..." />
-            <marker date="1471423513152" expanded="true" signature="4563:4573" ph="..." />
+            <marker date="1471431617425" expanded="true" signature="4316:4335" ph="..." />
+            <marker date="1471431617425" expanded="true" signature="4337:4341" ph="&lt;" />
+            <marker date="1471431617425" expanded="true" signature="4347:4353" ph=" " />
+            <marker date="1471431617425" expanded="true" signature="4389:4406" ph="..." />
+            <marker date="1471431617425" expanded="true" signature="4414:4418" ph="&gt;" />
+            <marker date="1471431617425" expanded="true" signature="4479:4496" ph="..." />
+            <marker date="1471431617425" expanded="true" signature="4563:4573" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        <state relative-caret-position="530">
+          <caret line="194" column="22" selection-start-line="194" selection-start-column="22" selection-end-line="194" selection-end-column="22" />
           <folding>
             <element signature="e#7#144#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+        <state relative-caret-position="285">
+          <caret line="21" column="65" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
           <folding />
         </state>
       </provider>

@@ -341,11 +341,11 @@ function cookie($key = '', $val = '')
      * setcookie("user", "", time()-3600);
      */
     if (is_null($key)) {
-        
+
         foreach ($_COOKIE as $k => $v) {
         	 setcookie($cookie_prefix . $k, "", time() - 3600);
         }
-        
+
         return true;
     }
 
