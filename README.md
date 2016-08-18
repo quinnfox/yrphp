@@ -1,3 +1,4 @@
+[TOC]
 #简介
 yrPHP运用大量的单例及工厂模式，确保用最少的资源做最多的事，采用了自动加载，基本上无需手动加载类库文件，还集成了缓存技术及页面静态化技术，确保运行速度及响应速度
 
@@ -90,11 +91,12 @@ www  WEB部署目录（或者子目录）
 URL支持普通模式和PATHINFO模式，默认采用PATHINFO模式
 
 根据模型-视图-控制器模式，在此 URL 段一般以如下形式表示：
-example.com/class/function/ID
+example.com/file/.../file(n)/class/function/ID
 
-1. 第一段表示调用控制器**类**。
-2. 第二段表示调用类中的**函数**或方法。
-3. 第三及更多的段表示的是传递给控制器的**参数**，如 ID 或其他各种变量。
+1. 第一段表示调用控制器文件目录(可多级引导/file/..../file2/... 可省略 为控制器根目录 **所有目录名均为小写**)。
+2. 第二段表示调用控制器**类**。
+3. 第三段表示调用类中的**函数**或方法。
+4. 第四及更多的段表示的是传递给控制器的**参数**，如 ID 或其他各种变量。
 
 ####获得URL
 >getUrl($url,$indexPage);//如果参数为空 则返回现在所在所在的根目录如`http://example.com/index.php/news/index/id`
@@ -118,6 +120,9 @@ example.com/class/function/ID
 >
 下标n从1开始 如果为空 则默认返回 $no_result
 
+####rpart($n = null, $no_result = null)
+>同rsegment($n = null, $no_result = null)
+
 ####segment($n = null, $no_result = null)
 >返回没有经过路由替换的uri 数组(也就是现在所访问的地址) 分割一个详细的URI分段。n 为你想要得到的段数
 1. news
@@ -125,6 +130,10 @@ example.com/class/function/ID
 3. id
 >
 下标n从1开始 如果为空 则默认返回 $no_result
+
+####part($n = null, $no_result = null)
+>同segment($n = null, $no_result = null)
+
 
 ####getPath()
 >返回没有经过路由替换的uri 字符串(也就是现在所访问的地址)
@@ -311,6 +320,7 @@ C(array($key=>$value,$key1=>$value1));
 /*--------------------以下是模版配置---------------------------------------*/
 'setTemplateDir' => APP_PATH . "views/", //设置模板目录位置
 'setCompileDir' => APP_PATH . "runtime/compile_tpl/", //设置模板被编译成PHP文件后的文件位置
+'auto_literal' => false, //忽略限定符周边的空白
 'caching' => 1, //缓存开关 1开启，0为关闭
 'setCacheDir' => (APP_PATH . "runtime/cache/"), //设置缓存的目录
 'cache_lifetime' => 60 * 60 * 24 * 7, //设置缓存的时间 0表示永久
@@ -323,8 +333,8 @@ display($fileName, $tplVars = '', $cacheId = '');
 
 >$fileName 提供模板文件的文件名
  $tpl_var 动态数据
- $cacheId 缓存ID 当有个文件有多个缓存时，$cacheId不能为空，否则会重复覆盖
- display方法会自动生成缓存文件 但常常我们的display方法会在最后调用 导致我们display之前的逻辑判断及数据读取做无用功 所以我们可以在 构造函数在调用checkCacheId方法（系统已经自动调用 你无需再次调用 你只要**重写checkCacheId方法**就可），checkCacheId方法如下
+ $cacheId 当为Boolean值true时则做为数据返回，不输出到屏幕，其他情况做为缓存ID,当有个文件有多个缓存时，$cacheId不能为空，否则会重复覆盖
+ 如果开启缓存 display方法会自动生成缓存文件 但常常我们的display方法会在最后调用 导致我们display之前的逻辑判断及数据读取做无用功 所以我们可以在 方法开头做判断 直接调用`init($cacheId)`  或则在构造函数中调用checkCacheId方法（系统已经自动调用 你无需再次调用 你只要**重写checkCacheId方法**就可），checkCacheId方法如下
  */
 
 ```php
@@ -333,6 +343,7 @@ display($fileName, $tplVars = '', $cacheId = '');
      * 缓存初始化 判断缓存ID是否合理 避免生成无用静态文件
      */
     private function checkCacheId(){
+    if($this->caching){
         $act = C('actName');
         switch ($act){
             case "index":
@@ -345,14 +356,17 @@ display($fileName, $tplVars = '', $cacheId = '');
                 break;
         }
         $this->init($param);//$param 缓存ID
+        }
+        //同样 你也可以在方法开头做判断 不调用checkCacheId方法
     }
 ```
 
 ```php
 $this->display('name');
 ```
+>上面的 <var>name</var> 便是你的视图文件的名字 如 index.html。
 
- 上面的 <var>name</var> 便是你的视图文件的名字 如 index.html。
+
 
 ### 给视图添加动态数据
 ```php
@@ -360,6 +374,19 @@ $this->assign('name','yrPHP');//赋值单个数据
 //等同于
 $this->display('name',array('name'=>'yrPHP'));
 ```
+
+###视图缓存
+>以下参数可用于视图缓存,可在控制器中重载
+
+```
+protected $caching = true;   //bool 设置缓存是否开启 配置中可设置
+protected $cacheLifeTime = 3600;  //定义缓存时间 配置中可设置
+protected $cacheDir;      //定义生成的缓存文件路径 配置中可设置
+protected $cacheSubDir;   //定义生成的缓存文件的子目录默认为控制器名
+protected $cacheFileName; //定义生成的缓存文件名 默认为方法名
+private $cacheFile;      //最后形成的缓存完整路径 根据前面参数生成
+```
+
 
 #模版
 ##变量输出
@@ -481,67 +508,7 @@ class MyController extends Controller
     }
 ```
 
-#缓存
-##配置
 
-```php
-return array(
---------------------以下是数据缓存配置---------------------------------------*/
-'dbCacheTime' => 0, //数据缓存时间0表示永久
-'dbCacheType' => 'file', //数据缓存类型 file|memcache|memcached|redis
-//单个item大于1M的数据存memcache和读取速度比file
-'dbCachePath' => APP_PATH . 'runtime/data/',//数据缓存文件地址(仅对file有效)
-'dbCacheExt' => 'php',//生成的缓存文件后缀(仅对file有效)
-
-'memcache' => '127.0.0.1:11211',//string|array多个用数组传递 array('127.0.0.1:11211','127.0.0.1:1121')
-
-'redis' =>'127.0.0.1:6379',//string|array多个用数组传递 array('127.0.0.1:6379','127.0.0.1:6378')
-);
-```
-
-##使用方法
-
-```php
-<?php
-
-/**
-* 获取缓存实例
-* $dbCacheType 缓存存储方式默认为文件，可以根据需要修改配置文件
-*
-*/
-$cache = core\cache::getInstance($dbCacheType)
-/**
- * 设置缓存
- * @param string $key 要设置值的key
- * @param string $val 要存储的数据
- * @param null $timeout 有效期单位秒 0代表永久
- * @return bool
- */
-
-$cache->set($key = '', $val = '', $timeout = null);
-
-/**
-* 获取缓存
-* @param $key 要获取值的key
-* @return mixed
-*/
-$cache->get($key);
-
-/**
-* 删除缓存
-* @param $key 要删除值的key
-* @return mixed
-*/
-$cache->del($key);
-
-
-/**
-* 清空所有缓存 慎用
-* @return mixed
-*/
-$cache->clear();
-
-```
 
 
 #模型
@@ -636,8 +603,8 @@ loadClass('Model\UserModel');//实例化UserModel模型
 
 >实例化请确保参数确定 区分大小写
 
-#CURL
-##Active Record 模式
+## CURL
+### Active Record 模式
 
 ####添加数据INSERT
 > **$this->insert([添加的数据],[表名]，[是否自动添加前缀bool]);**
@@ -1091,17 +1058,53 @@ $error = $db->error();//返回的是一个数组array
 var_export($error);
 ```
 
+##数据缓存
+```php
+//获得缓存实例 $dbCacheType 缓存驱动，有file memcache、memcached、redis,默认为file
+$cache = core\cache::getInstance($dbCacheType = null);
+
+/**
+* 设置缓存
+* @param string $key 要设置值的key
+* @param string $val 要存储的数据
+* @param null $timeout 有效期单位秒 0代表永久 默认为配置文件中的cache_lifetime
+* @return bool
+*/
+
+$cache->set($key, $val, $timeout = null);
+
+
+/**
+* 获取缓存
+* @param $key
+* @return mixed
+*/
+$cache->get($key = null);
+
+/**
+* 根据key值删除缓存
+* @param string $key
+*/
+$cache->del($key = null);
+
+/**
+* 清空所有缓存 慎用
+* @return mixed
+*/
+$cache->clear();
+
+```
+
+
 ##数据库缓存
 
 ####在配置文件中配置数据库相关配置
 
 ```php
 return array(
-/*--------------------以下是数据库缓存配置---------------------------------------*/
+/*--------------------以下是数据库配置---------------------------------------*/
 'openCache' => true, //是否开启缓存
-
-
-/*--------------------以下是数据缓存配置---------------------------------------*/
+'defaultFilter' => 'htmlspecialchars', // 默认参数过滤方法 用于I函数过滤 多个用|分割stripslashes|htmlspecialchars
 'dbCacheTime' => 0, //数据缓存时间0表示永久
 'dbCacheType' => 'file', //数据缓存类型 file|memcache|memcached|redis
 //单个item大于1M的数据存memcache和读取速度比file
@@ -1132,7 +1135,7 @@ echo $db->lastQuery();
 #系统函数
 
 ```php
-<?php 
+<?php
 
 /**
  * 获取和设置配置参数 支持批量定义  具体请看配置章节
@@ -1237,8 +1240,6 @@ cookie('id');
 //删除
 cookie('id',null);
 
-//清空cookie
-cookie(null);
 /**********************************************************/
 /**
  * 判断是不是 AJAX 请求
@@ -1630,35 +1631,236 @@ array (
 ```
 
 ##图像处理类 Image
-##验证码类   VerifyCode
+>支持连贯操作
+
+####缩略图
+```php
+/**
+缩略图
+**/
+$img = loadClass('libs\Image','D:/test.jpg');//实例化 并打开test.jpg图片
+
+/**
+* 获得图片的基本信息
+* @return array(dirname,basename,extension,filename,width,height,type,mime) 
+*/
+var_dump($img->getInfo());
+
+$img=$img->thumb(array('width'=>100,'height'=>100,'pre'=>0.5));//如果设置了$config['per']则按照$config['per']比例缩放 否则按给定宽高
+
+/**
+* 直接在浏览器显示图片
+* @param null $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
+* @return bool
+*/
+$img->show($type = null);//显示图片
+
+/**
+* 保存图像
+* @param  string $imgname 图像保存名称
+* @param  string $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
+* @param  integer $quality 图像质量
+* @param  boolean $interlace 是否对JPEG类型图像设置隔行扫描
+*/
+$img->save($imgPath='test1.jpg', $type = null, $quality = 80, $interlace = true);
+
+/**
+* 客服端下载
+* @param null $downFileName 文件名 默认为原文件名
+* @param null $type 图像类型（gif,jpeg,jpg,png） 为空则按原图类型
+*/
+$img->down($downFileName = null, $type = null);
 ```
-<?php
-	//同其他类库调用方法一样
-  /*
-  //配置 以下都为默认值
-  $config = array(
-            'width'=>100,//图片宽度
-            'height'=>40，//图片长度
-            'size'=>21,//字体大小
-            'font'=>BASE_PATH .'resource/font/1.ttf',//字体 
-            'len'=>4,//字符串长度，默认4个
-            'type'=>4,//默认是大小写数字混合型，1 2 3 4分别表示 小写、大写、数字型、混合型
-            'backColor'=>'#eeeeee',//背景色，默认是浅灰色
-            'pixelNum'=>666,//干扰点个数
-            'lineNum'=> 10, //干扰线条数
-  );
+####水印
+```php
+$img = loadClass('libs\Image');//实例化
+$img->open('D:/test.jpg');//并打开test.jpg图片
 
-  */
+/**
+* 为图片添加文字水印
+* @param    string $water array('str'=>'ok','font'=>'msyh.ttf','color'=>'#ffffff','size'=>20,'angle'=>0,)
+* str水印文字为必填 font字体 color默认黑色 size文字大小默认20，angle文字倾斜度默认0 暂只支持GIF,JPG,PNG格式
+* @param    int $position 水印位置，有10种状态，0为随机位置；
+*                                1为顶端居左，2为顶端居中，3为顶端居右；
+*                                4为中部居左，5为中部居中，6为中部居右；
+*                                7为底端居左，8为底端居中，9为底端居右；
+*                                指定位置 array(100,100) | array('x'=>100,'y'=>100)
+* @return    mixed
+*/
+$img->text($water = array(), $position = 0);
+//其他 显示 下载 保存同上
+/*************************************************************/
+
+$img = loadClass('libs\Image','D:/test.jpg');//实例化 并打开test.jpg图片
 
 
-  $config = array('width'=>100,'height'=>40);
-  $thumb = loadClass('\libs\VerifyCode',$config);
+/**
+* 添加水印图片
+* @param  string $water 水印图片路径
+* @param  integer|array $position 水印位置
+* @param    int $position 水印位置，有10种状态，0为随机位置；
+*                                1为顶端居左，2为顶端居中，3为顶端居右；
+*                                4为中部居左，5为中部居中，6为中部居右；
+*                                7为底端居左，8为底端居中，9为底端居右；
+*                                指定位置 array(100,100) | array('x'=>100,'y'=>100)
+* @param  integer $alpha 水印透明度
+* @param  integer $waterConf array('width'=>100,'height'=>100) 调整水印大小 默认调用原图
+*/
+$img->watermark($water, $position = 0, $alpha = 100, $waterConf = array())；
+//其他 显示 下载 保存同上
+```
+####剪辑
+```php
+$img = loadClass('libs\Image','D:/test.jpg');//实例化 并打开test.jpg图片
 
-  $thumb->show();
+/**
+* 裁剪图像
+* @param  integer $w 裁剪区域宽度
+* @param  integer $h 裁剪区域高度
+* @param  integer|array $position 裁剪起始位置 有10种状态，0为随机位置；
+*                                 1为顶端居左，2为顶端居中，3为顶端居右；
+*                                 4为中部居左，5为中部居中，6为中部居右；
+*                                 7为底端居左，8为底端居中，9为底端居右；
+*                                 指定位置 array(100,100) | array('x'=>100,'y'=>100)
+* @param  integer $width 图像保存宽度 默认为裁剪区域宽度
+* @param  integer $height 图像保存高度 默认为裁剪区域高度
+*/
+$img->cut($w, $h, $position = 1, $width = null, $height = null);
+//其他 显示 下载 保存同上
 ```
 
-##分页类     Page
 ##CURL类     Curl
-##Email 类   PHPMailer
+>支持连贯操作
+
+```php
+//GET请求
+$curl = loadClass('libs\Curl');
+
+//设置需要获取的URL地址
+$curl = $curl->setUrl($url . 'https://api.weixin.qq.com/sns/oauth2/access_token');
+
+/**
+* 启用时会发送一个常规的GET请求
+* @param array|string $data array('user'=>'admin','pass'=>'admin') | admin&admin
+* @return $this
+*/
+$curl = $curl->get('appid=' . $AppID . '&secret=' . $AppSecret . '&code=' . $code . '&grant_type=authorization_code')；
+
+/**
+* 执行一个cURL会话 返回执行的结果
+* @param bool $debug 是否开启调试模式 如果为true将打印调试信息
+* @return mixed
+*/
+ $curl =$curl->exec();
+```
+
+```php
+//POST请求
+$curl = loadClass('libs\Curl');
+
+//设置需要获取的URL地址
+$curl = $curl->setUrl($url . 'https://127.0.0.1/test.php');
+
+/**
+* 启用时会发送一个常规的POST请求，默认类型为：application/x-www-form-urlencoded，就像表单提交的一样
+* @param array|string $data
+* @param string $enctype application|multipart  默认为application，文件上传请用multipart
+*/
+$curl = $curl->post(array('name' => 'test', 'sex'=>1,'birth'=>'20101010'))；
+
+/**
+* 执行一个cURL会话 返回执行的结果
+* @param bool $debug 是否开启调试模式 如果为true将打印调试信息
+* @return mixed
+*/
+ $curl =$curl->exec();
+```
+
+```php
+//获取Cookie模拟登陆
+$cookie_file = tempnam('./temp','cookie');
+
+$curl = loadClass('libs\Curl');
+
+//设置需要获取的URL地址
+$curl = $curl->setUrl($url . 'https://127.0.0.1/login.php');
+
+/**
+* 启用时会发送一个常规的POST请求，默认类型为：application/x-www-form-urlencoded，就像表单提交的一样
+* @param array|string $data
+* @param string $enctype application|multipart  默认为application，文件上传请用multipart
+*/
+$curl = $curl->post(array('name' => 'admin', 'passwd'=>'123456'))；
+
+/**
+* 获得cookies
+* @param string $path 定义Cookie存储路径 必须使用绝对路径
+*/
+$curl = $curl->getCookie($cookie_file);
+
+/**
+* 执行一个cURL会话 返回执行的结果
+* @param bool $debug 是否开启调试模式 如果为true将打印调试信息
+* @return mixed
+*/
+ $curl =$curl->exec();
+
+$curl = $curl->setUrl($url . 'https://127.0.0.1/getUserInfo.php');
+
+/**
+* 取出cookie，一起提交给服务器
+* @param string $path 定义Cookie存储路径 必须使用绝对路径
+*/
+$data = $curl->setCookieFile($cookie_file)->exec();
+
+
+/**
+* 设定HTTP请求中"Cookie: "部分的内容。多个cookie用分号分隔，分号后带一个空格(例如， "fruit=apple; colour=red")。
+* @param string|array $cookies 定义Cookie的值
+*/
+$curl = $curl->setCookie(array('name'=>'admin','passwd'=>'123456'));
+
+$data = $curl->exec();
+var_dump($data);
+
+//清理cookie文件
+unlink($cookie_file);
+```
+
+```php
+$headers['Referer'] = 'http://www.baidu.com';
+$headers['CLIENT-IP'] = '202.103.229.40';
+$headers['X-FORWARDED-FOR'] = '202.103.229.40';
+
+$curl = loadClass('libs\Curl');
+
+//设置需要获取的URL地址
+$curl = $curl->setUrl($url . 'https://127.0.0.1/login.php');
+
+/**
+* @param bool $verify 是否验证证书 默认false不验证
+* @param string $path 验证证书时，证书路径
+* @return $this
+*/
+$curl = $curl->sslVerify(false);
+
+/**
+* 传递一个连接中需要的用户名和密码
+* @param array|string $userPassword 格式为：array('userName','password') 或则, "username:password"
+*/
+
+$curl = $curl->setUserPassword(array('admin','123456'));
+
+
+//setHeader(array())设置请求头
+$curl->setHeader($headers)->get()->exec();
+var_dump($data);
+
+```
+
+
+##验证码类   VerifyCode
+##分页类     Page
 ##验证类     Validate
 ##购物车类   Cart
+##Email 类   PHPMailer

@@ -9,23 +9,29 @@
 namespace core;
 class YrTpl
 {
-    protected static $callNumber = 0;    //防止重复调用
+    private static $callNumber = 0;    //防止重复调用
     protected $templateDir;  //定义通过模板引擎组合后文件存放目录
     protected $comFileName;  //编译好的模版文件名
     protected $compileDir; //定义编译文件存放目录
+
     protected $caching = true;   //bool 设置缓存是否开启
     protected $cacheLifeTime = 3600;  //定义缓存时间
-    protected $cacheDir;          //定义生成的缓存文件名
-    protected $cacheFile;      //定义生成的缓存文件地址
+    protected $cacheDir;      //定义生成的缓存文件路径
+    protected $cacheSubDir;   //定义生成的缓存文件的子目录默认为控制器名
+    protected $cacheFileName; //定义生成的缓存文件名 默认为方法名
+    private $cacheFile;      //最后形成的缓存完整路径
+
     protected $leftDelimiter = '{';   //在模板中嵌入动态数据变量的左定界符号
     protected $rightDelimiter = '}'; //在模板中嵌入动态数据变量的右定界符号
     protected $rule = array();//替换搜索的模式的数组 array(搜索的模式 => 用于替换的字符串 )
-    protected $tplVars = array(); //内部使用的临时变量
+    private $tplVars = array(); //内部使用的临时变量
 
     public function __construct()
     {
         ob_start();
         $this->ctlFile = C('classPath');//控制器文件
+        $this->cacheSubDir = C('ctlName');
+        $this->cacheFileName = C('actName');
     }
 
     /**
@@ -78,12 +84,12 @@ class YrTpl
         require($this->comFileName);
 
         $this->content = ob_get_contents();
+        // ob_end_flush();
         ob_end_clean();
 
         if ($cacheId === true) {
             return $this->content;
         } else {
-            $this->setCache();
             echo $this->content;
         }
 
@@ -99,11 +105,11 @@ class YrTpl
 
         if ($this->caching) {
             //self::$cacheId[] = $cacheId;
-            $cacheDir = rtrim($this->cacheDir, '/') . '/' . C('ctlName');
+            $cacheDir = rtrim($this->cacheDir, '/') . '/' . $this->cacheSubDir;
 
             if (!file_exists($cacheDir)) mkdir($cacheDir, 0755);
 
-            $this->cacheFile = $cacheDir . '/' . C('actName');
+            $this->cacheFile = $cacheDir . '/' . $this->cacheFileName;
             $this->cacheFile .= empty($cacheId) ? '' : '_' . $cacheId;
             $this->cacheFile .= '.html';
 
@@ -163,8 +169,6 @@ class YrTpl
             }
         }
 
-        // ob_end_flush();
-        ob_end_clean();
 
     }
 
@@ -219,10 +223,12 @@ class YrTpl
 
 
     /**
-     * 析构函数
+     * 析构函数 生成缓存文件
      */
     function __destruct()
     {
+        $this->setCache();
+
         if (DEBUG) {
             echo Debug::message();
         }

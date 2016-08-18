@@ -21,7 +21,7 @@ interface   Cache
      * 设置缓存
      * @param string $key 要设置值的key
      * @param string $val 要存储的数据
-     * @param null $timeout 有效期单位秒 0代表永久
+     * @param null $timeout 有效期单位秒 0代表永久 默认为配置文件中的cache_lifetime
      * @return bool
      */
     public function set($key, $val, $timeout = null);
