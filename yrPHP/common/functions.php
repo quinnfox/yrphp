@@ -343,7 +343,7 @@ function cookie($key = '', $val = '')
     if (is_null($key)) {
 
         foreach ($_COOKIE as $k => $v) {
-        	 setcookie($cookie_prefix . $k, "", time() - 3600);
+            setcookie($cookie_prefix . $k, "", time() - 3600);
         }
 
         return true;
@@ -418,18 +418,19 @@ function isHttps()
 
 /**
  * 定义一个用来序列化对象的函数
- * 当数组值包含如双引号、单引号或冒号等字符时，
- * 它们被反序列化后，可能会出现问题。为了克服这个问题，
- * 一个巧妙的技巧是使用base64_encode和base64_decode。
- * 但是base64编码将增加字符串的长度。为了克服这个问题，
- * 可以和gzcompress一起使用。
+ * 判断配置中的cacheCompress的值是否启动压缩
  * @param $obj
  * @return string
  */
 function mySerialize($obj = '')
 {
     if (empty($obj)) return false;
-    return base64_encode(gzcompress(serialize($obj), 6));
+    $data = serialize($obj);
+
+    if (C('cacheCompress')) {
+        $data = gzcompress($data, 6);
+    }
+    return $data;
 }
 
 /**
@@ -440,7 +441,11 @@ function mySerialize($obj = '')
 function myUnSerialize($txt = '')
 {
     if (empty($txt)) return false;
-    return unserialize(gzuncompress(base64_decode($txt)));
+    if (C('cacheCompress')) {
+        $txt = gzuncompress($txt);
+    }
+
+    return unserialize($txt);
 }
 
 

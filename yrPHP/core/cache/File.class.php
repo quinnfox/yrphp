@@ -48,7 +48,7 @@ class File implements Cache
 
         $contents = array(
             'time' => time(),
-            'ttl' => is_null($timeout) ? $this->dbCacheExt : $timeout,
+            'ttl' => is_null($timeout) ? $this->dbCacheTime : $timeout,
             'data' => $val
         );
 
