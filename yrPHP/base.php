@@ -133,9 +133,15 @@ class Entry
             $classPath = $classList[$className];
         } else {
             $classPath = "";
-            $path = explode('\\', $className);
 
-            if (false !== strpos($className, '\\')) {
+            $classMap = require APP_PATH . "config/classMap.php";
+
+            if (isset($classMap[$className])) {
+                $classPath = $classMap[$className];
+
+            } else if (false !== strpos($className, '\\')) {
+
+                $path = explode('\\', $className);
                 $className = array_pop($path);
                 $pathCount = count($path) - 1;
                 $classPath = implode('/', $path) . '/' . $className . '.class.php';
