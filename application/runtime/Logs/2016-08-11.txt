@@ -1,4 +1,0 @@
-[11-Aug-2016 13:46:55 PRC] PHP Warning:  session_start(): open(F:/wamp/www/yrphp/application/runtime/session/\sess_v3fi7luo31uke1i9mgroaao673, O_RDWR) failed: No such file or directory (2) in F:\wamp\www\yrphp\yrphp\libs\VerifyCode.class.php on line 29
-[11-Aug-2016 13:46:55 PRC] PHP Warning:  Unknown: open(F:/wamp/www/yrphp/application/runtime/session/\sess_v3fi7luo31uke1i9mgroaao673, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
-[11-Aug-2016 13:46:55 PRC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (F:/wamp/www/yrphp/application/runtime/session/) in Unknown on line 0
-[11-Aug-2016 14:33:24 PRC] PHP Warning:  mt_rand() expects exactly 2 parameters, 1 given in F:\wamp\www\yrphp\yrphp\libs\VerifyCode.class.php on line 103
