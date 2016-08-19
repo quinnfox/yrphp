@@ -106,7 +106,7 @@ st;
             APP_PATH . 'runtime/session/index.html'       => $html,
             APP_PATH . 'runtime/compile_tpl/index.html' => $html,
             APP_PATH . 'runtime/data/index.html'        => $html,
-            APP_PATH . 'runtime/Logs/index.html'        => $html,
+            APP_PATH . 'runtime/logs/index.html'        => $html,
             APP_PATH . 'views/index.html'               => $html,
         );
 

@@ -21,7 +21,7 @@ return array(
 
     /* -----------错误处理----------------------------------*/
     'logRecord' => true,   // 默认错误记录日志
-    'logFile' => APP_PATH . 'runtime/Logs/', // 日志记录目录
+    'logDir' => APP_PATH . 'runtime/logs/', // 日志记录目录
 
     'ctrBasePath' => APP_PATH . 'controls/', //设置控制器目录位置
     'modelDir' => APP_PATH . "models/", //设置模型目录位置

@@ -945,11 +945,10 @@ class Model
    * 创建数据库，并且主键是id
    * table 要查询的表名
    */
-    function createTable($table, $key = 'id')
+    function createTable($table, $key = 'id',$engine = 'InnoDB')
     {
         $table = $this->tablePrefix . $table;
-        //    $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL  AUTO_INCREMENT primary key)ENGINE = MyISAM;";
-        $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL  primary key)ENGINE = MyISAM;";
+        $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL AUTO_INCREMENT  primary key) ENGINE = {$engine};";
         $this->query($sql);
 
     }
