@@ -15,6 +15,11 @@ class Cache
 {
     static $_instance = null;
 
+    private function __construct()
+    {
+
+    }
+
     static function getInstance($dbCacheType = null)
     {
         if (!(self::$_instance instanceof self)) {
@@ -50,4 +55,8 @@ class Cache
         return self::$_instance;
     }
 
+    private function __clone()
+    {
+
+    }
 }

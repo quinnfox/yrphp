@@ -73,10 +73,6 @@ class Model
             return self::$object;
         } else {
             switch ($dbConfig['dbDriver']) {
-                case 'mysql' :
-                    self::$object = new mysql();
-                    break;
-
                 case 'mysqli' :
                     break;
                 case 'access' :
