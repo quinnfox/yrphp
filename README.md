@@ -1883,7 +1883,7 @@ var_dump($data);
 
 
 ##验证码类   VerifyCode
-```
+```php
 //配置，以下均为默认值
 $conf= array(
 'width' =>100;//图片宽度
@@ -1908,7 +1908,7 @@ loadClass('libs\VerifyCode',$conf)->show($code = 'verify', $line = true, $
 
 ##分页类
 
-```
+```php
 //配置，以下均为默认值
         $config = array(
             'totalRows' => 100,// 总行数
@@ -1952,7 +1952,7 @@ loadClass('libs\VerifyCode',$conf)->show($code = 'verify', $line = true, $
             'otherTagClose' => '',//在其他“数字”链接外围包裹标签结束标签
 
             //自定义“select下拉跳转”
-            'gotoPage' => true,//是否显示select下拉跳转,默认不显示
+            'gotoPage' => false,//是否显示select下拉跳转,默认不显示
             'gotoTagOpen' => '',//在select下拉跳转外围包裹标签
             'gotoTagClose' => '',//在select下拉跳转外围包裹标签闭合
 
@@ -1964,11 +1964,11 @@ loadClass('libs\VerifyCode',$conf)->show($code = 'verify', $line = true, $
         echo $page->show();
 ```
 **生成样式**
-<div><a href="http://example.com/test/page/?key=hello&amp;p=1">首页</a><a href="http://example.com/test/page/?key=hello&amp;p=4">上一页</a><a href="http://example.com/test/page/?key=hello&amp;p=2">2</a><a href="http://example.com/test/page/?key=hello&amp;p=3">3</a><a href="http://example.com/test/page/?key=hello&amp;p=4">4</a><strong><a href="http://example.com/test/page/?key=hello&amp;p=5">5</a></strong><a href="http://example.com/test/page/?key=hello&amp;p=6">6</a><a href="http://example.com/test/page/?key=hello&amp;p=7">7</a><a href="http://example.com/test/page/?key=hello&amp;p=6">下一页</a><a href="http://example.com/test/page/?key=hello&amp;p=9">尾页</a><select onchange="javascript:location=&quot;http://example.com/test/page/?key=hello&amp;p=&quot;+this.value"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></div>
+<div><a href="http://example.com/test/page/?key=hello&amp;p=1">首页</a><a href="http://example.com/test/page/?key=hello&amp;p=4">上一页</a><a href="http://example.com/test/page/?key=hello&amp;p=2">2</a><a href="http://example.com/test/page/?key=hello&amp;p=3">3</a><a href="http://example.com/test/page/?key=hello&amp;p=4">4</a><strong><a href="http://example.com/test/page/?key=hello&amp;p=5">5</a></strong><a href="http://example.com/test/page/?key=hello&amp;p=6">6</a><a href="http://example.com/test/page/?key=hello&amp;p=7">7</a><a href="http://example.com/test/page/?key=hello&amp;p=6">下一页</a><a href="http://example.com/test/page/?key=hello&amp;p=9">尾页</a></div>
 
 
 ##验证类     Validate
-```
+```php
 <?php
        /**
          * 当两个值相等时 return true
@@ -2088,7 +2088,7 @@ loadClass('libs\VerifyCode',$conf)->show($code = 'verify', $line = true, $
 
 ```
 ##购物车类   Cart
-```
+```php
 <?php
 //配置参数
 $conf = array(
