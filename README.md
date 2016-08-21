@@ -2189,6 +2189,15 @@ $rowId = n'b99ccdf16028f015540f341130b6d8ec';
 $cart->remove($rowId);
 
 /**
+*删除多条用数组
+*/
+$rowId = array(
+'b99ccdf16028f015540f341130b6d8ec',
+'qweuyrf16028f985640f341130b6d66c'
+);
+$cart->remove($rowId);
+
+/**
 * 销毁购物车
 */
 $cart->destroy()；
@@ -2198,7 +2207,7 @@ $cart->destroy()；
 * @param $key
 * @return bool|int|string  当为单商家模式时直接返回false,当找不到时也返回false，否则返回商家标识符
 */
-$rowId = n'b99ccdf16028f015540f341130b6d8ec';
+$rowId = 'b99ccdf16028f015540f341130b6d8ec';
 $seller = $cart->searchSeller($rowId);
 ?>
 ```
