@@ -9,7 +9,7 @@
 namespace core\cache;
 
 
-class Redis implements Cache
+class Redis implements ICache
 {
     private static $object;
 

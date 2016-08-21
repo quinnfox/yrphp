@@ -7,6 +7,7 @@
  * GitHub:https://GitHubhub.com/quinnfox/yrphp
  */
 namespace core;
+
 class Model
 {
     private static $object;    // 当前数据库操作对象
@@ -14,10 +15,10 @@ class Model
     public $slaveServer = array();
     public $transStatus = true;
     public $_validate = true;//是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $validate验证规则 不通过 则报错
-    public $db = null; // 数据表前缀
-    protected $tablePrefix = null;// 链操作方法列表
+    public $db = null; //数据库名称
+    protected $tablePrefix = null;// 数据表前缀
     // protected $tableAlias = null; //数据库别称
-    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");//数据库名称
+    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");// 链操作方法列表
     protected $tableName = null;
     protected $sql;//执行过的sql
     protected $error = array();
@@ -46,6 +47,7 @@ class Model
 
 
         $this->masterServer = self::getInstance($db['masterServer']);
+
         if (empty($db['slaveServer'])) {
             $this->slaveServer[] = $this->masterServer;
         } else {
@@ -58,6 +60,42 @@ class Model
 
         //$this->validate = array('filed' => array(array('验证规则', '错误提示', '附加规则')));
     }
+
+
+    /**
+     * 返回当前终级类对象的实例
+     * @param $db_config 数据库配置
+     * @return object
+     */
+    public static function getInstance($dbConfig)
+    {
+        if (is_object(self::$object)) {
+            return self::$object;
+        } else {
+            switch ($dbConfig['dbDriver']) {
+                case 'mysql' :
+                    self::$object = new mysql();
+                    break;
+
+                case 'mysqli' :
+                    break;
+                case 'access' :
+                    break;
+                default :
+                    // self::$object = new pdo_driver($dbConfig);
+                    self::$object = db\pdoDriver::getInstance($dbConfig);
+
+            }
+
+            if (self::$object instanceof db\IDBDriver) {
+                return self::$object;
+            } else {
+                  die('错误：必须实现db\Driver接口');
+            }
+
+        }
+    }
+
 
     /**
      * 添加反引号``
@@ -108,33 +146,6 @@ class Model
         return "`$value`";
     }
 
-    /**
-     * 返回当前终级类对象的实例
-     * @param $db_config 数据库配置
-     * @return object
-     */
-    public static function getInstance($dbConfig)
-    {
-        if (is_object(self::$object)) {
-            return self::$object;
-        } else {
-            switch ($dbConfig['dbDriver']) {
-                case 'mysql' :
-                    self::$object = new mysql();
-                    break;
-
-                case 'mysqli' :
-                    break;
-                case 'access' :
-                    break;
-                default :
-                    // self::$object = new pdo_driver($dbConfig);
-                    self::$object = pdo_driver::getInstance($dbConfig);
-
-            }
-            return self::$object;
-        }
-    }
 
     /**
      * 设置缓存
@@ -355,6 +366,7 @@ class Model
         $sql .= "{$this->methods['where']}{$group}
                             {$having}{$order}{$this->methods['limit']}";
         $this->sql = $sql;
+
         //  Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
         $this->cleanLastSql();
         return $this;
@@ -455,13 +467,12 @@ class Model
      */
     protected final function cache($dbCacheFile = "", $assoc = false)
     {
+        $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
 
         if ($this->openCache) {
             $cache = Cache::getInstance();
 
             if ($cache->isExpired($dbCacheFile)) {
-
-                $this->db = $this->slaveServer[array_rand($this->slaveServer, 1)];
 
                 $re = $this->db->query($this->sql)->result($assoc);
                 $this->error[] = '错误信息：' . $this->getException('msg') . '  SQL语句：' . $this->sql;
@@ -664,7 +675,7 @@ class Model
             foreach ($array as $key => &$value) {
 
                 if (!in_array(strtolower($key), array_map('strtolower', $tableField))) {//判断字段是否存在 不存在则舍弃
-                    unset($value);
+                    unset($array[$key]);
                 } else {
                     /*** 验证规则validate*****/
                     if (isset($this->validate[$key])) {//判断验证规则是否存在
@@ -674,7 +685,7 @@ class Model
                                 $validate[1] = "错误:{$key}验证不通过";
                             }
 
-                            if (method_exists('libs\Validate', $validate[2])) {
+                            if (method_exists('\libs\Validate', $validate[2])) {
                                 if (!\libs\Validate::$validate[2]($value, $validate[0])) {
                                     $this->error[] = $validate[1];
                                     return false;
@@ -945,7 +956,7 @@ class Model
    * 创建数据库，并且主键是id
    * table 要查询的表名
    */
-    function createTable($table, $key = 'id',$engine = 'InnoDB')
+    function createTable($table, $key = 'id', $engine = 'InnoDB')
     {
         $table = $this->tablePrefix . $table;
         $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL AUTO_INCREMENT  primary key) ENGINE = {$engine};";

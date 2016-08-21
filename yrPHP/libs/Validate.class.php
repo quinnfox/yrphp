@@ -20,7 +20,7 @@ class Validate
      */
     static function equal($data = null, $val = null)
     {
-        if(is_null($data)) return false;
+        if (is_null($data)) return false;
 
         if ($data == $val) return true;
 
@@ -35,7 +35,7 @@ class Validate
      */
     static function notEqual($data = null, $val = null)
     {
-        if(is_null($data)) return false;
+        if (is_null($data)) return false;
 
         if ($data != $val) return true;
 
@@ -50,13 +50,13 @@ class Validate
      */
     static function in($data = '', $range = '')
     {
-        if(is_string($range)){
+        if (is_string($range)) {
             $range = explode(',', $range);
-        }elseif(!is_array($range)){
+        } elseif (!is_array($range)) {
             return false;
         }
 
-        if (in_array($range,$data)) return true;
+        if (in_array($range, $data)) return true;
 
         return false;
     }
@@ -70,13 +70,13 @@ class Validate
      */
     static function notIn($data = '', $range = '')
     {
-        if(is_string($range)){
+        if (is_string($range)) {
             $range = explode(',', $range);
-        }elseif(!is_array($range)){
+        } elseif (!is_array($range)) {
             return false;
         }
 
-        if (in_array($range,$data)) return false;
+        if (in_array($range, $data)) return false;
 
         return true;
     }
@@ -90,9 +90,9 @@ class Validate
      */
     static function between($data = '', $range = '')
     {
-        if(is_string($range)){
+        if (is_string($range)) {
             $range = explode(',', $range);
-        }elseif(!is_array($range)){
+        } elseif (!is_array($range)) {
             return false;
         }
 
@@ -114,9 +114,9 @@ class Validate
      */
     static function notBetween($data = '', $range = '')
     {
-        if(is_string($range)){
+        if (is_string($range)) {
             $range = explode(',', $range);
-        }elseif(!is_array($range)){
+        } elseif (!is_array($range)) {
             return false;
         }
 
@@ -131,42 +131,44 @@ class Validate
 
     /**
      * 当数据库中值存在时 return false
-     * @param $tableName
-     * @param $field
-     * @param $val
+     * @param $tableName 表名
+     * @param $field 字段名
+     * @param $val 值
      * @return bool
      */
-    static function  unique($tableName,$field,$val){
+    static function unique($tableName, $field, $val)
+    {
         $db = Model();
         $count = $db->query("select {$field} from {$tableName} where {$field}={$val}")->rowCount();
         if ($count) return false;
 
         return true;
     }
+
     /**
      * 当字符长度存在指定范围时return true
-     * @param null $data
-     * @param array|string $range
+     * @param null $data 字符串
+     * @param array|string $range 范围
      * @return bool
      * length('abc',$rage = 3); strlen('abc') ==3
      * length('abc',$rage = array(5,3))==length('abc',$rage = array(3,5)) => strlen('abc') >=3 && strlen('abc') <=5
      */
     static function length($data = '', $range = '')
     {
-        if(is_string($range)){
+        if (is_string($range)) {
             $range = explode(',', $range);
-        }elseif(!is_array($range)){
+        } elseif (!is_array($range)) {
             return false;
         }
 
         $max = max($range);
         $min = min($range);
         $strLen = strlen($data);
-        if($max == $min){
-            if($strLen == $max){
+        if ($max == $min) {
+            if ($strLen == $max) {
                 return true;
             }
-        }elseif ($strLen >= $min && $strLen <= $max) {
+        } elseif ($strLen >= $min && $strLen <= $max) {
             return true;
         }
 
@@ -175,58 +177,51 @@ class Validate
 
     /**
      * Email格式验证
-     * @param	string	$value	需要验证的值
+     * @param    string $value 需要验证的值
      */
-    static function email($value) {
-        $rules= "/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/";
+    static function email($value)
+    {
+        $rules = "/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/";
 
-        if(!preg_match($rules, $value))  return false;
+        if (!preg_match($rules, $value)) return false;
 
         return true;
     }
+
     /**
      * URL格式验证
-     * @param	string	$value	需要验证的值
+     * @param    string $value 需要验证的值
      */
-    static function url($value) {
+    static function url($value)
+    {
 
-        $rules='/^http\:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?$/';
-        if(!preg_match($rules, $value)) return false;
+        $rules = '/^(http|https)\:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?$/';
+        if (!preg_match($rules, $value)) return false;
 
         return true;
     }
+
     /**
      * 数字格式验证
-     * @param	string	$value	需要验证的值
+     * @param    string $value 需要验证的值
      */
-    static function number($value) {
+    static function number($value)
+    {
 
-        $rules='/^\d+$/';
-        if(!preg_match($rules, $value))  return false;
+        return is_numeric($value);
 
-        return true;
 
     }
-    /**
-     * 货币格式验证
-     * @param	string	$value	需要验证的值
-     */
-    static function currency($value) {
 
-        $rules='/^\d+(\.\d+)?$/';
-        if(!preg_match($rules, $value)) return false;
-
-        return true;
-
-    }
 
     /**
      * 使用自定义的正则表达式进行验证
-     * @param	string	$value	需要验证的值
-     * @param	string	$rules	正则表达式
+     * @param    string $value 需要验证的值
+     * @param    string $rules 正则表达式
      */
-    static function regex($value,$rules) {
-        if(!preg_match($rules, $value)) return false;
+    static function regex($value, $rules)
+    {
+        if (!preg_match($rules, $value)) return false;
 
         return true;
 
@@ -235,12 +230,13 @@ class Validate
 
     /**
      * 判断是否为手机号码
-     * @param	string	$value	手机号码
+     * @param    string $value 手机号码
      */
-    static  function phone($value = '') {
+    static function phone($value = '')
+    {
 
-        $rules='/^1\d{10}$/';
-        if(!preg_match($rules, $value))  return false;
+        $rules = '/^1\d{10}$/';
+        if (!preg_match($rules, $value)) return false;
 
         return true;
 
@@ -249,15 +245,16 @@ class Validate
 
     /**
      * 判断验证码的确与否
-     * @param string $value
-     * @param string $code
+     * @param string $value 值
+     * @param string $code session中的key
      * @return bool
      */
-    static  function verifyCode($value = '',$code='verify') {
+    static function verifyCode($value = '', $code = 'verify')
+    {
 
         if (!session_id()) return false;
 
-        if($_SESSION[$code] != strtolower($value)) return false;
+        if ($_SESSION[$code] != strtolower($value)) return false;
 
         return true;
 

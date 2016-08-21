@@ -10,13 +10,13 @@
 return array(
     //主服务器
     'masterServer' => array(
-        'dsn'         => '',
+        'dsn'         => 'mysql:host=localhost;dbname=test',
         'dbDriver'    => 'pdo', // 数据库类型
         'dbType'      => 'mysql', // 数据库类型
-        'dbHost'      => '', // 服务器地址
-        'dbName'      => '', // 数据库名
-        'dbUser'      => '', // 用户名
-        'dbPwd'       => '', // 密码
+        'dbHost'      => 'localhost', // 服务器地址
+        'dbName'      => 'test', // 数据库名
+        'dbUser'      => 'root', // 用户名
+        'dbPwd'       => 'root', // 密码
         'dbPort'      => '3306', // 端口
         'tablePrefix' => '', // 数据库表前缀
         'charset'     => 'utf8',

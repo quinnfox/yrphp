@@ -490,6 +490,8 @@ private $cacheFile;      //最后形成的缓存完整路径 根据前面参数�
 ```
 
 ##自定义标签
+####在控制器中自定义标签
+
 ```php
 <?php
 use core\Controller;
@@ -500,14 +502,35 @@ class MyController extends Controller
     {
         parent::__construct();
 
-        $this->rule =array(
-                     ['/'.C('left_delimiter').'=dump\(.*\)'.C('right_delimiter').'/']=> '<?php var_dump(\\1);?>',
-                     //更多规则
-                     );
+/*
+系统将自动添加定界符，其他同正则表达式
+如下 在模版中调用方式为 {=dump $a}
+*/
+$this->rule['=dump(.*)\s*'] = "<?php var_dump( \\1);?>";
+
     }
+
+    function index()
+{
+$data['arr'] = array(1,2,3,4,5,6);
+$this->display('index.html',$data);
+}
+
     }
 ```
-
+####在模版中调用
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<body>
+    {=dump($a)}
+</body>
+</html>
+```
 
 
 
@@ -1424,7 +1447,7 @@ Test.class.php的文件
 \libs\File::createFile($aimUrl, $overWrite = false);
 
 /**
- * 递归删除文件夹或文件 
+ * 递归删除文件夹或文件
  * @param  string $aimDir 文件地址
  * @return  boolean
  */
@@ -1520,7 +1543,7 @@ Test.class.php的文件
  * 将会返回包括以下单元的数组 array ：dirname(文件实在目录)、basename(文件名带后缀)、extension（文件后缀
  * 如果有）、filename(文件名不带后缀)、dev(设备名)、ino(inode 号码)、mode(inode 保护模式)、nlink(被连接数
  * 目)、uid(所有者的用户 id)、gid(所有者的组 id)、rdev(设备类型，如果是 inode 设备的话)、size(文件大小的
- * 字节数)、atime(上次访问时间（Unix 时间戳）)、ctime(上次改变时间（Unix 时间戳）)、blksize(文件系统 IO 
+ * 字节数)、atime(上次访问时间（Unix 时间戳）)、ctime(上次改变时间（Unix 时间戳）)、blksize(文件系统 IO
  * 的块大小)、blocks(所占据块的数目)。
  */
 \libs\File::getFileInfo($filename);
@@ -1559,14 +1582,14 @@ array (
  * @return    array    返回目录及子目录列表
 
  array (
-  1 => 
+  1 =>
   array (
     'id' => 1,
     'parentid' => 0,
     'name' => 'application',
     'dir' => './application/',
   ),
-  2 => 
+  2 =>
   array (
     'id' => 2,
     'parentid' => 1,
@@ -1638,11 +1661,11 @@ array (
 /**
 缩略图
 **/
-$img = loadClass('libs\Image','D:/test.jpg');//实例化 并打开test.jpg图片
+$img = loadClass('libs\Image','D:/test.jpg');//实例化 并打开test.jpg图片，也可以用open方法打开图片
 
 /**
 * 获得图片的基本信息
-* @return array(dirname,basename,extension,filename,width,height,type,mime) 
+* @return array(dirname,basename,extension,filename,width,height,type,mime)
 */
 var_dump($img->getInfo());
 
@@ -1860,7 +1883,324 @@ var_dump($data);
 
 
 ##验证码类   VerifyCode
-##分页类     Page
+```
+//配置，以下均为默认值
+$conf= array(
+'width' =>100;//图片宽度
+'height' =>40;//图片高度
+'size' =>21;//字体大小
+'font'=>'yrphp/resource/font/1.ttf';//字体
+'len' =>4;//随机字符串长度
+'type';//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
+'backColor' => '#eeeeee';     //背景色，默认是浅灰色
+'pixelNum' => 666; //干扰点个数
+'lineNum'=> 10; //干扰线条数
+);
+
+/**
+ * @param string $code 验证码key,用于session获取，默认verify
+ * @param bool $line 是否显示干扰线
+ * @param bool $pixel 是否显示干扰点
+ */
+//参数可以在实例化时传入 也可以调用init方法初始化时调用
+loadClass('libs\VerifyCode',$conf)->show($code = 'verify', $line = true, $pixel = true);
+```
+
+##分页类
+
+```
+//配置，以下均为默认值
+        $config = array(
+            'totalRows' => 100,// 总行数
+            'listRows' => 12,// 列表每页显示行数 默认12
+            'rollPage' => 6,// 分页栏每页显示的页数 默认8
+            'p' => 'p',
+            'url' => 'http://example.com/test/page/',//跳转链接URL,不配置 默认为当前页
+            'urlParam' => array('key' => 'hello'),// 分页跳转时要带的参数
+
+            //添加封装标签
+            'fullTagOpen' => '<div>',//整个分页周围围绕一些标签开始标签
+            'fullTagClose' => '</div>',//整个分页周围围绕一些标签结束标签
+
+            //自定义“当前页”链接
+            'nowPage' => 3,//当前页，默认为'1'第一页
+            'nowTagOpen' => '<strong>',//在当前页外围包裹开始标签 默认<strong>
+            'nowTagClose' => '</strong>',//在当前页外围包裹结束标签
+
+            //自定义起始链接
+            'firstTagOpen' => '',//在首页外围包裹开始标签
+            'firstLink' => '首页',//你希望在分页中显示“首页”链接的名字  如果不想显示该标签 则设置为FALSE即可
+            'firstTagClose' => '',//在首页外围包裹标签结束标签
+
+            //自定义结束链接
+            'lastTagOpen' => '',//在尾页外围包裹开始标签
+            'lastLink' => '尾页',//你希望在分页中显示“尾页”链接的名字  如果不想显示该标签 则设置为FALSE即可
+            'lastTagClose' => '',//在尾页外围包裹标签结束标签
+
+            //自定义“上一页”链接
+            'prevTagOpen' => '',//在上一页外围包裹开始标签
+            'prevLink' => '上一页',//上一页显示文字  如果不想显示该标签 则设置为FALSE即可
+            'prevTagClose' => '',//在上一页外围包裹标签结束标签
+
+            //自定义“下一页”链接
+            'nextTagOpen' => '',//在下一页外围包裹开始标签
+            'nextLink' => '下一页',//你希望在分页中显示“下一页”链接的名字 如果不想显示该标签 则设置为FALSE即可
+            'nextTagClose' => '',//在下一页外围包裹标签结束标签
+
+            //自定义“数字”链接  如果不想显示该标签 将rollPage设置为0即可
+            'otherTagOpen' => '',//在其他“数字”链接外围包裹开始标签
+            'otherTagClose' => '',//在其他“数字”链接外围包裹标签结束标签
+
+            //自定义“select下拉跳转”
+            'gotoPage' => true,//是否显示select下拉跳转,默认不显示
+            'gotoTagOpen' => '',//在select下拉跳转外围包裹标签
+            'gotoTagClose' => '',//在select下拉跳转外围包裹标签闭合
+
+        );
+
+        //实例化分页类 参数也可以通过init方法初始化
+        $page = loadClass('libs\page', $config);
+        //输出分页的html
+        echo $page->show();
+```
+**生成样式**
+<div><a href="http://example.com/test/page/?key=hello&amp;p=1">首页</a><a href="http://example.com/test/page/?key=hello&amp;p=4">上一页</a><a href="http://example.com/test/page/?key=hello&amp;p=2">2</a><a href="http://example.com/test/page/?key=hello&amp;p=3">3</a><a href="http://example.com/test/page/?key=hello&amp;p=4">4</a><strong><a href="http://example.com/test/page/?key=hello&amp;p=5">5</a></strong><a href="http://example.com/test/page/?key=hello&amp;p=6">6</a><a href="http://example.com/test/page/?key=hello&amp;p=7">7</a><a href="http://example.com/test/page/?key=hello&amp;p=6">下一页</a><a href="http://example.com/test/page/?key=hello&amp;p=9">尾页</a><select onchange="javascript:location=&quot;http://example.com/test/page/?key=hello&amp;p=&quot;+this.value"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></div>
+
+
 ##验证类     Validate
+```
+<?php
+       /**
+         * 当两个值相等时 return true
+         * @param string $data
+         * @param string $val
+         * @return bool
+         */
+        \libs\Validate::equal(20, 10);//false
+        \libs\Validate::equal(20, 20);//true
+        /**
+         * 当两个不值相等时 return true
+         * @param string $data
+         * @param string $val
+         * @return bool
+         */
+
+        \libs\Validate::notEqual(20, 10);//true
+        \libs\Validate::notEqual(20, 20);//false
+        /**
+         * 当存在指定范围时return true
+         * @param string $data
+         * @param array|string $range
+         * @return bool
+         */
+        \libs\Validate::in(2, '2,8');//true
+        \libs\Validate::in(10, array(2, 8));//false
+
+        /**
+         * 当不存在指定范围时return true
+         * @param string $data
+         * @param array|string $range
+         * @return bool
+         */
+        \libs\Validate::notIn(2, '2,8');//false
+        \libs\Validate::notIn(10, array(2, 8));//true
+
+
+        /**
+         * 当存在指定范围时return true
+         * @param null $data
+         * @param array|string $range
+         * @return bool
+         */
+        \libs\Validate::between(10, '10,20');//true
+        \libs\Validate::between(10, array(20, 15));//false
+
+
+        /**
+         * 当不存在指定范围时return true
+         * @param null $data
+         * @param array|string $range
+         * @return bool
+         */
+        \libs\Validate::notBetween(10, '10,20');//false
+        \libs\Validate::notBetween(10, array(20, 15));//true
+
+
+        /**
+         * 当数据库中值存在时 return false
+         * @param $tableName 表名
+         * @param $field 字段名
+         * @param $val 值
+         * @return bool
+         */
+        \libs\Validate::unique($tableName, $field, $val);
+
+        /**
+         * 当字符长度存在指定范围时return true
+         * @param null $data 字符串
+         * @param array|string $range 范围
+         * @return bool
+         * length('abc',3); strlen('abc') ==3
+         * length('abc',array(5,3))==length('abc',array(3,5)) => strlen('abc') >=3 && strlen('abc') <=5
+         */
+        \libs\Validate::length($data = '', $range = '');
+
+
+        /**
+         * Email格式验证
+         * @param    string $value 需要验证的值
+         */
+        \libs\Validate::email('5463@qq.com');//true
+
+        /**
+         * URL格式验证
+         * @param    string $value 需要验证的值
+         */
+        \libs\Validate::url('https://www.baidu.com');//true
+
+        /**
+         * 数字格式验证
+         * @param    string $value 需要验证的值
+         */
+        \libs\Validate::number(100); //true;
+
+        /**
+         * 使用自定义的正则表达式进行验证
+         * @param    string $value 需要验证的值
+         * @param    string $rules 正则表达式
+         */
+        \libs\Validate::regex($value, $rules);
+
+        /**
+         * 判断是否为手机号码
+         * @param    string $value 手机号码
+         */
+        \libs\Validate::phone($value = '');
+
+        /**
+         * 判断验证码的确与否
+         * @param string $value 值
+         * @param string $code session中的key 默认'verify'
+         * @return bool
+         */
+        \libs\Validate::verifyCode($value, $code);
+
+
+```
 ##购物车类   Cart
+```
+<?php
+//配置参数
+$conf = array(
+'saveMode' = 'session'，//存储方式，有cookie和session，默认session
+'mallMode'=>false,//商城模式 true多商家 false单商家,默认false单商家
+'key'=>'cartContents',//保存在session或者cookie中的key
+);
+//实例化购物车类 配置参数也可以通过init方法初始化
+$cart = loadClass('\libs\Cart',$conf);
+
+//添加一个产品到购物车
+/**
+六个保留的索引分别是:
+id - 你的商店里的每件商品都必须有一个唯一的标识符(identifier)
+qty - 购买的数量(quantity)。
+price - 商品的价格(price)。
+name - 商品的名称(name)。
+options - 标识商品的任何附加属性。必须通过数组来传递。
+seller - 卖家标识ID，多商家模式必须设置
+id, qty, price 和name是必需的，options是可选的
+除以上六个索引外，还有两个保留字：rowId 和 subtotal。它们是购物车类内部使用的，因此，往购物车中插入数据时，请不要使用这些词作为索引。
+
+其他可自行扩展
+ */
+      $items = array(
+               'id'      => 'sku_123ABC',
+               'qty'     => 1,
+               'price'   => 39.95,
+               'name'    => 'T-Shirt',
+               'options' => array('Size' => 'L', 'Color' => 'Red')
+            );
+/**
+* 添加单条或多条购物车项目
+* @param array $items 添加多个可为二维数组
+* @param bool $accumulation 是否累加,默认累计
+* @return bool|string
+*/
+$cart->insert($items);
+
+
+
+/**
+* 返回一个包含了购物车中所有信息的数组
+* @param null $mallMode 商城模式 true多商家(二维数组) false单商家（一维数组）默认为配置中的模式,当为单商家时，不管设置什么都返回一维数组
+* @param null $seller 返回指定商家下的所以产品，默认为null，返回所以商家，单商家下无效
+* @return array
+*/
+$cartList = $cart->getContents()；
+
+
+/**
+* 获得一条购物车的项目
+* @param null $rowId
+* @return bool|array
+*/
+$rowId = n'b99ccdf16028f015540f341130b6d8ec';
+$item = $cart->getItem($rowId);
+
+/**
+* 显示购物车中总共的商品数量
+* @param null $seller 商家标识符 单商家模式下无效
+* @return int
+*/
+$totalQty = $cart->totalQty();
+
+/**
+* 显示购物车中的总计金额  商家标识符 单商家模式下无效
+* @return int
+*/
+$priceTotal = $cart->total();
+
+/**
+* 显示购物车中总共的项目数量
+* @param null $seller 商家标识符 单商家模式下无效
+* @return int
+*/
+$totalItems =$cart->totalItems();
+
+
+/**
+* 更新购物车中的项目 必须包含 rowId
+* @param $item 修改多个可为二维数组
+* @return bool
+*/
+
+$items = array(
+'rowId'=> 'b99ccdf16028f015540f341130b6d8ec',
+'qty'=>6,
+)
+$cart->update($items);
+
+/**
+* 删除一条购物车中的项目  必须包含 rowId
+* @param null|array $rowId
+* @return bool
+*/
+$rowId = n'b99ccdf16028f015540f341130b6d8ec';
+$cart->remove($rowId);
+
+/**
+* 销毁购物车
+*/
+$cart->destroy()；
+
+/**
+* 根据rowId 查找商家
+* @param $key
+* @return bool|int|string  当为单商家模式时直接返回false,当找不到时也返回false，否则返回商家标识符
+*/
+$rowId = n'b99ccdf16028f015540f341130b6d8ec';
+$seller = $cart->searchSeller($rowId);
+?>
+```
+
 ##Email 类   PHPMailer

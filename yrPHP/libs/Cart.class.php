@@ -16,7 +16,7 @@ class Cart
     protected $multiCartContents = array();
     protected $error = '';
     public $saveMode = 'session';
-    public $mallMode = true;//商城模式 true多商家 false单商家
+    public $mallMode = false;//商城模式 true多商家 false单商家
     public $key = 'cartContents';
 
     public function __construct($params = array())
@@ -43,12 +43,14 @@ class Cart
 
 
     /**
-     * $mallMode;//商城模式 true多商家(二维数组) false单商家（一维数组）
-     * @param null $mallMode
+     * 返回一个包含了购物车中所有信息的数组
+     * @param null $mallMode 商城模式 true多商家(二维数组) false单商家（一维数组）默认为配置中的模式,当为单商家时，不管设置什么都返回一维数组
+     * @param null $seller 返回指定商家下的所以产品，默认为null，返回所以商家，单商家下无效
+     * @return array
      */
     function getContents($mallMode = null, $seller = null)
     {
-        $mallMode = is_null($mallMode) ? $this->mallMode : $mallMode;
+        $mallMode = is_null($mallMode) ? $this->mallMode : ($this->mallMode ? $mallMode : false);
         if ($mallMode) {
             if ($seller) return array($seller => $this->multiCartContents[$seller]);
 
@@ -66,22 +68,21 @@ class Cart
      */
     public function contents()
     {
-    	
-   
+
         $data = '';
         if ($this->saveMode == 'session' && isset($_SESSION[$this->key])) {
-        	
-        	
+
+
             $data = $_SESSION[$this->key];
         } else if (isset($_COOKIE[$this->key])) {
             $data = json_decode($_COOKIE[$this->key], true);
         }
         $data = empty($data) ? array() : $data;
 
-      
+
         if ($this->mallMode) {
             foreach ($data as $v) {
-     
+
                 foreach ($v as $kk => $vv) {
                     $this->singleCartContents[$kk] = $vv;
                 }
@@ -105,7 +106,7 @@ class Cart
     {
 
         if (isset($items['id'])) {
-            $rowId[] = $this->_insert($items,$accumulation);
+            $rowId[] = $this->_insert($items, $accumulation);
         } elseif (is_array(reset($items))) {
 
             foreach ($items as $v) {
@@ -215,7 +216,7 @@ class Cart
 
     /**
      * 更新购物车中的项目 必须包含 rowId
-     * @param $item
+     * @param $item 修改多个可为二维数组
      * @return bool
      */
     public function update($items = array())
@@ -333,7 +334,7 @@ class Cart
     /**
      * 获得一条购物车的项目
      * @param null $rowId
-     * @return bool
+     * @return bool|array
      */
     public function getItem($rowId = null)
     {
@@ -348,11 +349,12 @@ class Cart
 
     /**
      * 显示购物车中总共的项目数量
+     * @param null $seller 商家标识符 单商家模式下无效
      * @return int
      */
     public function totalItems($seller = null)
     {
-        if (empty($seller)) {
+        if (empty($seller) || $this->saveMode = false) {
             return count($this->singleCartContents);
         } else {
             return count($this->multiCartContents[$seller]);
@@ -361,7 +363,7 @@ class Cart
 
     /**
      * 显示购物车中总共的商品数量
-     * @param null $seller
+     * @param null $seller 商家标识符 单商家模式下无效
      * @return int
      */
     public function totalQty($seller = null)
@@ -369,7 +371,7 @@ class Cart
 
         $qty = 0;
 
-        if (empty($seller)) {
+        if (empty($seller) || $this->saveMode = false) {
             if (empty($this->singleCartContents)) return $qty;
             foreach ($this->singleCartContents as $v) {
                 $qty += $v['qty'];
@@ -386,7 +388,7 @@ class Cart
 
 
     /**
-     * 显示购物车中的总计金额
+     * 显示购物车中的总计金额  商家标识符 单商家模式下无效
      * @return int
      */
     public function total($seller = null)
@@ -409,10 +411,12 @@ class Cart
     /**
      * 根据rowId 查找商家
      * @param $key
-     * @return bool|int|string
+     * @return bool|int|string 当为单商家模式时直接返回false,当找不到时也返回false，否则返回商家标识符
      */
     public function searchSeller($rowId)
     {
+        if (!$this->saveMode) return false;
+
         foreach ($this->cartContents as $k => $v) {
             if (isset($v[$rowId])) {
                 return $k;

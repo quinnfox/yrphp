@@ -42,6 +42,11 @@ class VerifyCode
         return $this;
     }
 
+    /**
+     * @param string $code 验证码key,用于session获取，默认verify
+     * @param bool $line 是否显示干扰线
+     * @param bool $pixel 是否显示干扰点
+     */
     public function show($code = 'verify', $line = true, $pixel = true)
     {
         $this->setText();

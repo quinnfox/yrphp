@@ -9,7 +9,7 @@
 namespace core\cache;
 
 
-class File implements Cache
+class File implements ICache
 {
 
     private $dbCacheTime;
@@ -31,16 +31,16 @@ class File implements Cache
     public function isExpired($key)
     {
         $file = $this->dbCachePath . $key . '.' . $this->dbCacheExt;
-        if (!file_exists($file)) return false;
+        if (!file_exists($file)) return true;
 
         $contents = myUnSerialize(file_get_contents($this->dbCachePath . $key . '.' . $this->dbCacheExt));
 
         if ($contents['ttl'] != 0 && $contents['ttl'] > $contents['time']) {
             \libs\file::rm($file);
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public function set($key, $val, $timeout = null)

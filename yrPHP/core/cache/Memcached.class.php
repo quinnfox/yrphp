@@ -9,7 +9,7 @@
 namespace core\cache;
 
 
-class Memcached implements Cache
+class Memcached implements ICache
 {
     private static $object;
 
