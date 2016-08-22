@@ -44,6 +44,7 @@ function C($name = null, $value = null, $default = null)
 
 
 /**
+ * 根据参数，获取完整url，指定是否带入口文件 REWRITE重写模式下不需要指定
  * @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'
  * @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php
  * @return string
@@ -57,18 +58,32 @@ function getUrl($url = '', $indexPage = true)
         $base_url = 'http://localhost/';
     }
 
+    $base_url = trim($base_url, '/');
+
     if (C('urlType') != 2) {
 
         if ($indexPage) {
-            $base_url .= 'index.php' . '/';
+            $base_url .= $_SERVER['SCRIPT_NAME'];
         }
 
 
     }
+
+
     if (!empty($url)) {
-        $base_url .= ltrim($url, '/');
+        $base_url .= '/' . ltrim($url, '/');
     }
     return $base_url;
+}
+
+/**
+ * 根据参数，获取完整url，不带入口文件
+ * @param string $url
+ * @return string
+ */
+function baseUrl($url = '')
+{
+    return getUrl($url, false);
 }
 
 
