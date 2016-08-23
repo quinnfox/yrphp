@@ -13,7 +13,7 @@ class Entry
     {
         define('STARTTIME', microtime(true));
         ini_set('memory_limit', -1);
-        //set_time_limit(18000) ;
+        set_time_limit(0) ;
         //PHP程序所有需要的路径，都使用绝对路径
         define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架的路径
         define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
