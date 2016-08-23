@@ -86,7 +86,7 @@ class Model
             if (self::$object instanceof db\IDBDriver) {
                 return self::$object;
             } else {
-                  die('错误：必须实现db\Driver接口');
+                die('错误：必须实现db\Driver接口');
             }
 
         }
@@ -195,14 +195,8 @@ class Model
 
             $auto = end($args) === false ? false : true;
 
-            if (!empty($tableName)) {
+            return $this->select($method . '(' . $field . ') as `c`')->get($tableName, $auto)->row()->c;
 
-                $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
-            }
-
-            $tableName = strrpos($this->tableName, '`') === false ? $this->protect($this->tableName) : $this->tableName;
-
-            return $this->query('select ' . $method . '(' . $field . ') as `c` from ' . $tableName)->row()->c;
         }
         return $this;
     }

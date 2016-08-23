@@ -19,6 +19,7 @@ class Entry
         define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架的路径
         define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
         define("APP_PATH", ROOT_PATH . rtrim(APP, '/') . '/'); //用户项目的应用绝对路径
+        define("LIB_PATH", APP_PATH . 'libs' . '/'); //用户项目的应用绝对路径
         define("CORE_PATH", BASE_PATH . 'core/'); //框架核心类库
 
         /**
@@ -76,7 +77,7 @@ class Entry
         error_reporting(-1); //报告所有PHP错误
         if (C('logRecord')) {
             ini_set('log_errors', 1); //设置是否将脚本运行的错误信息记录到服务器错误日志或者error_log之中
-            $logFile = C('logDir') . '/sys_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+            $logFile = rtrim(C('logDir'), '/') . '/sys_log_' . date("Y-m-d") . '.log';//定义日志文件名;
             ini_set('error_log', $logFile); //将错误信息写进日志 APP.'runtime/logs'/sys_log_' . date("Y-m-d") . '.log'
             //开启自定义错误日志
             set_error_handler(array('Entry', "yrError"));
@@ -176,7 +177,7 @@ class Entry
     static function yrError($errNo, $errStr, $errFile, $errLine)
     {
 
-        $log_file = C('logDir') . '/%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+        $log_file = rtrim(C('logDir'), '/') . '/%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
         $template = '';
 
         switch ($errNo) {
@@ -273,7 +274,13 @@ class Entry
 
         $classPath = $ctrBasePath . $className . '.class.php';
 
-        C(array('classPath' => $classPath, 'ctlName' => $className, 'actName' => $action, 'lang' => $_SESSION['lang']));
+        C(array(
+            'classPath' => $classPath,
+            'ctlName' => $className,
+            'actName' => $action,
+            'nowAction' => $nowAction,
+            'lang' => $_SESSION['lang']
+        ));
 
         if (file_exists($classPath)) {
             require $classPath;
