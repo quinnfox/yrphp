@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
-    </list>
+    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="" />
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
