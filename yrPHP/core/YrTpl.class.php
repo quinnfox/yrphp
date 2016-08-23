@@ -132,9 +132,13 @@ class YrTpl
 
     private function tplReplace($content)
     {
-        foreach ($this->rule as $k => & $v) {
+        if(is_array($this->rule)){
+        foreach ($this->rule as $k =>  $v) {
             $this->rule['/' . $this->leftDelimiter . $k . $this->rightDelimiter . '/isU'] = $v;
             unset($this->rule[$k]);
+        }
+        }else{
+            unset($this->rule);
         }
 
         $this->rule['/' . $this->leftDelimiter . '=(.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php echo \\1;?>";//输出变量、常量或函数
