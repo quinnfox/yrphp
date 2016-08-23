@@ -32,6 +32,11 @@ class YrTpl
         $this->ctlFile = C('classPath');//控制器文件
         $this->cacheSubDir = C('ctlName');
         $this->cacheFileName = C('actName');
+
+        $this->leftDelimiter = preg_quote($this->leftDelimiter, '/');//转义正则表达式字符
+        $this->rightDelimiter = preg_quote($this->rightDelimiter, '/');//转义正则表达式字符
+
+
     }
 
     /**
@@ -61,6 +66,7 @@ class YrTpl
         extract($this->tplVars);
 
         /* 到指定的目录中寻找模板文件 */
+        $fileName = strpos($fileName, '.') !== false ? $fileName : ($fileName . '.' . C('templateExt'));
         $tplFile = $this->templateDir . $fileName;
 
         /* 如果需要处理的模板文件不存在,则退出并报告错误 */
@@ -126,29 +132,24 @@ class YrTpl
 
     private function tplReplace($content)
     {
-        $left = preg_quote($this->leftDelimiter, '/');//转义正则表达式字符
-        $right = preg_quote($this->rightDelimiter, '/');
-
-
-        foreach ($this->rule as $k=> & $v) {
-            $this->rule['/' . $left . $k . $right . '/isU'] = $v;
+        foreach ($this->rule as $k => & $v) {
+            $this->rule['/' . $this->leftDelimiter . $k . $this->rightDelimiter . '/isU'] = $v;
             unset($this->rule[$k]);
         }
 
-
-        $this->rule['/' . $left . '=(.*)\s*' . $right . '/isU'] = "<?php echo \\1;?>";//输出变量、常量或函数
-        $this->rule['/' . $left . 'foreach\s*\((.*)\)\s*' . $right . '/isU'] = "<?php foreach(\\1){?>";//foreach
-        $this->rule['/' . $left . 'loop\s*\$(.*)\s*' . $right . '/isU'] = "<?php foreach(\$\\1 as \$k=>\$v){?>";//loop
-        $this->rule['/' . $left . 'while\s*\((.*)\)\s*' . $right . '/isU'] = "<?php while(\\1){?>";//while
-        $this->rule['/' . $left . 'for\s*\((.*)\)\s*' . $right . '/isU'] = "<?php for(\\1){ ?>";//for
-        $this->rule['/' . $left . 'if\s*\((.*)\)\s*' . $right . '/isU'] = "<?php if(\\1){?>\n";//判断 if
-        $this->rule['/' . $left . 'else\s*if\s*\((.*)\)\s*' . $right . '/'] = "<?php }else if(\\1){?>";//判断 ifelse
-        $this->rule['/' . $left . 'else\s*' . $right . '/'] = "<?php }else{?>";//判断 else
-        $this->rule['/' . $left . '(\/foreach|\/for|\/while|\/if|\/loop)\s*' . $right . '/isU'] = "<?php } ?>";//end
-        $this->rule['/' . $left . '(include|require)\s+(.*)\s*' . $right . '/isU'] = "<?php \$this->display('\\2');?>";//包含标签
-        $this->rule['/' . $left . 'assign\s+(.*)\s*=\s*(.*)' . $right . '/isU'] = "<?php \\1 = \\2;?>";//分配变量
-        $this->rule['/' . $left . '(break|continue)\s*' . $right . '/isU'] = "<?php \\1;?>";//跳出循环
-        $this->rule['/' . $left . '(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $right . '/isU'] = "<?php \\1\\2;?>";//运算
+        $this->rule['/' . $this->leftDelimiter . '=(.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php echo \\1;?>";//输出变量、常量或函数
+        $this->rule['/' . $this->leftDelimiter . 'foreach\s*\((.*)\)\s*' . $this->rightDelimiter . '/isU'] = "<?php foreach(\\1){?>";//foreach
+        $this->rule['/' . $this->leftDelimiter . 'loop\s*\$(.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php foreach(\$\\1 as \$k=>\$v){?>";//loop
+        $this->rule['/' . $this->leftDelimiter . 'while\s*\((.*)\)\s*' . $this->rightDelimiter . '/isU'] = "<?php while(\\1){?>";//while
+        $this->rule['/' . $this->leftDelimiter . 'for\s*\((.*)\)\s*' . $this->rightDelimiter . '/isU'] = "<?php for(\\1){ ?>";//for
+        $this->rule['/' . $this->leftDelimiter . 'if\s*\((.*)\)\s*' . $this->rightDelimiter . '/isU'] = "<?php if(\\1){?>\n";//判断 if
+        $this->rule['/' . $this->leftDelimiter . 'else\s*if\s*\((.*)\)\s*' . $this->rightDelimiter . '/'] = "<?php }else if(\\1){?>";//判断 ifelse
+        $this->rule['/' . $this->leftDelimiter . 'else\s*' . $this->rightDelimiter . '/'] = "<?php }else{?>";//判断 else
+        $this->rule['/' . $this->leftDelimiter . '(\/foreach|\/for|\/while|\/if|\/loop)\s*' . $this->rightDelimiter . '/isU'] = "<?php } ?>";//end
+        $this->rule['/' . $this->leftDelimiter . '(include|require)\s+(.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php \$this->display('\\2');?>";//包含标签
+        $this->rule['/' . $this->leftDelimiter . 'assign\s+(.*)\s*=\s*(.*)' . $this->rightDelimiter . '/isU'] = "<?php \\1 = \\2;?>";//分配变量
+        $this->rule['/' . $this->leftDelimiter . '(break|continue)\s*' . $this->rightDelimiter . '/isU'] = "<?php \\1;?>";//跳出循环
+        $this->rule['/' . $this->leftDelimiter . '(\$.*|\+\+|\-\-)(\+\+|\-\-|\$.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php \\1\\2;?>";//运算
 
 
         $content = preg_replace(array_keys($this->rule), array_values($this->rule), $content);
@@ -235,7 +236,7 @@ class YrTpl
     {
         $this->setCache();
 
-        if (DEBUG) {
+        if (DEBUG && !isAjaxRequest()) {
             echo Debug::message();
         }
     }

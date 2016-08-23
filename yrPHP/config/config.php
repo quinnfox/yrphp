@@ -29,6 +29,13 @@ return array(
 
     /*--------------------以下是模版配置---------------------------------------*/
     'setTemplateDir' => APP_PATH . "views/", //设置模板目录位置
+    /**
+     * /模板文件扩展后缀默认值
+     * 如 display('index')：将找到模板目录下的index.html文件
+     * 如果设置了后缀如：display('index.php');
+     * 将不理会配置中的该参数，找到模板目录下的index.php文件
+     */
+    'templateExt' => 'html',
     'setCompileDir' => APP_PATH . "runtime/compile_tpl/", //设置模板被编译成PHP文件后的文件位置
     'caching' => 0, //缓存(静态化)开关 1开启，0为关闭
     'setCacheDir' => (APP_PATH . "runtime/cache/"), //设置缓存的目录

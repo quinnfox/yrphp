@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="" />
+    <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/config/config.php" afterPath="$PROJECT_DIR$/yrPHP/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
+    </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -185,41 +189,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pdoDriver.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/db/pdoDriver.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IDBDriver.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/core/db/IDBDriver.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PHPMailer.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yrPHP/libs/PHPMailer.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10184">
-              <caret line="536" column="43" selection-start-line="536" selection-start-column="42" selection-end-line="536" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Page.class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Page.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/libs/Page.class.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="817">
               <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="589">
+              <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="YrTpl.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="829">
+              <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -256,11 +260,8 @@
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Memcached.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Redis.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/cache/Cache.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
         <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
         <option value="$PROJECT_DIR$/yrphp/libs/VerifyCode.class.php" />
-        <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/yrphp/config/config.php" />
         <option value="$PROJECT_DIR$/yrphp/core/YrTpl.class.php" />
         <option value="$PROJECT_DIR$/application/views/index.html" />
@@ -285,6 +286,9 @@
         <option value="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
         <option value="$PROJECT_DIR$/yrPHP/base.php" />
         <option value="$PROJECT_DIR$/yrPHP/libs/Upload.class.php" />
+        <option value="$PROJECT_DIR$/yrPHP/config/config.php" />
+        <option value="$PROJECT_DIR$/application/config/config.php" />
+        <option value="$PROJECT_DIR$/yrPHP/core/YrTpl.class.php" />
       </list>
     </option>
   </component>
@@ -428,6 +432,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="yrPHP" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -447,6 +469,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controls" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yrphp" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -544,12 +584,12 @@
       <workItem from="1471744437706" duration="12101000" />
       <workItem from="1471776460936" duration="483000" />
       <workItem from="1471846825429" duration="3277000" />
-      <workItem from="1471915346539" duration="1507000" />
+      <workItem from="1471915346539" duration="3620000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131919000" />
+    <option name="totallyTimeSpent" value="134032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="0" width="1924" height="1084" extended-state="1" />
@@ -714,13 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -729,24 +762,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/runtime/compile_tpl/Index/index.html.php" />
-    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2470">
-          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/Controller.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1117,6 +1137,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="817">
           <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/core/YrTpl.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="829">
+          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
           <folding />
         </state>
       </provider>
