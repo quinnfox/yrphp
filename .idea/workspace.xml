@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/base.php" afterPath="$PROJECT_DIR$/yrPHP/base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Model.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="848">
-              <caret line="290" column="0" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
+              <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -222,8 +220,8 @@
       <file leaf-file-name="Page.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/yrPHP/libs/Page.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3249">
-              <caret line="177" column="21" selection-start-line="177" selection-start-column="21" selection-end-line="177" selection-end-column="21" />
+            <state relative-caret-position="817">
+              <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -465,7 +463,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="SearchEverywhereHistoryKey" value="loadclass&#9;null&#9;null&#10;cookie&#9;null&#9;null&#10;VerifyCode&#9;FILE&#9;file://F:/wamp/www/yrphp/yrphp/libs/VerifyCode.class.php&#10;Model.class.php &#9;FILE&#9;file://D:/wamp/work/minYuAPI/yrPHP/core/Model.class.php&#10;cu&#9;FILE&#9;file://D:/wamp/work/minYuAPI/yrPHP/libs/Curl.class.php&#10;filter&#9;null&#9;null&#10;load&#9;null&#9;null&#10;rsegment&#9;null&#9;null&#10;segment&#9;null&#9;null&#10;Model.class.php&#9;FILE&#9;file://D:/wamp/work/minYuAPI/yrPHP/core/Model.class.php&#10;row&#9;null&#9;null&#10;update&#9;null&#9;null&#10;getOne&#9;null&#9;null&#10;model&#9;FILE&#9;file://F:/wamp/www/yrphp/yrPHP/core/Model.class.php&#10;getUrl&#9;null&#9;null" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../shop/mobile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../weixin" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
@@ -548,15 +546,15 @@
       <workItem from="1471744437706" duration="12101000" />
       <workItem from="1471776460936" duration="483000" />
       <workItem from="1471846825429" duration="3277000" />
-      <workItem from="1471915346539" duration="222000" />
+      <workItem from="1471915346539" duration="1507000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130634000" />
+    <option name="totallyTimeSpent" value="131919000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="0" width="1924" height="1084" extended-state="0" />
+    <frame x="1" y="0" width="1924" height="1084" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14797008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -824,6 +822,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1103,7 +1102,7 @@
     <entry file="file://$PROJECT_DIR$/yrPHP/base.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="848">
-          <caret line="290" column="0" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
+          <caret line="292" column="0" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1118,8 +1117,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/libs/Page.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3249">
-          <caret line="177" column="21" selection-start-line="177" selection-start-column="21" selection-end-line="177" selection-end-column="21" />
+        <state relative-caret-position="817">
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
           <folding />
         </state>
       </provider>

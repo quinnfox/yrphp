@@ -11,7 +11,6 @@ class Entry
 {
     static function init()
     {
-
         define('STARTTIME', microtime(true));
         ini_set('memory_limit', -1);
         //set_time_limit(18000) ;
@@ -72,7 +71,10 @@ class Entry
             ini_set('session.gc_maxlifetime', $session_expire);
             ini_set('session.cookie_lifetime', $session_expire);
         }
+
         ini_set('session.cookie_domain', C('session_domain'));
+
+        session_start();
 
         error_reporting(-1); //报告所有PHP错误
         if (C('logRecord')) {
