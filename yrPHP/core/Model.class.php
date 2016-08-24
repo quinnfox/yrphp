@@ -706,28 +706,17 @@ class Model
      */
     public final function tableField($tableName = "")
     {
-        if (empty($tableName)) {
-            $tableName = $this->tableName;
-        } else {
-            if (empty($this->tablePrefix)) {
+        $result = $this->checkTable($tableName);
 
-                $tableName = $this->protect($tableName);
-
-            } else if (!strstr($tableName, $this->tablePrefix)) {
-
-                $tableName = $this->protect($this->tablePrefix . $tableName);
-            }
-        }
-        $result = $this->masterServer->query("desc {$tableName}")->result(true);
         foreach ($result as $k => $row) {
             // $row["Field"] = strtolower($row["Field"]);
-            if ($row["Key"] == "PRI") {
-                $fields["pri"] = $row["Field"];
+            if ($row->Key == "PRI") {
+                $fields["pri"] = $row->Field;
             } else {
-                $fields[] = $row["Field"];
+                $fields[] = $row->Field;
             }
 
-            // if ($row["Extra"] == "auto_increment")    $fields["auto"] = $row["Field"];
+            // if ($row->Extra == "auto_increment")    $fields["auto"] = $row["Field"];
 
         }
         //如果表中没有主键，则将第一列当作主键
@@ -942,14 +931,24 @@ class Model
 
 
     /*--------------------------数据库操作功能---------------------------------*/
-    /*
-   * 创建数据库，并且主键是id
-   * table 要查询的表名
-   */
-    function createTable($table, $key = 'id', $engine = 'InnoDB')
+
+    /**
+     * 创建数据库，并且主键是id
+     * @param string $tableName 表名
+     * @param string $key 主键
+     * @param string $engine 引擎 默认InnoDB
+     */
+    function createTable($tableName = '', $key = 'id', $engine = 'InnoDB')
     {
-        $table = $this->tablePrefix . $table;
-        $sql = "CREATE TABLE IF NOT EXISTS `$table` (`$key` INT NOT NULL AUTO_INCREMENT  primary key) ENGINE = {$engine};";
+
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS `$tableName` (`$key` INT NOT NULL AUTO_INCREMENT  primary key) ENGINE = {$engine};";
         $this->query($sql);
 
     }
@@ -957,68 +956,106 @@ class Model
 
     /**
      * 删除表
-     * @param $table
+     * @param string $tableName
+     * @return boolean
+     */
+    function dropTable($tableName = '')
+    {
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+        $sql = " DROP TABLE IF EXISTS `$tableName`";
+        return $this->query($sql)->result;
+    }
+
+
+    /**
+     * 检测表是否存在，也可以获取表中所有字段的信息(表里所有字段的信息)
+     * @param string $tableName 要查询的表名
+     * @return object
+     */
+    function checkTable($tableName = '')
+    {
+
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+        $sql = "desc `$tableName`";
+        $info = $this->query($sql)->result();
+        return $info;
+    }
+
+
+    /**
+     * 检测字段是否存在，也可以获取字段信息(只能是一个字段)
+     * @param string $tableName 表名
+     * @param string $field 字段名
      * @return mixed
      */
-
-    function DropTable($table)
+    function checkField($tableName = '', $field = '')
     {
-        $table = $this->tablePrefix . $table;
-        $sql = " DROP TABLE IF EXISTS `$table`";
-        return $this->query($sql);
-    }
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
 
+        }
 
-    /*
-    * 检测表是否存在，也可以获取表中所有字段的信息
-    * table 要查询的表名
-    * return 表里所有字段的信息
-    */
-    function checkTable($table)
-    {
-        $table = $this->tablePrefix . $table;
-        $sql = "desc `$table`";
-        $info = $this->query($sql);
+        $sql = "desc `$tableName` $field";
+        $info = $this->query($sql)->row();
         return $info;
     }
 
-    /*
-     * 检测字段是否存在，也可以获取字段信息(只能是一个字段)
-     * table 表名
-     * field 字段名
-     */
-    function checkField($table, $field)
-    {
-        $table = $this->tablePrefix . $table;
-        $sql = "desc `$table` $field";
-        $info = $this->query($sql);
-        return $info;
-    }
 
-    /*
-     * 添加字段
-     * table 表名
-     * info  字段信息数组 array
-     * return 字段信息 array
+    /**
+     * @param string $tableName 表名
+     * @param array $info 字段信息数组
+     * @return array 字段信息
      */
-    function addField($table, $info)
+    function addField($tableName = '', $info = array())
     {
-        $table = $this->tablePrefix . $table;
-        $sql = "alter table `$table` add ";
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+
+        $sql = "alter table `$tableName` add ";
         $sql .= $this->filterFieldInfo($info);
-        return $this->query($sql);
+        return $this->query($sql)->result;
     }
 
-    /*
+
+    /**
      * 修改字段
      * 不能修改字段名称，只能修改
+     * @param string $tableName
+     * @param array $info
+     * @return mixed
      */
-    function editField($table, $info)
+    function editField($tableName = '', $info = array())
     {
-        $table = $this->tablePrefix . $table;
-        $sql = "alter table `$table` modify ";
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+
+        $sql = "alter table `$tableName` modify ";
         $sql .= $this->filterFieldInfo($info);
-        $this->query($sql);
+        return $this->query($sql)->result;
         $this->checkField($table, $info['name']);
     }
 
@@ -1031,69 +1068,90 @@ class Model
      * info['default']   字段默认值
      * info['comment']   字段备注
      */
-    private function filterFieldInfo($info)
+    private function filterFieldInfo($info = array())
     {
-        if (!is_array($info))
-            return
-                $newInfo = array();
+        if (!is_array($info)) return false;
+
+        $newInfo = array();
         $newInfo['name'] = $info['name'];
-        $newInfo['type'] = $info['type'];
+        $newInfo['type'] = strtolower($info['type']);
         switch ($info['type']) {
             case 'varchar':
             case 'char':
-                $newInfo['length'] = empty($info['length']) ? 100 : $info['length'];
-                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
-                $newInfo['default'] = empty($info['default']) ? '' : 'DEFAULT ' . $info['default'];
-                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
+                $newInfo['length'] = isset($info['length']) ? 100 : $info['length'];
+                $newInfo['default'] = isset($info['default']) ? 'DEFAULT "' . $info['default'] . '"' : '';
+
                 break;
             case 'int':
-                $newInfo['length'] = empty($info['length']) ? 7 : $info['length'];
-                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
-                $newInfo['default'] = empty($info['default']) ? '' : 'DEFAULT ' . $info['default'];
-                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
+                $newInfo['length'] = isset($info['length']) ? 7 : $info['length'];
+                $newInfo['default'] = isset($info['default']) ? 'DEFAULT ' . (int)$info['default'] : 0;
+
                 break;
             case 'text':
                 $newInfo['length'] = '';
-                $newInfo['isNull'] = empty($info['isNull']) ? 'NULL' : 'NOT NULL';
                 $newInfo['default'] = '';
-                $newInfo['comment'] = empty($info['comment']) ? '' : 'COMMENT ' . $info['comment'];
                 break;
         }
+        $newInfo['isNull'] = !empty($info['isNull']) ? ' NULL ' : ' NOT NULL ';
+        $newInfo['comment'] = isset($info['comment']) ? ' ' : ' COMMENT "' . $info['comment'] . '" ';
+
         $sql = $newInfo['name'] . ' ' . $newInfo['type'];
-        $sql .= (!empty($newInfo['length'])) ? ($newInfo['length']) . " " : ' ';
-        $sql .= $newInfo['isNull'] . '';
+        $sql .= (!empty($newInfo['length'])) ? '(' . $newInfo['length'] . ')' . " " : ' ';
+        $sql .= $newInfo['isNull'];
         $sql .= $newInfo['default'];
         $sql .= $newInfo['comment'];
         return $sql;
     }
 
-    /*
+
+    /**
      * 删除字段
      * 如果返回了字段信息则说明删除失败，返回false，则为删除成功
+     * @param string $tableName
+     * @param string $field
+     * @return boolean
      */
-    function dropField($table, $field)
+    function dropField($tableName = '', $field = '')
     {
-        $table = $this->tablePrefix . $table;
-        $sql = "alter table `$table` drop column $field";
-        $this->query($sql);
-        $this->checkField($table, $field);
+
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
+        $sql = "alter table `$tableName` drop column $field";
+        return $this->query($sql)->result;
+
     }
 
-    /*
+
+    /**
      * 获取指定表中指定字段的信息(多字段)
+     * @param string $tableName
+     * @param array|string $field
+     * @return array
      */
-    function getFieldInfo($table, $field)
+    function getFieldInfo($tableName = '', $field = array())
     {
-        $table = $this->tablePrefix . $table;
+
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        } else if (!empty($this->tablePrefix) && strrpos($tableName, $this->tablePrefix) !== false) {
+            $tableName = $this->tablePrefix . $tableName;
+
+        }
+
         $info = array();
         if (is_string($field)) {
-            $this->checkField($table, $field);
-        } else {
-            foreach ($field as $v) {
-                $table = $this->tablePrefix . $table;
-                $info[$v] = $this->checkField($table, $v);
-            }
+            $field = explode(',', $field);
         }
+
+        foreach ($field as $v) {
+            $info[$v] = $this->checkField($tableName, $v);
+        }
+
         return $info;
     }
 
