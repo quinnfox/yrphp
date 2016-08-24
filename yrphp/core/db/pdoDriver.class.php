@@ -167,7 +167,7 @@ class pdoDriver extends PDO implements IDBDriver
      */
     function result($assoc = false)
     {
-        if (preg_match('/update|delete|insert/i', $this->sql, $matches))
+        if (preg_match('/^(update|delete|insert)/i', $this->sql, $matches))
             return $this->result;
 
         if (empty($this->PDOStatement)) return false;

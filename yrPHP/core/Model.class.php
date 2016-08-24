@@ -168,17 +168,22 @@ class Model
         $method = strtolower($method);
         if (in_array($method, array("order", "group"), true)) {
             // 连贯操作的实现
+            $args = array_filter(explode(',', trim($args[0])));
+
+            foreach ($args as $v) {
             if ($this->methods[$method] != "") $this->methods[$method] .= ',';
+                $order = preg_split("/[\s,]+/", trim($v));
 
-            $order = preg_split("/[\s,]+/", $args[0]);
+                $dot = explode('.', $order[0]);
 
-            $dot = explode('.', $order[0]);
+                $this->methods[$method] .= '`' . $dot[0] . '`';
 
-            $this->methods[$method] .= '`' . $dot[0] . '`';
+                if (isset($dot[1])) $this->methods[$method] .= ".`$dot[1]`";
 
-            if (isset($dot[1])) $this->methods[$method] .= ".`$dot[1]`";
+                if (isset($order[1])) $this->methods[$method] .= ' ' . $order[1];
 
-            if (isset($order[1])) $this->methods[$method] .= ' ' . $order[1];
+            }
+
 
         } else if ($method == "where") {
 
