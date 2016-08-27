@@ -306,11 +306,17 @@ C('参数名称','新的参数值');
 C("openCache",false);//关闭数据库缓存，只在该次请求有效
 ```
 
-####批量设置：
+##批量设置：
 
 ```php
 C(array($key=>$value,$key1=>$value1));
 ```
+
+##加载配置文件
+```php
+C(APP_PATH . 'config/config_test.php');
+```
+
 
 #视图
 
@@ -490,8 +496,20 @@ private $cacheFile;      //最后形成的缓存完整路径 根据前面参数�
 ```
 
 ##自定义标签
-####在控制器中自定义标签
+####在配置文件tabLib.php文件中自定义标签
+```
+/*
+系统将自动添加定界符，其他同正则表达式
+如下 在模版中调用方式为 {=dump $a}
+*/
+return array(
+'=dump\s*(.*)\s*' => "<?php var_dump( \\1);?>",
 
+);
+```
+
+
+####使用
 ```php
 <?php
 use core\Controller;
@@ -501,13 +519,6 @@ class MyController extends Controller
     function __construct()
     {
         parent::__construct();
-
-/*
-系统将自动添加定界符，其他同正则表达式
-如下 在模版中调用方式为 {=dump $a}
-*/
-$this->rule['=dump(.*)\s*'] = "<?php var_dump( \\1);?>";
-
     }
 
     function index()
@@ -516,7 +527,7 @@ $data['arr'] = array(1,2,3,4,5,6);
 $this->display('index.html',$data);
 }
 
-    }
+}
 ```
 ####在模版中调用
 ```
@@ -527,7 +538,7 @@ $this->display('index.html',$data);
     <title>TEST</title>
 </head>
 <body>
-    {=dump($a)}
+    {=dump $a}
 </body>
 </html>
 ```
@@ -1162,7 +1173,7 @@ echo $db->lastQuery();
 
 /**
  * 获取和设置配置参数 支持批量定义  具体请看配置章节
- * @param string|array $name 配置变量
+ * @param string|array $name 配置变量 支持传入配置文件
  * @param mixed $value 配置值
  * @param mixed $default 默认值
  * @return mixed

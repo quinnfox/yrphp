@@ -62,15 +62,15 @@ class Debug
         $uri = loadClass('core\Uri');
         $mess = "";
         $mess .= '<div style="clear:both;font-size:12px;width:97%;margin:10px;padding:10px;background:#ddd;border:1px solid #009900;z-index:100">';
-        $mess .= '<div style="float:left;width:100%;"><span style="float:left;width:200px;"><b>运行信息</b>( <font color="red">' . self::spent(STARTTIME,microtime(true)) . ' </font>秒):</span><span onclick="this.parentNode.parentNode.style.display=\'none\'" style="cursor:pointer;float:right;width:35px;background:#500;border:1px solid #555;color:white">关闭X</span></div><br>';
+        $mess .= '<div style="float:left;width:100%;"><span style="float:left;width:200px;"><b>运行信息</b>( <font color="red">' . self::spent(STARTTIME, microtime(true)) . ' </font>秒):</span><span onclick="this.parentNode.parentNode.style.display=\'none\'" style="cursor:pointer;float:right;width:35px;background:#500;border:1px solid #555;color:white">关闭X</span></div><br>';
         $mess .= '<ul style="margin:0px;padding:0 10px 0 10px;list-style:none">';
         if (count(self::$includeFile) > 0) {
             $mess .= '自动包含 ' . count(self::$includeFile) . ' 个文件';
             foreach (self::$includeFile as $v) {
-                $mess .= '<li>['.$v['time'].'秒]&nbsp;&nbsp;&nbsp;&nbsp;' . $v['path'] . '</li>';
+                $mess .= '<li>[' . $v['time'] . '秒]&nbsp;&nbsp;&nbsp;&nbsp;' . $v['path'] . '</li>';
             }
         }
-        self::$info[] = '内存使用：<strong style="color:red">' . round(memory_get_usage()/1024, 2) . ' KB</strong>';
+        self::$info[] = '内存使用：<strong style="color:red">' . round(memory_get_usage() / 1024, 2) . ' KB</strong>';
         self::$info[] = 'URI字符串：' . implode('/', $uri->segment());
         self::$info[] = 'URI路由地址：' . implode('/', $uri->rsegment());
         self::$info[] = '控制器地址：' . C('classPath');
@@ -105,11 +105,22 @@ class Debug
     /**
      *返回同一脚本中两次获取时间的差值
      */
-    static function spent($startTime=null,$stopTime=null)
+    static function spent($startTime = null, $stopTime = null)
     {
-        $startTime = empty($startTime)?self::$startTime:$startTime;
-        $stopTime = empty($stopTime)?self::$stopTime:$stopTime;
-       // return round((self::$stopTime - self::$startTime), 4);  //计算后以4舍5入保留4位返回
-        return sprintf("%1\$.4f",($stopTime - $startTime));  //计算后保留4位返回
+        $startTime = empty($startTime) ? self::$startTime : $startTime;
+        $stopTime = empty($stopTime) ? self::$stopTime : $stopTime;
+        // return round((self::$stopTime - self::$startTime), 4);  //计算后以4舍5入保留4位返回
+        return sprintf("%1\$.4f", ($stopTime - $startTime));  //计算后保留4位返回
+    }
+
+    /**
+     * 记录日志 保存到项目runtime下
+     * @param $fileName 文件名
+     * @param $content  内容
+     */
+    static function log($fileName, $content)
+    {
+        $fileName = rtrim(C('logDir'), '/') . '/' . $fileName . '.log';
+        file_put_contents($fileName, $content, FILE_APPEND);
     }
 }

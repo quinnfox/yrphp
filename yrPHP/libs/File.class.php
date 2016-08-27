@@ -236,7 +236,7 @@ class File
                 return true;
             }
         }
-            return false;
+        return false;
 
     }
 
@@ -248,9 +248,9 @@ class File
      */
     static public function vi($filename, $str)
     {
-        $path = pathinfo($filename,PATHINFO_DIRNAME);
+        $path = pathinfo($filename, PATHINFO_DIRNAME);
 
-        if(!is_dir($path))   self::mkDir($path);
+        if (!is_dir($path)) self::mkDir($path);
 
         if (function_exists('file_put_contents')) {
             file_put_contents($filename, $str);
@@ -332,13 +332,13 @@ class File
         $files = glob($path . '\*');
         //$dir = substr($path,strrpos($path,'\\')+1);
         foreach ($files as $v) {
-            if(empty($key)){
+            if (empty($key)) {
 
                 $list [$path][] = $v;
 
-            }else{
+            } else {
 
-                $lastFileName = substr($v,strlen($path)+1);
+                $lastFileName = substr($v, strlen($path) + 1);
 
                 if (preg_match("/.*$key.*/i", $lastFileName)) {
 
@@ -356,7 +356,6 @@ class File
     }
 
 
-
     /**
      * 根据关键词列出目录下所有文件
      *
@@ -368,16 +367,18 @@ class File
     static public function search($path, $key = '', $list = array())
     {
         $path = self::dirPath($path);
-        $files = glob($path . '\*');
+
+        $files = glob($path . '*');
+
         //$dir = substr($path,strrpos($path,'\\')+1);
         foreach ($files as $v) {
-            if(empty($key)){
+            if (empty($key)) {
 
                 $list [] = $v;
 
-            }else{
+            } else {
 
-                $lastFileName = substr($v,strlen($path)+1);
+                $lastFileName = substr($v, strlen($path) + 1);
 
                 if (preg_match("/.*$key.*/i", $lastFileName)) {
 
@@ -402,7 +403,7 @@ class File
      */
     static public function dirPath($path)
     {
-        return realpath($path);
+        return realpath($path) . '/';
         $path = str_replace('\\', '/', $path);
         if (substr($path, -1) != '/')
             $path = $path . '/';
@@ -454,6 +455,7 @@ class File
     {
         if (!is_dir($path))
             return false;
+
         $path = self::dirPath($path);
         if (!is_dir($path))
             touch($path, $mtime, $atime);
@@ -577,7 +579,6 @@ class File
         if (!preg_match("/200/", $first_header) || preg_match("/Location:/", $first_header)) return false;
         return true;
     }
-
 
 
 }

@@ -179,7 +179,7 @@ class Entry
     static function yrError($errNo, $errStr, $errFile, $errLine)
     {
 
-        $log_file = rtrim(C('logDir'), '/') . '/%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+        $log_file =  '%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
         $template = '';
 
         switch ($errNo) {
@@ -210,7 +210,8 @@ class Entry
                 break;
         }
 
-        file_put_contents($log_file, $template, FILE_APPEND);
+        \core\Debug::log($log_file,$template);
+
         return true;
     }
 

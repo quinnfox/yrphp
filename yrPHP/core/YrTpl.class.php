@@ -20,21 +20,36 @@ class YrTpl
     protected $cacheSubDir;   //定义生成的缓存文件的子目录默认为控制器名
     protected $cacheFileName; //定义生成的缓存文件名 默认为方法名
     private $cacheFile;      //最后形成的缓存完整路径
+    private $cacheContent = '';//缓存内容
 
     protected $leftDelimiter = '{';   //在模板中嵌入动态数据变量的左定界符号
     protected $rightDelimiter = '}'; //在模板中嵌入动态数据变量的右定界符号
     protected $rule = array();//替换搜索的模式的数组 array(搜索的模式 => 用于替换的字符串 )
     private $tplVars = array(); //内部使用的临时变量
 
+
     public function __construct()
     {
-        ob_start();
+
         $this->ctlFile = C('classPath');//控制器文件
         $this->cacheSubDir = C('ctlName');
         $this->cacheFileName = C('actName');
 
         $this->leftDelimiter = preg_quote($this->leftDelimiter, '/');//转义正则表达式字符
         $this->rightDelimiter = preg_quote($this->rightDelimiter, '/');//转义正则表达式字符
+
+        if (file_exists(APP_PATH . 'config/tabLib.php')) {
+            $this->rule = require APP_PATH . 'config/tabLib.php';
+            if (is_array($this->rule)) {
+                foreach ($this->rule as $k => $v) {
+                    $this->rule['/' . $this->leftDelimiter . $k . $this->rightDelimiter . '/isU'] = $v;
+                    unset($this->rule[$k]);
+                }
+            } else {
+                unset($this->rule);
+                $this->rule = array();
+            }
+        }
 
 
     }
@@ -89,14 +104,15 @@ class YrTpl
 
         require($this->comFileName);
 
-        $this->content = ob_get_contents();
+        $this->cacheContent = ob_get_contents();
+
         // ob_end_flush();
         ob_end_clean();
 
         if ($cacheId === true) {
-            return $this->content;
+            return $this->cacheContent;
         } else {
-            echo $this->content;
+            echo $this->cacheContent;
         }
 
     }
@@ -107,6 +123,7 @@ class YrTpl
      */
     public function init($cacheId = '')
     {
+        ob_start();
         if (self::$callNumber) return;
 
         if ($this->caching) {
@@ -132,14 +149,6 @@ class YrTpl
 
     private function tplReplace($content)
     {
-        if(is_array($this->rule)){
-        foreach ($this->rule as $k =>  $v) {
-            $this->rule['/' . $this->leftDelimiter . $k . $this->rightDelimiter . '/isU'] = $v;
-            unset($this->rule[$k]);
-        }
-        }else{
-            unset($this->rule);
-        }
 
         $this->rule['/' . $this->leftDelimiter . '=(.*)\s*' . $this->rightDelimiter . '/isU'] = "<?php echo \\1;?>";//输出变量、常量或函数
         $this->rule['/' . $this->leftDelimiter . 'foreach\s*\((.*)\)\s*' . $this->rightDelimiter . '/isU'] = "<?php foreach(\\1){?>";//foreach
@@ -174,9 +183,9 @@ class YrTpl
     {
         if (file_exists($this->comFileName) && $this->caching) {
             if (!file_exists($this->cacheFile)) {
-                file_put_contents($this->cacheFile, $this->content);
+                file_put_contents($this->cacheFile, $this->cacheContent);
             } elseif ($this->cacheLifeTime != 0 && filemtime($this->cacheFile) + $this->cacheLifeTime < time()) {
-                file_put_contents($this->cacheFile, $this->content);
+                file_put_contents($this->cacheFile, $this->cacheContent);
             }
         }
 

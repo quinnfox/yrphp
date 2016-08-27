@@ -139,10 +139,7 @@ class Validate
     static function unique($tableName, $field, $val)
     {
         $db = Model();
-        $count = $db->query("select {$field} from {$tableName} where {$field}={$val}")->rowCount();
-        if ($count) return false;
-
-        return true;
+        return $count = $db->where(array($field => $val))->count($tableName);
     }
 
     /**
@@ -254,7 +251,7 @@ class Validate
 
         if (!session_id()) return false;
 
-        if ($_SESSION[$code] != strtolower($value)) return false;
+        if (strtolower(session($code)) != strtolower($value)) return false;
 
         return true;
 

@@ -23,7 +23,7 @@ function &get_instance()
 
 /**
  * 获取和设置配置参数 支持批量定义
- * @param string|array $name 配置变量
+ * @param string|array $name 配置变量 支持传入配置文件
  * @param mixed $value 配置值
  * @param mixed $default 默认值
  * @return mixed
@@ -31,6 +31,12 @@ function &get_instance()
 function C($name = null, $value = null, $default = null)
 {
     static $config = array();
+
+    if (is_string($name) && is_file($name)) {
+        $name = require $name;
+        if (!is_array($name)) return false;
+    }
+
     // 批量设置
     if (is_array($name)) {
         $config = array_merge($config, $name);
@@ -241,6 +247,7 @@ function I($name = '', $default = null, $filter = null)
     } else { // 默认为自动判断
         $method = 'param';
     }
+
     switch (strtolower($method)) {
         case 'get'     :
             $input =& $_GET;
@@ -306,7 +313,6 @@ function I($name = '', $default = null, $filter = null)
  */
 function session($key = '', $val = '')
 {
-
     if (!session_id()) session_start();
     $session_prefix = C('session_prefix');
     if (is_null($key)) {
@@ -335,7 +341,7 @@ function session($key = '', $val = '')
 
     if (!empty($key)) {
 
-        return $_SESSION[$session_prefix . $key];
+        return isset($_SESSION[$session_prefix . $key]) ? $_SESSION[$session_prefix . $key] : false;
     }
 
     return $_SESSION;
