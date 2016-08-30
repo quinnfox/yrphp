@@ -1611,7 +1611,7 @@ array (
   ),
   ）
  */
-\libs\File::dirTree($dir, $parentid = 0, $dirs = array())；
+\libs\File::dirTree($dir, $parentid = 0, $dirs = array());
 
 ```
 
