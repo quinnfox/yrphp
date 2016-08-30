@@ -1899,15 +1899,15 @@ var_dump($data);
 ```php
 //配置，以下均为默认值
 $conf= array(
-'width' =>100;//图片宽度
-'height' =>40;//图片高度
-'size' =>21;//字体大小
-'font'=>'yrphp/resource/font/1.ttf';//字体
-'len' =>4;//随机字符串长度
-'type';//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
-'backColor' => '#eeeeee';     //背景色，默认是浅灰色
-'pixelNum' => 666; //干扰点个数
-'lineNum'=> 10; //干扰线条数
+'width' =>100,//图片宽度
+'height' =>40,//图片高度
+'size' =>21,//字体大小
+'font'=>'yrphp/resource/font/1.ttf',//字体
+'len' =>4,//随机字符串长度
+'type',//默认是大小写数字混合型，1 2 3 分别表示 小写、大写、数字型
+'backColor' => '#eeeeee',     //背景色，默认是浅灰色
+'pixelNum' => 666, //干扰点个数
+'lineNum'=> 10, //干扰线条数
 );
 
 /**

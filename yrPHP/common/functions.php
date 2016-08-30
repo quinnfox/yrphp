@@ -612,7 +612,8 @@ function Ip2Area($ip = '')
     curl_setopt_array($ch, $options);
     $re = curl_exec($ch);
     $area = json_decode($re, true);
-    if (!is_array($area) || $area['ret'] == -1) return '未知地区';
+    $area['ip'] = $ip;
+    if (!is_array($area) || $area['ret'] == -1) return false;//'未知地区'
     return $area;
     return $area['country'] . '  ' . $area['province'] . '  ' . $area['city'];
 
