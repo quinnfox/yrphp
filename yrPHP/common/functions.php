@@ -32,7 +32,7 @@ function C($name = null, $value = null, $default = null)
 {
     static $config = array();
 
-    if (is_string($name) && is_file($name)) {
+    if (is_string($name) && file_exists($name)) {
         $name = require $name;
         if (!is_array($name)) return false;
     }
@@ -565,6 +565,37 @@ function getMonthTime($month, $year = '')
     return $date;
 }
 
+/**
+ * http://www.php100.com/html/php/lei/2013/0904/3819.html
+ * 获取客户端真实IP
+ * @return mixed
+ */
+function getClientIp()
+{
+    $unknown = 'unknown';
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+        && $_SERVER['HTTP_X_FORWARDED_FOR']
+        && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'],
+            $unknown)
+    ) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } elseif (isset($_SERVER['REMOTE_ADDR'])
+        && $_SERVER['REMOTE_ADDR'] &&
+        strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)
+    ) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    /*
+    处理多层代理的情况
+    或者使用正则方式：$ip = preg_match("/[d.]
+    {7,15}/", $ip, $matches) ? $matches[0] : $unknown;
+    */
+    if (false !== strpos($ip, ','))
+        $ip = reset(explode(',', $ip));
+
+    return $ip;
+}
+
 
 /**
  * //新浪根据IP获得地址
@@ -574,6 +605,7 @@ function getMonthTime($month, $year = '')
  */
 function Ip2Area($ip = '')
 {
+    $ip = empty($ip) ? getClientIp() : $ip;
     $ch = curl_init();
     $options[CURLOPT_URL] = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=' . $ip;
     $options[CURLOPT_RETURNTRANSFER] = true;

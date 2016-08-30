@@ -61,7 +61,7 @@ return array(
 
 
     /*--------------------以下是session配置---------------------------------------*/
-    'session_prefix' => 'yrPHP_',
+    'session_prefix' => '',
     'session_expire' => 7200,//有效期时长
     'session_save_path' => APP_PATH . "runtime/session/",
     'session_name' => 'yrPHP',

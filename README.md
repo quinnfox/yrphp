@@ -797,9 +797,9 @@ $this->get([表名]，[是否自动添加前缀bool]);
 
 **SELECT**
 
->**select($field ='', $safe = true)
+>**select($field ='', $safe = false)
 $field string|array 字段
-$safe bool FALSE，就可以阻止数据被转义**
+$safe bool FALSE，是否添加限定符：反引号，默认false不添加**
 
 ------------
 
@@ -869,6 +869,8 @@ $this->where("id='1596'")->where(array('id'=>array('1113','!='),'fullname'=>arra
 //SELECT  *  FROM  `yrp_users` where (id='1596') and ( `id` != '1113'  or  `fullname` like '%nathan%'  and  `update_time` between '10000' and '100000000' )
 
 $this->where(array('id'=>array('1,2,3,4,5,6,7,8,9,10','in')))->get('users');
+//等同于
+$this->where(array('id'=>array(array(1,2,3,4,5,6,7,8,9,10),'in')))->get('users');
 //生成的SQL语句
 //SELECT  *  FROM  `yrp_users` where ( `id` in(1,2,3,4,5,6,7,8,9,10))
 ```

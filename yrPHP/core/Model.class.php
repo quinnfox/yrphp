@@ -96,10 +96,10 @@ class Model
     /**
      * 添加反引号``
      * @param $value
-     * @param int $type
+     * @param bool $type
      * @return string
      */
-    protected function protect($value, $type = 1)
+    protected function protect($value, $type = true)
     {
         if (!$type) {
             return $value;
@@ -171,7 +171,7 @@ class Model
             $args = array_filter(explode(',', trim($args[0])));
 
             foreach ($args as $v) {
-            if ($this->methods[$method] != "") $this->methods[$method] .= ',';
+                if ($this->methods[$method] != "") $this->methods[$method] .= ',';
                 $order = preg_split("/[\s,]+/", trim($v));
 
                 $dot = explode('.', $order[0]);
@@ -210,7 +210,10 @@ class Model
     /**
      * @param string $where id=1 || array('id'=>1)||array('id'=>array(1,'is|>|=|<>|like','null|or|and'))
      * @param string $where id between 20 and 100 || array('id'=>array('20 and 100','between|not between','null|or|and'))
+     *
      * @param string $where id in 1,2,3,4,5,6,7,8 10 || array('id'=>array('1,2,3,4,5,6,7,8 10','in|not in','null|or|and'))
+     * 也可以用数组
+     * @param string $where id in 1,2,3,4,5,6,7,8 10 || array('id'=>array(array(1,2,3,4,5,6,7,8 10),'in|not in','null|or|and'))
      * @param string $logical and | or
      * @param string $type where | having
      * @return $this
@@ -241,7 +244,17 @@ class Model
                     if (strripos($symbol, 'is') !== false) {
                         $value = $value;
                     } elseif (strripos($symbol, 'in') !== false) {//in || not in
-                        $value = '(' . $value . ')';
+
+                        if (is_string($value)) {
+                            $value = explode(',', $value);
+                        }
+                        $val = '';
+                        foreach ($value as $vv) {
+                            $val .= '"' . $vv . '",';
+                        }
+
+                        $value = '(' . trim($val, ',') . ')';
+
                     } elseif (strripos($symbol, 'between') !== false) {//between|not between
                         if (preg_match('/(.*)(and|or)(.*)/i', $value, $matches)) {
                             $value = " '" . trim($matches[1]) . "' " . trim($matches[2]) . " '" . trim($matches[3]) . "' ";
@@ -253,6 +266,7 @@ class Model
 
                         $value = " '" . $value . "' ";
                     }
+
                     if (reset($where) != $v) {
                         $this->methods[$type] .= " " . $logical . " ";
                     }
@@ -283,10 +297,10 @@ class Model
 
     /**
      * @param string $field
-     * @param int $safe FALSE，就可以阻止数据被转义
+     * @param bool $safe 是否添加限定符：反引号，默认false不添加
      * @return $this
      */
-    public final function select($field = '', $safe = true)
+    public final function select($field = '', $safe = false)
     {
         if (is_array($field)) {
             $fieldArr = $field;

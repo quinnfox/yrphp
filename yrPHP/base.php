@@ -13,7 +13,7 @@ class Entry
     {
         define('STARTTIME', microtime(true));
         ini_set('memory_limit', -1);
-        set_time_limit(0) ;
+        set_time_limit(0);
         //PHP程序所有需要的路径，都使用绝对路径
         define("BASE_PATH", str_replace("\\", "/", dirname(__FILE__)) . '/'); //框架的路径
         define("ROOT_PATH", dirname(BASE_PATH) . '/'); //项目的根路径，也就是框架所在的目录
@@ -74,7 +74,7 @@ class Entry
 
         ini_set('session.cookie_domain', C('session_domain'));
 
-        session_start();
+      //  session_start();
 
         error_reporting(-1); //报告所有PHP错误
         if (C('logRecord')) {
@@ -97,22 +97,24 @@ class Entry
         }
 
         if (isset($_GET['lang'])) {
-            $_SESSION['lang'] = strtolower($_GET['lang']);
+              session('lang','en');
         } else {
-            if (!isset($_SESSION['lang'])) {
-                $_SESSION['lang'] = 'en';
+            if (! session('lang')) {
+                session('lang','en');
             }
         }
 
         if (isset($_GET['country'])) {
-            $_SESSION['country'] = strtoupper($_GET['country']);
+            session('country',strtoupper($_GET['country']));
         } else {
-            if (!isset($_SESSION['country'])) {
-                $_SESSION['country'] = 'CN';
+            if(! session('country')){
+
+                 session('country',reset(explode(',',$_SERVER["HTTP_ACCEPT_LANGUAGE"])));
             }
+
         }
 
-        $langPath = APP_PATH . 'lang/lang_' . $_SESSION['lang'] . '.php';
+        $langPath = APP_PATH . 'lang/lang_' . session('lang') . '.php';
         if (file_exists($langPath)) {
             getLang(require $langPath);
         }
@@ -179,7 +181,7 @@ class Entry
     static function yrError($errNo, $errStr, $errFile, $errLine)
     {
 
-        $log_file =  '%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
+        $log_file = '%s_log_' . date("Y-m-d") . '.log';//定义日志文件名;
         $template = '';
 
         switch ($errNo) {
@@ -210,8 +212,7 @@ class Entry
                 break;
         }
 
-        \core\Debug::log($log_file,$template);
-
+        \core\Debug::log($log_file, $template);
         return true;
     }
 
@@ -282,7 +283,7 @@ class Entry
             'ctlName' => $className,
             'actName' => $action,
             'nowAction' => $nowAction,
-            'lang' => $_SESSION['lang']
+            'lang' => session('lang')
         ));
 
         if (file_exists($classPath)) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/yrphp/core/Structure.class.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/yrphp/lang/lang_en.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/yrphp/libs/Validate.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yrPHP/core/Structure.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yrPHP/lang/lang_en.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yrPHP/libs/Validate.class.php" charset="UTF-8" />
   </component>
 </project>
