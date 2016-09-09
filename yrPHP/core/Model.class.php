@@ -676,7 +676,7 @@ class Model
      */
     function replace($data = array(), $tableName = "", $auto = true)
     {
-        insert($data, $tableName, $auto, $act = 'REPLACE');
+        $this->insert($data, $tableName, $auto, $act = 'REPLACE');
     }
 
 
@@ -732,7 +732,7 @@ class Model
      */
     function replaces($filed = array(), $data = array(), $tableName = "", $auto = true)
     {
-        inserts($filed, $data, $tableName, $auto, $act = 'REPLACE');
+        $this->inserts($filed, $data, $tableName, $auto, $act = 'REPLACE');
     }
 
 
