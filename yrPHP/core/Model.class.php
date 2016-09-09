@@ -10,24 +10,42 @@ namespace core;
 
 class Model
 {
-    private static $object;    // 当前数据库操作对象
+    // 当前数据库操作对象
+    private static $object;
+    //主服务器
     public $masterServer = null;
+    //从服务器群
     public $slaveServer = array();
+    //事务状态
     public $transStatus = true;
-    public $_validate = true;//是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $validate验证规则 不通过 则报错
-    public $db = null; //数据库名称
-    protected $tablePrefix = null;// 数据表前缀
-    // protected $tableAlias = null; //数据库别称
-    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");// 链操作方法列表
+    //是否有事务正在执行
+    protected $hasActiveTransaction = false;
+    //是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $validate验证规则 不通过 则报错
+    public $_validate = true;
+    //数据库名称
+    public $db = null;
+    // 数据表前缀
+    protected $tablePrefix = null;
+    //数据库别称
+    // protected $tableAlias = null;
+    // 链操作方法列表
+    protected $methods = array("field" => "", "where" => "", "order" => "", "limit" => "", "group" => "", "having" => "");
+    //表名称
     protected $tableName = null;
-    protected $sql;//执行过的sql
+    //拼接后的sql语句
+    protected $sql;
+    //错误信息
     protected $error = array();
+    //多表连接
     protected $join = array();
-    protected $validate = array();//验证规则 array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
-    protected $dbCacheTime;
-    protected $openCache; //是否开启缓存 bool
-    protected $parameters = array(); // query 绑定的参数
-    private $queries = array();//上次调用的数据库实例
+    //验证规则 array('字段名' => array(array('验证规则(值域)', '错误提示', '附加规则')));
+    protected $validate = array();
+    //是否开启缓存 bool
+    protected $openCache;
+    // query 预处理绑定的参数
+    protected $parameters = array();
+    //执行过的sql
+    private $queries = array();
 
     public function __construct($tablePrefix = '', $tableName = '')
     {
@@ -591,7 +609,7 @@ class Model
         $this->db = $this->masterServer;
         $re = $this->db->query($this->sql)->result();
         if (!$re) {
-            $this->transStatus = false;
+            if ($this->hasActiveTransaction) $this->transStatus = false;
             $this->error[] = '错误信息：' . $this->getException('msg') . '  SQL语句：' . $this->sql;
         }
         Debug::stop();
@@ -600,36 +618,31 @@ class Model
     }
 
     /**
+     * 添加单条数据
      * @param array $data 添加的数据
      * @param string $tableName 数据库表名
      * @param bool $auto 是否自动添加表前缀
+     * @param string $act
      * @return int 受影响行数
      */
-    public final function insert($data = array(), $tableName = "", $auto = true)
+    public final function insert($data = array(), $tableName = "", $auto = true, $act = 'INSERT')
     {
         Debug::start();
-        if (!empty($tableName)) {
+        if (!empty($tableName))
             $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
-        }
 
-        if (empty($data)) {
+
+        if (empty($data))
             $data = $_POST;
-        }
-        if (!$data) {
+
+        if (!$data)
             return false;
-        }
+
         $data = $this->check($data);
         if ($data === false) return false;
 
-        if (!empty($where)) {
-            $this->where($where);
-        }
-        $where = $this->methods['where'];
-        $limit = $this->methods['limit'];
 
-
-        $field = '';
-        $value = '';
+        $field = $value = '';
         foreach ($data as $k => $v) {
 
             $field .= "`$k`,";
@@ -639,20 +652,89 @@ class Model
         $field = trim($field, ',');
         $value = trim($value, ',');
 
-        $this->sql = "INSERT  INTO " . $this->tableName . "(" . $field .
-            ")  VALUES(" . $value . ") ";
+        $this->sql = "{$act}  INTO " . $this->tableName . "(" . $field . ")  VALUES(" . $value . ") ";
+
         $this->queries[] = $this->sql;
         $this->cleanLastSql();
         $this->db = $this->masterServer;
         $re = $this->db->query($this->sql);
         if (!$re->result()) {
-            $this->transStatus = false;
+            if ($this->hasActiveTransaction) $this->transStatus = false;
             $this->error[] = '错误信息：' . $this->getException('msg') . '  SQL语句：' . $this->sql;
         }
         Debug::stop();
         Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
         return $re->getLastId();
     }
+
+    /**
+     * 添加单条数据 如已存在则替换
+     * @param array $data 添加的数据
+     * @param string $tableName 数据库表名
+     * @param bool $auto 是否自动添加表前缀
+     * @return int 受影响行数
+     */
+    function replace($data = array(), $tableName = "", $auto = true)
+    {
+        insert($data, $tableName, $auto, $act = 'REPLACE');
+    }
+
+
+    /**
+     * 预处理，添加多条数据
+     * @param array $filed 字段
+     * @param array $data 添加的数据
+     * @param string $tableName 数据库表名
+     * @param bool $auto 是否自动添加表前缀
+     * @param string $act
+     * @return int 受影响行数
+     */
+    function inserts($filed = array(), $data = array(), $tableName = "", $auto = true, $act = 'INSERT')
+    {
+        Debug::start();
+        if (!empty($tableName))
+            $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
+
+        $field = $value = '';
+
+        foreach ($filed as $k => $v) {
+            $field .= "$v,";
+            $value .= "?,";
+        }
+
+        $field = trim($field, ',');
+        $value = trim($value, ',');
+
+        $this->sql = "{$act}  INTO " . $this->tableName . "(" . $field . ")  VALUES(" . $value . ") ";
+
+        $this->queries[] = $this->sql;
+        $this->cleanLastSql();
+        $this->db = $this->masterServer;
+        $re = $this->db->query($this->sql, $data);
+        if (!$re->result()) {
+            if ($this->hasActiveTransaction) $this->transStatus = false;
+
+            $this->error[] = '错误信息：' . $this->getException('msg') . '  SQL语句：' . $this->sql;
+        }
+
+        Debug::stop();
+        Debug::addMsg(array('sql' => $this->sql, 'time' => Debug::spent(), 'error' => $this->getException('msg')), 2);
+        return $re->getLastId();
+    }
+
+    /**
+     * 预处理添加多条数据 如已存在则替换
+     * @param array $filed 字段
+     * @param array $data 添加的数据
+     * @param string $tableName 数据库表名
+     * @param bool $auto 是否自动添加表前缀
+     * @return int 受影响行数
+     */
+    function replaces($filed = array(), $data = array(), $tableName = "", $auto = true)
+    {
+        inserts($filed, $data, $tableName, $auto, $act = 'REPLACE');
+    }
+
 
     /**
      * @param  array $array 要验证的字段数据
@@ -794,43 +876,43 @@ class Model
     public final function update($data = array(), $where = "", $tableName = "", $auto = true)
     {
         Debug::start();
-        if (!empty($tableName)) {
+        if (!empty($tableName))
             $this->tableName = $auto ? $this->tablePrefix . $tableName : $tableName;
-        }
 
-        if (empty($data)) {
+
+        if (empty($data))
             $data = $_POST;
-        }
 
-        if (!$data) {
+
+        if (!$data)
             return false;
-        }
+
         $data = $this->check($data);
         if ($data === false) return false;
 
-        if (!empty($where)) {
+        if (!empty($where))
             $this->where($where);
-        }
+
         $where = $this->methods['where'];
         $limit = $this->methods['limit'];
 
-        $Nfild = '';
+        $NData = '';
 
         foreach ($data as $k => $v) {
-            $Nfild .= '`' . $k . "`='" . $v . "',";
+            $NData .= '`' . $k . "`='" . $v . "',";
         }
 
-        $Nfild = trim($Nfild, ',');
+        $NData = trim($NData, ',');
 
 
-        $this->sql = "UPDATE `" . $this->tableName . "` SET " . $Nfild . " " . $where . " " . $limit . "";
+        $this->sql = "UPDATE `" . $this->tableName . "` SET " . $NData . " " . $where . " " . $limit . "";
         $this->queries[] = $this->sql;
         $this->cleanLastSql();
         $this->db = $this->masterServer;
         $re = $this->db->query($this->sql)->result();
 
         if (!$re) {
-            $this->transStatus = false;
+            if ($this->hasActiveTransaction) $this->transStatus = false;
             $this->error[] = '错误信息：' . $this->getException('msg') . '  SQL语句：' . $this->sql;
         }
         Debug::stop();
@@ -879,7 +961,12 @@ class Model
      */
     public final function startTrans()
     {
-        return $this->masterServer->beginTransaction();
+        if ($this->hasActiveTransaction)
+            return false;
+
+        $this->hasActiveTransaction = $this->masterServer->beginTransaction();
+        return $this->hasActiveTransaction;
+
     }
 
     /**
@@ -888,15 +975,14 @@ class Model
      */
     public final function transComplete()
     {
-        if ($this->transStatus === FALSE) {
+        if ($this->transStatus === FALSE)
             $this->rollback();
-            $this->transStatus = true;
-            return false;
-        } else {
+        else
             $this->commit();
-            $this->transStatus = true;
-            return true;
-        }
+
+
+        $this->transStatus = true;
+        return $this->transStatus;
     }
 
 
@@ -907,6 +993,8 @@ class Model
     public final function rollback()
     {
         $this->transStatus = true;
+        $this->hasActiveTransaction = false;
+
         return $this->masterServer->rollBack();
     }
 
@@ -921,6 +1009,8 @@ class Model
     public final function commit()
     {
         $this->transStatus = true;
+        $this->hasActiveTransaction = false;
+
         return $this->masterServer->commit();
     }
 
