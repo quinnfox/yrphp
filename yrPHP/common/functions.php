@@ -167,53 +167,9 @@ function Model($modelName = "")
 
 
 /**
- * 调试时代码高亮显示
- * @param $str
- * @return mixed
+ * 过滤数据
+ * @param null $data
  */
-function highlightCode($str)
-{
-    /* The highlight string function encodes and highlights
-     * brackets so we need them to start raw.
-     *
-     * Also replace any existing PHP tags to temporary markers
-     * so they don't accidentally break the string out of PHP,
-     * and thus, thwart the highlighting.
-     */
-    $str = str_replace(
-        array('&lt;', '&gt;', '<?', '?>', '<%', '%>', '\\', '</script>'),
-        array('<', '>', 'phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
-        $str
-    );
-
-    // The highlight_string function requires that the text be surrounded
-    // by PHP tags, which we will remove later
-    $str = highlight_string('<?php ' . $str . ' ?>', TRUE);
-
-    // Remove our artificially added PHP, and the syntax highlighting that came with it
-    $str = preg_replace(
-        array(
-            '/<span style="color: #([A-Z0-9]+)">&lt;\?php(&nbsp;| )/i',
-            '/(<span style="color: #[A-Z0-9]+">.*?)\?&gt;<\/span>\n<\/span>\n<\/code>/is',
-            '/<span style="color: #[A-Z0-9]+"\><\/span>/i'
-        ),
-        array(
-            '<span style="color: #$1">',
-            "$1</span>\n</span>\n</code>",
-            ''
-        ),
-        $str
-    );
-
-    // Replace our markers back to PHP tags.
-    return str_replace(
-        array('phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
-        array('&lt;?', '?&gt;', '&lt;%', '%&gt;', '\\', '&lt;/script&gt;'),
-        $str
-    );
-}
-
-//过滤数据
 function filter(& $data = null)
 {
     $filters = C('defaultFilter');
@@ -410,7 +366,6 @@ function isAjaxRequest()
 
 /**
  * 判断是不是 POST 请求
- *
  * @return    bool
  */
 function isPost()
@@ -509,6 +464,7 @@ function error404($msg = '', $url = '', $time = 3)
 }
 
 /**
+ * 下载一个远程文件到客户端
  * 例  clientDown('http://img.bizhi.sogou.com/images/2012/02/13/66899.jpg');
  * @param $url 一个远程文件
  * @return bool
@@ -650,6 +606,68 @@ function randStr($type = 'w', $len = 8)
 
 }
 
+/**
+ * 发送HTTP状态
+ * @param integer $code 状态码
+ * @return void
+ */
+function send_http_status($code)
+{
+    static $_status = array(
+        // Informational 1xx
+        100 => 'Continue',
+        101 => 'Switching Protocols',
+        // Success 2xx
+        200 => 'OK',
+        201 => 'Created',
+        202 => 'Accepted',
+        203 => 'Non-Authoritative Information',
+        204 => 'No Content',
+        205 => 'Reset Content',
+        206 => 'Partial Content',
+        // Redirection 3xx
+        300 => 'Multiple Choices',
+        301 => 'Moved Permanently',
+        302 => 'Moved Temporarily ',  // 1.1
+        303 => 'See Other',
+        304 => 'Not Modified',
+        305 => 'Use Proxy',
+        // 306 is deprecated but reserved
+        307 => 'Temporary Redirect',
+        // Client Error 4xx
+        400 => 'Bad Request',
+        401 => 'Unauthorized',
+        402 => 'Payment Required',
+        403 => 'Forbidden',
+        404 => 'Not Found',
+        405 => 'Method Not Allowed',
+        406 => 'Not Acceptable',
+        407 => 'Proxy Authentication Required',
+        408 => 'Request Timeout',
+        409 => 'Conflict',
+        410 => 'Gone',
+        411 => 'Length Required',
+        412 => 'Precondition Failed',
+        413 => 'Request Entity Too Large',
+        414 => 'Request-URI Too Long',
+        415 => 'Unsupported Media Type',
+        416 => 'Requested Range Not Satisfiable',
+        417 => 'Expectation Failed',
+        // Server Error 5xx
+        500 => 'Internal Server Error',
+        501 => 'Not Implemented',
+        502 => 'Bad Gateway',
+        503 => 'Service Unavailable',
+        504 => 'Gateway Timeout',
+        505 => 'HTTP Version Not Supported',
+        509 => 'Bandwidth Limit Exceeded'
+    );
+    if (isset($_status[$code])) {
+        header('HTTP/1.1 ' . $code . ' ' . $_status[$code]);
+        // 确保FastCGI模式下正常
+        header('Status:' . $code . ' ' . $_status[$code]);
+    }
+}
 
 /**
  * 页面跳转
@@ -661,4 +679,52 @@ function gotoUrl($url = null)
     $location = "parent.window.location.href=\"$url\";";
     echo "<script type='text/javascript'>$location</script>";
     die;
+}
+
+/**
+ * @param string $str 提示消息
+ * @param string $url 跳转链接 默认跳转首页
+ * @param int $goto 默认0 跳转$url，1调整上一页
+ */
+function alert($str = "", $url = "", $goto = 0)
+{
+
+    if (empty($url))
+        $url = getUrl();
+
+
+    if ($goto == 1)
+        $location = "window.history.back()";
+    else
+        $location = "parent.window.location.href=\"$url\";";
+
+
+    die( "<script type='text/javascript'>alert('{$str}');$location</script>");
+
+}
+
+// 不区分大小写的in_array实现
+function inIArray($value, $array)
+{
+    return in_array(strtolower($value), array_map('strtolower', $array));
+}
+
+/**
+ * 数据脱敏处理隐私数据的安全保护
+ * @param string $str
+ * @param int $start
+ * @param int $length
+ * @param string $replacement
+ * @return mixed
+ */
+function desensitize($str = '', $start = 0, $length = 0, $replacement = '*')
+{
+    $strLen = strlen($str);
+
+    if ($start + $length > $strLen)
+        $length = $strLen - $start;
+
+    $replacement = str_repeat($replacement, $length);
+
+    return substr_replace($str, $replacement, $start, $length);
 }

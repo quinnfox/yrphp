@@ -19,7 +19,7 @@ class Crypt
             $this->class = loadClass('libs\crypt\DES3');
                 break;
             default:
-            die('������ܷ�ʽ');
+            die('类型错误');
                 break;
         }
 

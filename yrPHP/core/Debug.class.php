@@ -55,6 +55,54 @@ class Debug
     }
 
     /**
+     * 调试时代码高亮显示
+     * @param $str
+     * @return mixed
+     */
+    static function highlightCode($str)
+    {
+        /* The highlight string function encodes and highlights
+         * brackets so we need them to start raw.
+         *
+         * Also replace any existing PHP tags to temporary markers
+         * so they don't accidentally break the string out of PHP,
+         * and thus, thwart the highlighting.
+         */
+        $str = str_replace(
+            array('&lt;', '&gt;', '<?', '?>', '<%', '%>', '\\', '</script>'),
+            array('<', '>', 'phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+            $str
+        );
+
+        // The highlight_string function requires that the text be surrounded
+        // by PHP tags, which we will remove later
+        $str = highlight_string('<?php ' . $str . ' ?>', TRUE);
+
+        // Remove our artificially added PHP, and the syntax highlighting that came with it
+        $str = preg_replace(
+            array(
+                '/<span style="color: #([A-Z0-9]+)">&lt;\?php(&nbsp;| )/i',
+                '/(<span style="color: #[A-Z0-9]+">.*?)\?&gt;<\/span>\n<\/span>\n<\/code>/is',
+                '/<span style="color: #[A-Z0-9]+"\><\/span>/i'
+            ),
+            array(
+                '<span style="color: #$1">',
+                "$1</span>\n</span>\n</code>",
+                ''
+            ),
+            $str
+        );
+
+        // Replace our markers back to PHP tags.
+        return str_replace(
+            array('phptagopen', 'phptagclose', 'asptagopen', 'asptagclose', 'backslashtmp', 'scriptclose'),
+            array('&lt;?', '?&gt;', '&lt;%', '%&gt;', '\\', '&lt;/script&gt;'),
+            $str
+        );
+    }
+
+
+    /**
      * 输出调试消息
      */
     static function message()
@@ -86,7 +134,7 @@ class Debug
 
         $mess .= '<br>［SQL语句］';
         foreach (self::$queries as $val) {
-            $sql = highlightCode($val['sql']);
+            $sql = self::highlightCode($val['sql']);
             foreach ($highlight as $bold) {
                 $sql = str_replace($bold, '<strong>' . $bold . '</strong>', $sql);
             }
@@ -120,7 +168,7 @@ class Debug
      */
     static function log($fileName, $content)
     {
-        $fileName = rtrim(C('logDir'), '/') . '/' . $fileName . '.log';
-        file_put_contents($fileName, $content, FILE_APPEND);
+        $fileName = C('logDir') . $fileName . '.log';
+        file_put_contents($fileName, $content."\n", FILE_APPEND);
     }
 }

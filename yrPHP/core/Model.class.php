@@ -22,7 +22,7 @@ class Model
     protected $hasActiveTransaction = false;
     //是否验证 将验证字段在数据库中是否存在，不存在 则舍弃 再验证 $validate验证规则 不通过 则报错
     public $_validate = true;
-    //数据库名称
+    //当前操作的数据库实例
     public $db = null;
     // 数据表前缀
     protected $tablePrefix = null;
@@ -247,7 +247,7 @@ class Model
         if (is_string($where)) {
             $this->methods[$type] .= $where;
         } elseif (is_array($where)) {
-
+            $count = 0;
             foreach ($where as $k => $v) {
                 $k = $this->protect($k);
                 if (is_array($v)) {
@@ -285,16 +285,19 @@ class Model
                         $value = " '" . $value . "' ";
                     }
 
-                    if (reset($where) != $v) {
+                    if ($count != 0) {
                         $this->methods[$type] .= " " . $logical . " ";
                     }
+
                     $this->methods[$type] .= " $k " . $symbol . $value;
 
 
                 } else {
-                    if (reset($where) != $v) {
+
+                    if ($count != 0) {
                         $this->methods[$type] .= " " . $logical . " ";
                     }
+
                     if (is_null($v)) {
 
                         $this->methods[$type] .= " $k is null";
@@ -307,6 +310,7 @@ class Model
                         $this->methods[$type] .= " $k " . "='$v'";
                     }
                 }
+                $count++;
             }
         }
         $this->methods[$type] .= ')';

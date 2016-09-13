@@ -208,7 +208,7 @@ class pdoDriver extends PDO implements IDBDriver
     public function getException()
     {
         $re = $this->exception;
-        $this->exception = array();
+        
         return $re;
     }
 }

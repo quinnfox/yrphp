@@ -67,7 +67,7 @@ class Curl
     function setUserPassword($userPassword = '')
     {
         if (is_array($userPassword)) {
-            $userPassword = implode(':',$userPassword);
+            $userPassword = implode(':', $userPassword);
         }
         $this->options[CURLOPT_USERPWD] = $userPassword; //传递一个连接中需要的用户名和密码
         return $this;
@@ -120,6 +120,30 @@ class Curl
         }
 
         return $this;
+    }
+
+    /**
+     * 启用时会发送一个常规的DELETE请求
+     * @param array $data
+     * @return array
+     */
+    function delete($data = array())
+    {
+        curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
+        return $data;
+    }
+
+    /**
+     * 启用时会发送一个常规的PUT请求
+     * @param array $data
+     * @return array
+     */
+    function put($data)
+    {
+        curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
+        return $data;
     }
 
     /**

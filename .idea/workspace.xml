@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3b53d92-5323-4f4d-a1e4-0f0d2148c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/common/functions.php" afterPath="$PROJECT_DIR$/yrPHP/common/functions.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" afterPath="$PROJECT_DIR$/yrPHP/core/Debug.class.php" />
     </list>
     <ignored path="yrphp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,20 +25,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="615" column="69" selection-start-line="615" selection-start-column="69" selection-end-line="615" selection-end-column="69" />
-              <folding>
-                <marker date="1472548161639" expanded="true" signature="4691:4710" ph="..." />
-                <marker date="1472548161639" expanded="true" signature="4712:4716" ph="&lt;" />
-                <marker date="1472548161639" expanded="true" signature="4722:4728" ph=" " />
-                <marker date="1472548161639" expanded="true" signature="4764:4781" ph="..." />
-                <marker date="1472548161639" expanded="true" signature="4789:4793" ph="&gt;" />
-                <marker date="1472548161639" expanded="true" signature="4854:4871" ph="..." />
-                <marker date="1472548161639" expanded="true" signature="4938:4948" ph="..." />
-              </folding>
+            <state relative-caret-position="428">
+              <caret line="712" column="18" selection-start-line="712" selection-start-column="18" selection-end-line="712" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,18 +48,9 @@
       <file leaf-file-name="Model.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-40">
-              <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
-              <folding>
-                <marker date="1472546644108" expanded="true" signature="11619:11639" ph="SELECT ${$fi... $" />
-                <marker date="1472546644108" expanded="true" signature="17827:17853" ph="DELETE FROM " />
-                <marker date="1472546644108" expanded="true" signature="19370:19459" ph="INSERT INTO ${$this-&gt;tableName}" />
-                <marker date="1472546644108" expanded="true" signature="28087:28186" ph="CREATE TABLE... IF" />
-                <marker date="1472546644108" expanded="true" signature="28629:28662" ph="DROP TABLE I... " />
-                <marker date="1472546644108" expanded="true" signature="30242:30270" ph="alter table `${$tableName}`... " />
-                <marker date="1472546644108" expanded="true" signature="30828:30859" ph="alter table `${$tableName}`... " />
-                <marker date="1472546644108" expanded="true" signature="33068:33105" ph="alter table `${$tableName}`... " />
-              </folding>
+            <state relative-caret-position="1824">
+              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,7 +58,7 @@
       <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
+            <state relative-caret-position="1121">
               <caret line="65" column="54" selection-start-line="65" selection-start-column="47" selection-end-line="65" selection-end-column="54" />
               <folding />
             </state>
@@ -83,18 +68,18 @@
       <file leaf-file-name="Structure.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yrPHP/core/Structure.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1501">
+            <state relative-caret-position="1843">
               <caret line="105" column="39" selection-start-line="105" selection-start-column="32" selection-end-line="105" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="397">
+              <first_editor relative-caret-position="530">
                 <caret line="1982" column="0" selection-start-line="1982" selection-start-column="0" selection-end-line="1982" selection-end-column="0" />
                 <folding>
                   <marker date="1472552271583" expanded="true" signature="3991:4046" ph="{...}" />
@@ -229,30 +214,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2204">
               <caret line="122" column="49" selection-start-line="122" selection-start-column="49" selection-end-line="122" selection-end-column="49" />
-              <folding>
-                <marker date="1472273016395" expanded="true" signature="1400:1513" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="1548:1570" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="1585:1608" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="1779:1866" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="1920:1968" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="2185:2191" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2191:2197" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2197:2203" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2203:2209" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2304:2313" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="2756:2762" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2762:2768" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2768:2774" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="2774:2780" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3468:3527" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="3553:3559" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3559:3565" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3565:3571" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3571:3577" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3653:3663" ph="..." />
-                <marker date="1472273016395" expanded="true" signature="3680:3686" ph=" " />
-                <marker date="1472273016395" expanded="true" signature="3686:3692" ph=" " />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -315,8 +277,8 @@
         <option value="$PROJECT_DIR$/yrphp/base.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/yrPHP/core/Model.class.php" />
-        <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/yrPHP/common/functions.php" />
       </list>
     </option>
   </component>
@@ -383,7 +345,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -585,6 +546,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -702,23 +664,24 @@
       <workItem from="1472352558520" duration="1397000" />
       <workItem from="1472433573153" duration="2022000" />
       <workItem from="1472546278451" duration="3914000" />
+      <workItem from="1473475669588" duration="1272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154106000" />
+    <option name="totallyTimeSpent" value="155378000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="1" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14797008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22921109" sideWeight="0.49565217" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23187633" sideWeight="0.49565217" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1431624" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12526652" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12526652" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15705128" sideWeight="0.5043478" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1032,30 +995,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2204">
           <caret line="122" column="49" selection-start-line="122" selection-start-column="49" selection-end-line="122" selection-end-column="49" />
-          <folding>
-            <marker date="1472273016395" expanded="true" signature="1400:1513" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="1548:1570" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="1585:1608" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="1779:1866" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="1920:1968" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="2185:2191" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2191:2197" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2197:2203" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2203:2209" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2304:2313" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="2756:2762" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2762:2768" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2768:2774" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="2774:2780" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3468:3527" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="3553:3559" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3559:3565" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3565:3571" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3571:3577" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3653:3663" ph="..." />
-            <marker date="1472273016395" expanded="true" signature="3680:3686" ph=" " />
-            <marker date="1472273016395" expanded="true" signature="3686:3692" ph=" " />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1077,7 +1017,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
+        <state relative-caret-position="1121">
           <caret line="65" column="54" selection-start-line="65" selection-start-column="47" selection-end-line="65" selection-end-column="54" />
           <folding />
         </state>
@@ -1085,7 +1025,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/Structure.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1501">
+        <state relative-caret-position="1843">
           <caret line="105" column="39" selection-start-line="105" selection-start-column="32" selection-end-line="105" selection-end-column="39" />
           <folding />
         </state>
@@ -1093,41 +1033,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yrPHP/core/Model.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-40">
-          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
-          <folding>
-            <marker date="1472546644108" expanded="true" signature="11619:11639" ph="SELECT ${$fi... $" />
-            <marker date="1472546644108" expanded="true" signature="17827:17853" ph="DELETE FROM " />
-            <marker date="1472546644108" expanded="true" signature="19370:19459" ph="INSERT INTO ${$this-&gt;tableName}" />
-            <marker date="1472546644108" expanded="true" signature="28087:28186" ph="CREATE TABLE... IF" />
-            <marker date="1472546644108" expanded="true" signature="28629:28662" ph="DROP TABLE I... " />
-            <marker date="1472546644108" expanded="true" signature="30242:30270" ph="alter table `${$tableName}`... " />
-            <marker date="1472546644108" expanded="true" signature="30828:30859" ph="alter table `${$tableName}`... " />
-            <marker date="1472546644108" expanded="true" signature="33068:33105" ph="alter table `${$tableName}`... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="615" column="69" selection-start-line="615" selection-start-column="69" selection-end-line="615" selection-end-column="69" />
-          <folding>
-            <marker date="1472548161639" expanded="true" signature="4691:4710" ph="..." />
-            <marker date="1472548161639" expanded="true" signature="4712:4716" ph="&lt;" />
-            <marker date="1472548161639" expanded="true" signature="4722:4728" ph=" " />
-            <marker date="1472548161639" expanded="true" signature="4764:4781" ph="..." />
-            <marker date="1472548161639" expanded="true" signature="4789:4793" ph="&gt;" />
-            <marker date="1472548161639" expanded="true" signature="4854:4871" ph="..." />
-            <marker date="1472548161639" expanded="true" signature="4938:4948" ph="..." />
-          </folding>
+        <state relative-caret-position="1824">
+          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="397">
+          <first_editor relative-caret-position="530">
             <caret line="1982" column="0" selection-start-line="1982" selection-start-column="0" selection-end-line="1982" selection-end-column="0" />
             <folding>
               <marker date="1472552271583" expanded="true" signature="3991:4046" ph="{...}" />
@@ -1320,6 +1235,14 @@
             <marker date="1472552271583" expanded="true" signature="45082:45091" ph=" 销毁购物车 ..." />
             <marker date="1472552271583" expanded="true" signature="45116:45215" ph=" 根据rowId 查找商家 ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yrPHP/common/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="712" column="18" selection-start-line="712" selection-start-column="18" selection-end-line="712" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
