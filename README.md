@@ -1,4 +1,8 @@
 [TOC]
+
+#注：
+**该项目已不在该Github下更新，最新版已经迁移到`[https://github.com/kwinH/YrPHP](https://github.com/kwinH/YrPHP)`。**
+
 #简介
 yrPHP运用大量的单例及工厂模式，确保用最少的资源做最多的事，采用了自动加载，基本上无需手动加载类库文件，还集成了缓存技术及页面静态化技术，确保运行速度及响应速度
 
@@ -40,7 +44,7 @@ index.php
 ```
 
 > 注意：APP的定义必须是当前目录下的文件名,不需要标明路径
->系统会在第一次调用时 自动生成项目目录结构
+> 系统会在第一次调用时 自动生成项目目录结构
 
 #应用目录
 
@@ -72,15 +76,15 @@ www  WEB部署目录（或者子目录）
 
 ###系统核心常量
 
-|  常量 |  描述 |
-| ------------ | ------------ |
-|ROOT_PATH   | 项目根路径绝对路径  |
-|BASE_PATH   | 框架目录绝对路径  |
-|APP_PATH   | 用户项目目录绝对路径 |
-|CORE_PATH   | 框架核心类库目录绝对路径 |
-|LIBS_PATH   | 框架集成常用类库目录绝对路径 |
-|APP_MODE    | 应用模式  |
-|DEBUG   |  是否开启调试模式 （默认false）  |
+| 常量        | 描述                 |
+| --------- | ------------------ |
+| ROOT_PATH | 项目根路径绝对路径          |
+| BASE_PATH | 框架目录绝对路径           |
+| APP_PATH  | 用户项目目录绝对路径         |
+| CORE_PATH | 框架核心类库目录绝对路径       |
+| LIBS_PATH | 框架集成常用类库目录绝对路径     |
+| APP_MODE  | 应用模式               |
+| DEBUG     | 是否开启调试模式 （默认false） |
 
 #核心
 
@@ -100,13 +104,13 @@ example.com/file/.../file(n)/class/function/ID
 
 ####获得URL
 >getUrl($url,$indexPage);//如果参数为空 则返回现在所在所在的根目录如`http://example.com/index.php/news/index/id`
-则返回 `http://example.com/`
-否则返回拼接后的URL
-`/**`
-`* @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'`
-`* @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php`
-`* @return string`
-`*/`
+>则返回 `http://example.com/`
+>否则返回拼接后的URL
+>`/**`
+>`* @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'`
+>`* @param bool|true $indexPage 如果是REWRITE重写模式 可以不必理会 否则默认显示index.php`
+>`* @return string`
+>`*/`
 
 ##解析URL (\core\Uri类)
 **分析`http://example.com/index.php/news/index/id`**
@@ -118,7 +122,7 @@ example.com/file/.../file(n)/class/function/ID
 2. index
 3. id
 >
-下标n从1开始 如果为空 则默认返回 $no_result
+>下标n从1开始 如果为空 则默认返回 $no_result
 
 ####rpart($n = null, $no_result = null)
 >同rsegment($n = null, $no_result = null)
@@ -129,7 +133,7 @@ example.com/file/.../file(n)/class/function/ID
 2. index
 3. id
 >
-下标n从1开始 如果为空 则默认返回 $no_result
+>下标n从1开始 如果为空 则默认返回 $no_result
 
 ####part($n = null, $no_result = null)
 >同segment($n = null, $no_result = null)
@@ -137,24 +141,24 @@ example.com/file/.../file(n)/class/function/ID
 
 ####getPath()
 >返回没有经过路由替换的uri 字符串(也就是现在所访问的地址)
-/news/index/id
+>/news/index/id
 
 ####getRPath()
 >返回经过路由替换过后的uri 字符串(也就是实际所访问的地址)
-/news/index/id
+>/news/index/id
 
 ##URL模式
 这种URL模式就是系统默认的PATHINFO模式，不同的URL模式获取模块和操作的方法不同，yrphp支持的URL模式有三种：普通模式、PATHINFO模式、REWRITE重写模式 可以通过设置 config/config.php 文件，配置$config[‘urlType’] 参数改变URL模式。
 
-|  URL模式 |  urlType设置 |
-| ------------ | ------------ |
-|0   | 普通模式  |
-|1   | PATHINFO模式  |
-|2   | REWRITE重写模式 |
+| URL模式 | urlType设置   |
+| ----- | ----------- |
+| 0     | 普通模式        |
+| 1     | PATHINFO模式  |
+| 2     | REWRITE重写模式 |
 
 
 1. 普通模式：example.com?c=class&m=function
-普通模式通过GET获得测试
+   普通模式通过GET获得测试
 ```php
 $config['ctlTrigger'] = 'c'; //控制器名
 $config['actTrigger'] = 'm'; //方法名
@@ -338,10 +342,10 @@ C(APP_PATH . 'config/config_test.php');
 display($fileName, $tplVars = '', $cacheId = '');
 
 >$fileName 提供模板文件的文件名
- $tpl_var 动态数据
- $cacheId 当为Boolean值true时则做为数据返回，不输出到屏幕，其他情况做为缓存ID,当有个文件有多个缓存时，$cacheId不能为空，否则会重复覆盖
- 如果开启缓存 display方法会自动生成缓存文件 但常常我们的display方法会在最后调用 导致我们display之前的逻辑判断及数据读取做无用功 所以我们可以在 方法开头做判断 直接调用`init($cacheId)`  或则在构造函数中调用checkCacheId方法（系统已经自动调用 你无需再次调用 你只要**重写checkCacheId方法**就可），checkCacheId方法如下
- */
+> $tpl_var 动态数据
+> $cacheId 当为Boolean值true时则做为数据返回，不输出到屏幕，其他情况做为缓存ID,当有个文件有多个缓存时，$cacheId不能为空，否则会重复覆盖
+> 如果开启缓存 display方法会自动生成缓存文件 但常常我们的display方法会在最后调用 导致我们display之前的逻辑判断及数据读取做无用功 所以我们可以在 方法开头做判断 直接调用`init($cacheId)`  或则在构造函数中调用checkCacheId方法（系统已经自动调用 你无需再次调用 你只要**重写checkCacheId方法**就可），checkCacheId方法如下
+> */
 
 ```php
     /**
@@ -594,7 +598,7 @@ return array(
   ),
 );
 
-````
+​````
 
 >数据库配置模版文件在BASE_PATH/config/database.php
 如需修改相关配置
@@ -613,7 +617,7 @@ return array(
 
 
 
-```php
+​```php
 namespace Model;
 use \core\Model;
 
@@ -662,9 +666,9 @@ class UserModel extends Model
 
 ```
 >添加的数据如果为空,则获取$_POST数据，默认开启验证，如果数据库不存在 则过滤
-如果有临时关闭则 $this->setoptions(array('_validate'=>false));
-表名如果为空，则调用上次调用的表名($this->tableName)
-是否自动添加前缀 默认 true
+>如果有临时关闭则 $this->setoptions(array('_validate'=>false));
+>表名如果为空，则调用上次调用的表名($this->tableName)
+>是否自动添加前缀 默认 true
 
 ------------
 
@@ -695,9 +699,8 @@ class UserModel extends Model
 
 ```
 >条件为array|string 推荐array
-表名如果为空，则调用上次调用的表名
-是否自动添加前缀 默认 true
-
+>表名如果为空，则调用上次调用的表名
+>是否自动添加前缀 默认 true
 
 ------------
 
@@ -735,12 +738,12 @@ $this->update(array 数据，array 条件，[表名]，[是否自动添加前缀
 //return int 受影响行数
 ```
 >条件为array|string 推荐array
-表名如果为空，则调用上次调用的表名
-是否自动添加前缀 默认 true
+>表名如果为空，则调用上次调用的表名
+>是否自动添加前缀 默认 true
 
 ####数据验证
 >如果 $this->_validate = true 则验证添加或修改的数据
-如果验证有一个不通过则不提交或修改数据
+>如果验证有一个不通过则不提交或修改数据
 
 ```php
 <?php
@@ -785,8 +788,8 @@ class UserModel extends Model
 
 **GET**
 >**get($tableName = "", $auto = true)
-string $tableName 表名
-$auto 是否自动添加表前缀**
+>string $tableName 表名
+>$auto 是否自动添加表前缀**
 
 ------------
 ```php
@@ -798,8 +801,8 @@ $this->get([表名]，[是否自动添加前缀bool]);
 **SELECT**
 
 >**select($field ='', $safe = true)
-$field string|array 字段
-$safe bool FALSE，就可以阻止数据被转义**
+>$field string|array 字段
+>$safe bool FALSE，就可以阻止数据被转义**
 
 ------------
 
@@ -821,8 +824,8 @@ $this->select(array('field1','field2','field3'),false)->get([表名]，[是否�
 **LIMIT**
 
 >**limit($offset, $length = null)
-$offset 起始位置
-$length 查询数量**
+>$offset 起始位置
+>$length 查询数量**
 
 ------------
 
@@ -835,21 +838,21 @@ $this->limit(1)->get([表名]，[是否自动添加前缀bool]);
 
 **WHERE**
 >**where($where = '', $logical = "and")
- @param $logical 与前一个条件的连接符
- @param $where string|array
-string "id>'100'"   `->`     where id>'100'**
+> @param $logical 与前一个条件的连接符
+> @param $where string|array
+>string "id>'100'"   `->`     where id>'100'**
 >**
-一维数组 array($field=>$value) `->` where  \`field\` = 'value'
-$value is null `->` where  \`field\` is null
-$value string ‘not null’   `->` where  \`field\` is not null**
+>一维数组 array($field=>$value) `->` where  \`field\` = 'value'
+>$value is null `->` where  \`field\` is null
+>$value string ‘not null’   `->` where  \`field\` is not null**
 
 
 >**二维数组 array('field'=>array($value,$symbol,$logical))
-filed 字段
-$value 值 string|int|null|‘not null’
-$symbol 运算符 =|!=|<>|>|<|like|is|between|not between|in|not in
-$logical or|and 与前一个条件的连接符 默认调用`$logical`
-**
+>filed 字段
+>$value 值 string|int|null|‘not null’
+>$symbol 运算符 =|!=|<>|>|<|like|is|between|not between|in|not in
+>$logical or|and 与前一个条件的连接符 默认调用`$logical`
+>**
 
 ```php
 
@@ -899,10 +902,10 @@ $this->group('id')->having(array('id'=>array('2000','>')))->get('users');
 
 **JOIN**
 >**join($table, $cond, $type = '', $auto = true)
- @param $table 表名
- @param $cond  连接条件
- @param string $type 连接方式
- @param bool $auto 是否自动添加表前缀**
+> @param $table 表名
+> @param $cond  连接条件
+> @param string $type 连接方式
+> @param bool $auto 是否自动添加表前缀**
 
 
 ```php
@@ -915,8 +918,8 @@ $this->join('users as b', 'a.id=b.id', 'left')->get('users as a');
 
 **统计COUNT**
 >**count($tableName,$auto = true)
-$tableName 表名
-$auto 是否自动添加前缀 bool 默认true**
+>$tableName 表名
+>$auto 是否自动添加前缀 bool 默认true**
 
 ```php
 $this->count('users');
@@ -930,9 +933,9 @@ $this->select('count(*) as count')->get('users')->row()->count;
 
 **最大值MAX**
 >**max($tableName,$field,$auto = true)
-$tableName 表名
-$field 字段名 不能为空
-$auto 是否自动添加前缀 bool 默认true**
+>$tableName 表名
+>$field 字段名 不能为空
+>$auto 是否自动添加前缀 bool 默认true**
 
 ```php
 $this->max('users','id');
@@ -944,9 +947,9 @@ $this->select('max(id) as max')->get('users')->row()->max;
 
 **最小值MIN**
 >**min($tableName,$field,$auto = true)
-$tableName 表名
-$field 字段名 不能为空
-$auto 是否自动添加前缀 bool 默认true**
+>$tableName 表名
+>$field 字段名 不能为空
+>$auto 是否自动添加前缀 bool 默认true**
 
 ```php
 $this->min('users','id');
@@ -958,9 +961,9 @@ $this->select('min(id) as min')->get('users')->row()->min;
 
 **累计值SUM**
 >**sum($tableName,$field,$auto = true)
-$tableName 表名
-$field 字段名 不能为空
-$auto 是否自动添加前缀 bool 默认true**
+>$tableName 表名
+>$field 字段名 不能为空
+>$auto 是否自动添加前缀 bool 默认true**
 
 ```php
 $this->sum('users','id');
@@ -972,9 +975,9 @@ $this->select('sum(id) as sum')->get('users');
 
 **平均值SUM**
 >**sum($tableName,$field,$auto = true)
-$tableName 表名
-$field 字段名 不能为空
-$auto 是否自动添加前缀 bool 默认true**
+>$tableName 表名
+>$field 字段名 不能为空
+>$auto 是否自动添加前缀 bool 默认true**
 
 ```php
 $this->avg('users','id');
@@ -987,7 +990,7 @@ $this->select('avg(id) as avg')->get('users');
 
 ####row($assoc = false) 查询一条结果
 >**@param bool|false $assoc 当该参数为 TRUE 时，将返回 array 而非 object  当查询价格为空时 返回false
-**
+>**
 
 ```php
 //查询一条数据 返回对象格式
@@ -1006,7 +1009,7 @@ $this->select('id')->where(array('id'=>1))->get('users')->row(true);
 
 ####result($assoc = false) 查询一条结果
 >**@param bool|false $assoc 当该参数为 TRUE 时，将返回 array 而非 object  当查询价格为空时 返回一个空的数组array()
-**
+>**
 
 ```php
 //查询所有数据 返回对象格式
@@ -1617,14 +1620,14 @@ array (
 >支持多文件上传
 
 ####上传配置设置
-|  key | 值选项  | 说明  |
-| ------------ | ------------ | ------------ |
-| maxSize  | int  | 最大的上传文件 KB 默认为0 不限制 　　注意：通常PHP也有这项限制，可以在php.ini文件中指定。通常默认为2MB。|
-| savePath  | `/`  | 上传目录 默认`/`根目录 |
-|  fileName | None  | 自定义上传文件后的名称，不含文件后缀   |
-| allowedTypes  |array()  |  允许上传文件的后缀列表默认空数组为允许所有 |
-|  isRandName | BOOL  |  设置是否随机重命名文件， false不随机 默认 true |
-|  overwrite | BOOL  | 是否覆盖。true则覆盖，false则重命名 　默认false |
+| key          | 值选项     | 说明                                       |
+| ------------ | ------- | ---------------------------------------- |
+| maxSize      | int     | 最大的上传文件 KB 默认为0 不限制 　　注意：通常PHP也有这项限制，可以在php.ini文件中指定。通常默认为2MB。 |
+| savePath     | `/`     | 上传目录 默认`/`根目录                            |
+| fileName     | None    | 自定义上传文件后的名称，不含文件后缀                       |
+| allowedTypes | array() | 允许上传文件的后缀列表默认空数组为允许所有                    |
+| isRandName   | BOOL    | 设置是否随机重命名文件， false不随机 默认 true            |
+| overwrite    | BOOL    | 是否覆盖。true则覆盖，false则重命名 　默认false          |
 
 ------------
 
@@ -1636,13 +1639,13 @@ array (
 
 ####getFileInfo($inputName=null);获得上传文件相关属性
 >inputName 表单名 如果为多文件上传 则在表单名后面跟下标
-如果inputName==null 则返回一个以表单名为键的多维数组 return array(inputName1=>array(),inputName2=>array(),...)
+>如果inputName==null 则返回一个以表单名为键的多维数组 return array(inputName1=>array(),inputName2=>array(),...)
 >
-如果inputName表单名不为空 则返回该表单上传的文件信息 如果表单名错误 则 返回false
+>如果inputName表单名不为空 则返回该表单上传的文件信息 如果表单名错误 则 返回false
 >
-如果上传文件有错误 则return array('errorCode'=>错误代码)
+>如果上传文件有错误 则return array('errorCode'=>错误代码)
 >
-否则 return 包括以下单元的数组 array ：fileName(最终文件名包含后缀)、fileType(文件mime类型)、filePath(包含文件名的完整路径)、origName(上传前的文件名)、fileExt(文件后缀)、 fileSize(文件大小KB)、isImage(是否是图片bool)、imgWidth(图片宽度)、imgHeight(图片高度)
+>否则 return 包括以下单元的数组 array ：fileName(最终文件名包含后缀)、fileType(文件mime类型)、filePath(包含文件名的完整路径)、origName(上传前的文件名)、fileExt(文件后缀)、 fileSize(文件大小KB)、isImage(是否是图片bool)、imgWidth(图片宽度)、imgHeight(图片高度)
 
 ####getError($errorCode = null)
 >$errorCode 根据错误代码获得上传出错信息
