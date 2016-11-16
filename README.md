@@ -1,7 +1,7 @@
 [TOC]
 
 #注：
-**该项目已不在该Github下更新，最新版已经迁移到`[https://github.com/kwinH/YrPHP](https://github.com/kwinH/YrPHP)`。**
+**该项目已不在该Github下更新，最新版已经迁移到[`https://github.com/kwinH/YrPHP`](https://github.com/kwinH/YrPHP "`https://github.com/kwinH/YrPHP`")。**
 
 #简介
 yrPHP运用大量的单例及工厂模式，确保用最少的资源做最多的事，采用了自动加载，基本上无需手动加载类库文件，还集成了缓存技术及页面静态化技术，确保运行速度及响应速度
